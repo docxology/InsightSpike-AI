@@ -209,6 +209,27 @@ python experiments/maze-query-hub-prototype/run_experiment_query.py \
   --step-log experiments/maze-query-hub-prototype/results/run25_s500_steps.json
 ```
 
+### 4) L3 ライトパス（軽量・hop0のクエリ中心）
+
+main の L3GraphReasoner を直接使い、各ステップの評価を hop0 のクエリ中心で簡易化します。
+ΔSP は `cached`/`cached_incr` を使用し、ペア集合は ENV の `INSIGHTSPIKE_SP_REGISTRY` で再利用可能です。
+
+```
+INSIGHTSPIKE_SP_REGISTRY=experiments/maze-query-hub-prototype/results/pairsets.json \
+INSIGHTSPIKE_SP_ENGINE=cached_incr \
+python experiments/maze-query-hub-prototype/run_experiment_query.py \
+  --maze-size 25 --max-steps 60 \
+  --sp-cache --sp-cache-mode cached_incr --sp-pair-samples 80 --commit-budget 2 \
+  --use-main-l3 \
+  --output experiments/maze-query-hub-prototype/results/l3lite_summary.json \
+  --step-log experiments/maze-query-hub-prototype/results/l3lite_steps.json
+
+python experiments/maze-query-hub-prototype/build_reports.py \
+  --summary experiments/maze-query-hub-prototype/results/l3lite_summary.json \
+  --steps   experiments/maze-query-hub-prototype/results/l3lite_steps.json \
+  --out     experiments/maze-query-hub-prototype/results/l3lite_interactive.html
+```
+
 ## 高速処理オプションと手法の解説
 
 速度を落とさずに“意味のある時だけ”多ホップ評価を回す設計です。以下のオプションを必要に応じて組み合わせます。

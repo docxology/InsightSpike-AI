@@ -158,6 +158,7 @@ metrics = {
 - [x] config ノブの整理と API リファレンス反映（`graph.cached_incr_budget`, 自動候補 `candidate_topk`/`theta_link`）
 - [ ] 図・アーキテクチャ更新（centers/Ecand/norm_spec データフロー、SP scope/boundary）
 - [x] Layer3 で `metrics["norm_spec"]` へのエコー（context→metrics。無い場合は config.graph.norm_spec を採用）
+- [x] numpy 行列 (`graph.x`) の取り扱い修正（`pyg_compatible_metrics.pyg_to_networkx`/`delta_ig_pyg` を numpy/torch 両対応に）
 
 ---
 

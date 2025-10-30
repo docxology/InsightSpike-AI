@@ -1551,7 +1551,46 @@ def run_episode_query(seed: int, config: QueryHubConfig) -> EpisodeArtifacts:
             if bool(getattr(config, 'skip_mh_on_deadend', False)) and deadend_now:
                 local_max_hops = 0
 
-            eval_res = evaluate_multihop(
+            if bool(getattr(config, 'use_main_l3', False)) and str(getattr(config, 'sp_cache_mode', 'core')).lower() in ('cached','cached_incr'):
+                # Lightweight path: query-centric eval via main L3 (hop0)
+                try:
+                    from qhlib.l3_adapter import eval_query_centric_via_l3
+                    # Centers: anchors_core (Q nodes)
+                    centers_nodes = list(anchors_core)
+                    # Candidate edges: Ecand as (u,v,meta)
+                    cand_edges = list(ecand)
+                    sp_mode = str(getattr(config, 'sp_cache_mode', 'cached_incr'))
+                    res_l3 = eval_query_centric_via_l3(
+                        prev_graph=prev_graph,
+                        curr_graph=stage_graph,
+                        centers=centers_nodes,
+                        cand_edges=cand_edges,
+                        sp_engine=sp_mode,
+                        pair_samples=int(getattr(config, 'sp_pair_samples', 200)),
+                        budget=int(getattr(config, 'commit_budget', 1)),
+                        cand_topk=int(getattr(config, 'sp_cand_topk', 0)),
+                        default_dim=8,
+                    )
+                    m = res_l3.get('metrics', {})
+                    g0 = float(m.get('g0', 0.0))
+                    gmin = float(m.get('gmin', g0))
+                    best_hop = 0
+                    delta_ged = float(m.get('delta_ged', 0.0))
+                    delta_ig = float(m.get('delta_ig', 0.0))
+                    delta_sp = float(m.get('delta_sp', 0.0))
+                    hop_series = [{"hop": 0, "g": gmin, "ged": float(m.get('delta_ged_norm', abs(delta_ged))), "ig": delta_ig, "h": delta_ig, "sp": delta_sp}]
+                    records_h = [(0, gmin, float(m.get('delta_ged_norm', abs(delta_ged))), delta_ig, delta_sp)]
+                    chosen_edges_by_hop = []
+                    # SP perf counters are not available from L3 in this mode
+                    sp_sssp_du_ct = sp_sssp_dv_ct = sp_dv_leaf_skips_ct = sp_cycle_verifies_ct = 0
+                    gmin_mh_val = gmin; ged_mh_val = float(m.get('delta_ged_norm', abs(delta_ged))); ig_mh_val = delta_ig; sp_mh_val = delta_sp
+                    eval_applied = True
+                except Exception as _lite_e:
+                    print(f"[WARN] use_main_l3 path failed, falling back to evaluator: {_lite_e}")
+                    eval_applied = False
+
+            if not eval_applied:
+                eval_res = evaluate_multihop(
             core=core,
             prev_graph=prev_graph,
             stage_graph=stage_graph,
@@ -1579,25 +1618,25 @@ def run_episode_query(seed: int, config: QueryHubConfig) -> EpisodeArtifacts:
                 pairset_service=sp_svc,
                 signature_builder=sig_builder,
                 )
-            hop_series = eval_res.hop_series
-            records_h = [(int(rec["hop"]), float(rec["g"]), float(rec["ged"]), float(rec["ig"]), float(rec["sp"])) for rec in hop_series]
-            chosen_edges_by_hop = list(eval_res.chosen_edges_by_hop)
-            g0 = float(eval_res.g0)
-            gmin = float(eval_res.gmin)
-            best_hop = int(eval_res.best_hop)
-            delta_ged = float(eval_res.delta_ged)
-            delta_ig = float(eval_res.delta_ig)
-            delta_sp = float(eval_res.delta_sp)
-            # SP perf counters
-            sp_sssp_du_ct = int(getattr(eval_res, 'sssp_calls_du', 0))
-            sp_sssp_dv_ct = int(getattr(eval_res, 'sssp_calls_dv', 0))
-            sp_dv_leaf_skips_ct = int(getattr(eval_res, 'dv_leaf_skips', 0))
-            sp_cycle_verifies_ct = int(getattr(eval_res, 'cycle_verifies', 0))
-            # mh-only minima
-            gmin_mh_val = float(eval_res.gmin_mh)
-            ged_mh_val = float(eval_res.delta_ged_min_mh)
-            ig_mh_val = float(eval_res.delta_ig_min_mh)
-            sp_mh_val = float(eval_res.delta_sp_min_mh)
+                hop_series = eval_res.hop_series
+                records_h = [(int(rec["hop"]), float(rec["g"]), float(rec["ged"]), float(rec["ig"]), float(rec["sp"])) for rec in hop_series]
+                chosen_edges_by_hop = list(eval_res.chosen_edges_by_hop)
+                g0 = float(eval_res.g0)
+                gmin = float(eval_res.gmin)
+                best_hop = int(eval_res.best_hop)
+                delta_ged = float(eval_res.delta_ged)
+                delta_ig = float(eval_res.delta_ig)
+                delta_sp = float(eval_res.delta_sp)
+                # SP perf counters
+                sp_sssp_du_ct = int(getattr(eval_res, 'sssp_calls_du', 0))
+                sp_sssp_dv_ct = int(getattr(eval_res, 'sssp_calls_dv', 0))
+                sp_dv_leaf_skips_ct = int(getattr(eval_res, 'dv_leaf_skips', 0))
+                sp_cycle_verifies_ct = int(getattr(eval_res, 'cycle_verifies', 0))
+                # mh-only minima
+                gmin_mh_val = float(eval_res.gmin_mh)
+                ged_mh_val = float(eval_res.delta_ged_min_mh)
+                ig_mh_val = float(eval_res.delta_ig_min_mh)
+                sp_mh_val = float(eval_res.delta_sp_min_mh)
             t_eval_ms = (time.perf_counter() - t_eval_run_start) * 1000.0
             # best-hop deltas for display
             try:
@@ -2667,6 +2706,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--timeline-to-graph", dest="timeline_to_graph", action="store_true", help="Also add timeline edges (Q_prev→dir→Q_next, Q_prev↔Q_next) to graph. Default: off (visual-only)")
     parser.add_argument("--add-next-q", dest="add_next_q", action="store_true", help="Also add next-step Q node to graph at end of step. Default: off")
     parser.set_defaults(ged_hop0_const=True)
+    # Lite path: delegate per-step evaluation to main L3 (query-centric)
+    parser.add_argument("--use-main-l3", dest="use_main_l3", action="store_true", help="Use main L3GraphReasoner (query-centric) for per-step eval (hop0 only)")
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--step-log", type=Path)
     # Persistence
@@ -2893,6 +2934,11 @@ def main() -> None:
             "theta_dg": float(args.theta_dg),
             "action_policy": str(args.action_policy),
             "action_temp": float(args.action_temp),
+            # Record IG/H sign convention for reproducibility (after_before|before_after)
+            "ig_delta_mode": os.environ.get("MAZE_GEDIG_IG_DELTA", "after_before"),
+            # Also expose whether main L3 lite path was used (query-centric hop0)
+            "use_main_l3": bool(getattr(args, 'use_main_l3', False)),
+            "sp_cache_mode": str(getattr(args, 'sp_cache_mode', 'core')),
         },
         "summary": summary,
         "runs": runs,

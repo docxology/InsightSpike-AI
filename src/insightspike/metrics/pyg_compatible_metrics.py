@@ -14,53 +14,108 @@ logger = logging.getLogger(__name__)
 
 
 def pyg_to_networkx(pyg_graph: Any) -> nx.Graph:
-    """Convert PyTorch Geometric Data to NetworkX graph."""
+    """Convert a minimal PyG-like Data object to NetworkX safely.
+
+    Robust to either torch.Tensor or numpy.ndarray (or array-like) for
+    `x`, `edge_index`, and `edge_attr`.
+    """
     try:
-        import torch
-        
         G = nx.Graph()
-        
-        # Add nodes
-        if hasattr(pyg_graph, 'num_nodes'):
-            num_nodes = pyg_graph.num_nodes
-        elif hasattr(pyg_graph, 'x') and pyg_graph.x is not None:
-            num_nodes = pyg_graph.x.size(0)
-        else:
-            return G  # Empty graph
-            
-        for i in range(num_nodes):
-            node_attrs = {'idx': i}
-            # Add node features if available
-            if hasattr(pyg_graph, 'x') and pyg_graph.x is not None:
-                node_attrs['features'] = pyg_graph.x[i].cpu().numpy() if hasattr(pyg_graph.x, 'cpu') else pyg_graph.x[i].numpy()
-            G.add_node(i, **node_attrs)
-        
-        # Add edges
-        if hasattr(pyg_graph, 'edge_index') and pyg_graph.edge_index is not None:
-            edge_index = pyg_graph.edge_index
-            if hasattr(edge_index, 'cpu'):
-                edge_index = edge_index.cpu().numpy()
-            else:
-                edge_index = edge_index.numpy()
-                
-            # Convert to list of edges
-            edges = [(int(edge_index[0, i]), int(edge_index[1, i])) for i in range(edge_index.shape[1])]
-            
-            # Add edge weights if available
-            if hasattr(pyg_graph, 'edge_attr') and pyg_graph.edge_attr is not None:
-                edge_attr = pyg_graph.edge_attr
-                if hasattr(edge_attr, 'cpu'):
-                    edge_attr = edge_attr.cpu().numpy()
+
+        # Resolve node count
+        num_nodes = None
+        try:
+            if hasattr(pyg_graph, 'num_nodes') and isinstance(pyg_graph.num_nodes, (int, np.integer)):
+                num_nodes = int(pyg_graph.num_nodes)
+            elif hasattr(pyg_graph, 'x') and pyg_graph.x is not None:
+                x_obj = getattr(pyg_graph, 'x')
+                if hasattr(x_obj, 'shape') and len(x_obj.shape) >= 1:
+                    num_nodes = int(x_obj.shape[0])
+        except Exception:
+            num_nodes = None
+        if not num_nodes:
+            return G  # empty
+
+        # Materialize node feature matrix as numpy if present
+        feats_np: Optional[np.ndarray] = None
+        if hasattr(pyg_graph, 'x') and pyg_graph.x is not None:
+            x_obj = pyg_graph.x
+            try:
+                if hasattr(x_obj, 'detach'):
+                    x_obj = x_obj.detach()
+                if hasattr(x_obj, 'cpu'):
+                    x_obj = x_obj.cpu()
+                if hasattr(x_obj, 'numpy'):
+                    feats_np = x_obj.numpy()
                 else:
-                    edge_attr = edge_attr.numpy()
-                    
-                for i, (u, v) in enumerate(edges):
-                    G.add_edge(u, v, weight=float(edge_attr[i]) if edge_attr.ndim == 1 else float(edge_attr[i, 0]))
+                    feats_np = np.asarray(x_obj)
+            except Exception:
+                feats_np = None
+
+        # Add nodes
+        for i in range(int(num_nodes)):
+            node_attrs = {'idx': int(i)}
+            if feats_np is not None and feats_np.ndim == 2 and i < feats_np.shape[0]:
+                try:
+                    node_attrs['features'] = feats_np[i]
+                except Exception:
+                    pass
+            G.add_node(int(i), **node_attrs)
+
+        # Edges
+        if hasattr(pyg_graph, 'edge_index') and getattr(pyg_graph, 'edge_index') is not None:
+            ei = getattr(pyg_graph, 'edge_index')
+            try:
+                if hasattr(ei, 'detach'):
+                    ei = ei.detach()
+                if hasattr(ei, 'cpu'):
+                    ei = ei.cpu()
+                if hasattr(ei, 'numpy'):
+                    ei_np = ei.numpy()
+                else:
+                    ei_np = np.asarray(ei)
+            except Exception:
+                ei_np = np.asarray(ei)
+
+            # Normalize to shape (2, E)
+            if ei_np.ndim == 2 and ei_np.shape[0] == 2:
+                edges = [(int(ei_np[0, j]), int(ei_np[1, j])) for j in range(ei_np.shape[1])]
+            elif ei_np.ndim == 2 and ei_np.shape[1] == 2:
+                edges = [(int(ei_np[j, 0]), int(ei_np[j, 1])) for j in range(ei_np.shape[0])]
+            else:
+                edges = []
+
+            # Optional edge weights
+            weights = None
+            if hasattr(pyg_graph, 'edge_attr') and getattr(pyg_graph, 'edge_attr') is not None:
+                try:
+                    ea = getattr(pyg_graph, 'edge_attr')
+                    if hasattr(ea, 'detach'):
+                        ea = ea.detach()
+                    if hasattr(ea, 'cpu'):
+                        ea = ea.cpu()
+                    if hasattr(ea, 'numpy'):
+                        ea_np = ea.numpy()
+                    else:
+                        ea_np = np.asarray(ea)
+                    weights = ea_np
+                except Exception:
+                    weights = None
+
+            if weights is not None:
+                w = np.asarray(weights)
+                for idx, (u, v) in enumerate(edges):
+                    try:
+                        if w.ndim == 1:
+                            G.add_edge(u, v, weight=float(w[idx]))
+                        else:
+                            G.add_edge(u, v, weight=float(w[idx, 0]))
+                    except Exception:
+                        G.add_edge(u, v)
             else:
                 G.add_edges_from(edges)
-                
+
         return G
-        
     except Exception as e:
         logger.error(f"Failed to convert PyG to NetworkX: {e}")
         return nx.Graph()
@@ -106,39 +161,39 @@ def delta_ged_pyg(g_old: Any, g_new: Any) -> float:
 
 
 def delta_ig_pyg(g_old: Any, g_new: Any) -> float:
-    """
-    Calculate ΔIG for PyTorch Geometric graphs.
-    
-    Returns positive value when information increases (insight formation).
+    """Calculate ΔIG for PyG graphs using variance proxy.
+
+    Returns positive when information increases (old_var - new_var, normalized).
+    Robust to numpy or torch feature matrices.
     """
     try:
-        # Extract node features
-        old_features = None
-        new_features = None
-        
-        if hasattr(g_old, 'x') and g_old.x is not None:
-            old_features = g_old.x.cpu().numpy() if hasattr(g_old.x, 'cpu') else g_old.x.numpy()
-        if hasattr(g_new, 'x') and g_new.x is not None:
-            new_features = g_new.x.cpu().numpy() if hasattr(g_new.x, 'cpu') else g_new.x.numpy()
-            
+        def as_numpy(x: Any) -> Optional[np.ndarray]:
+            try:
+                if x is None:
+                    return None
+                obj = x
+                if hasattr(obj, 'detach'):
+                    obj = obj.detach()
+                if hasattr(obj, 'cpu'):
+                    obj = obj.cpu()
+                if hasattr(obj, 'numpy'):
+                    return obj.numpy()
+                return np.asarray(obj)
+            except Exception:
+                return None
+
+        old_features = as_numpy(getattr(g_old, 'x', None))
+        new_features = as_numpy(getattr(g_new, 'x', None))
         if old_features is None or new_features is None:
             return 0.0
-            
-        # Simple entropy-based IG calculation
-        # Calculate variance as proxy for entropy
-        old_var = np.var(old_features)
-        new_var = np.var(new_features)
-        
-        # Lower variance = more organized = information gain
-        ig = float(old_var - new_var)
-        
-        # Normalize to reasonable range
+
+        old_var = float(np.var(old_features))
+        new_var = float(np.var(new_features))
+        ig = old_var - new_var
         if old_var > 0:
             ig = ig / old_var
-            
         logger.debug(f"Calculated IG: {ig} (old_var={old_var:.4f}, new_var={new_var:.4f})")
-        return ig
-        
+        return float(ig)
     except Exception as e:
         logger.error(f"IG calculation failed: {e}")
         return 0.0

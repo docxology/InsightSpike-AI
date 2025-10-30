@@ -752,12 +752,32 @@ class L3GraphReasoner(L3GraphReasonerInterface):
                             ig_fixed_den=ig_fixed_den,
                         )
                         hop0 = res.hop_results.get(0) if res.hop_results else None
+                        # Combine IG with ΔSP using lambda/sp_beta from config/env (after-before orientation)
+                        def _getf(obj, path, default):
+                            try:
+                                cur = obj
+                                for p in path.split('.'):
+                                    if cur is None:
+                                        return default
+                                    if hasattr(cur, p):
+                                        cur = getattr(cur, p)
+                                    elif isinstance(cur, dict) and p in cur:
+                                        cur = cur[p]
+                                    else:
+                                        return default
+                                return cur
+                            except Exception:
+                                return default
+                        sp_beta = float(os.getenv('INSIGHTSPIKE_SP_BETA', str(_getf(self.config, 'graph.sp_beta', 0.2))))
+                        _h_norm = float(getattr(res, 'delta_h_norm', 0.0))  # after-before（秩序化で負）
+                        _sp_rel = float(getattr(res, 'delta_sp_rel', 0.0))
+                        _ig_norm = float(_h_norm + sp_beta * _sp_rel)
                         metrics = {
                             "delta_ged": -float(res.delta_ged_norm),
                             "delta_ged_norm": float(res.delta_ged_norm),
-                            "delta_ig": float(res.ig_value),
-                            "delta_h": float(res.delta_h_norm),
-                            "delta_sp": float(res.delta_sp_rel),
+                            "delta_h": _h_norm,
+                            "delta_sp": _sp_rel,
+                            "delta_ig": _ig_norm,
                             "g0": float(hop0.gedig if hop0 else res.gedig_value),
                             "gmin": float(res.gedig_value),
                             "graph_size_current": int(getattr(current_graph, 'num_nodes', 0)),
@@ -809,15 +829,15 @@ class L3GraphReasoner(L3GraphReasonerInterface):
                         lambda_w = float(os.getenv('INSIGHTSPIKE_GEDIG_LAMBDA', str(_getf(self.config, 'graph.lambda_weight', 1.0))))
                         sp_beta = float(os.getenv('INSIGHTSPIKE_SP_BETA', str(_getf(self.config, 'graph.sp_beta', 0.2))))
                         delta_ged_norm = float(getattr(res0, 'delta_ged_norm', 0.0))
-                        delta_h_norm = float(getattr(res0, 'delta_h_norm', 0.0))
-                        ig_combined = delta_h_norm + sp_beta * sp_rel
-                        g_cached = delta_ged_norm - lambda_w * ig_combined
+                        h_norm = float(getattr(res0, 'delta_h_norm', 0.0))  # after-before（秩序化で負）
+                        ig_norm = h_norm + sp_beta * sp_rel
+                        g_cached = delta_ged_norm - lambda_w * ig_norm
                         g0_val = float(res0.hop_results.get(0).gedig) if res0.hop_results and 0 in res0.hop_results else float(res0.gedig_value)
                         metrics = {
                             "delta_ged": -delta_ged_norm,
                             "delta_ged_norm": delta_ged_norm,
-                            "delta_ig": ig_combined,
-                            "delta_h": delta_h_norm,
+                            "delta_ig": ig_norm,
+                            "delta_h": h_norm,
                             "delta_sp": sp_rel,
                             "g0": g0_val,   # hop0 (without multi-hop SP)
                             "gmin": g_cached,  # approximate best
@@ -826,6 +846,191 @@ class L3GraphReasoner(L3GraphReasonerInterface):
                             "candidate_selection": selection_summary,
                             "sp_engine": 'cached',
                         }
+                        # Optional: union-of-k-hop adaptive evaluation (align with maze evaluator)
+                        try:
+                            _adaptive_env = os.getenv('INSIGHTSPIKE_SP_ADAPTIVE', '').strip().lower() in ('1','true','yes','on')
+                            _scope_mode = str(_cfg_attr(self.config, 'graph.sp_scope_mode', 'auto') or 'auto').lower()
+                            _do_adaptive = _adaptive_env or (_scope_mode == 'union')
+                            if _do_adaptive and query_hops > 0 and centers:
+                                def _k_hop_nodes(G, srcs, k):
+                                    from collections import deque
+                                    seen = set()
+                                    dq = deque()
+                                    for s in srcs:
+                                        if s in G:
+                                            seen.add(s); dq.append((s, 0))
+                                    while dq:
+                                        u, d = dq.popleft()
+                                        if d >= k:
+                                            continue
+                                        try:
+                                            for v in G.neighbors(u):
+                                                if v not in seen:
+                                                    seen.add(v); dq.append((v, d+1))
+                                        except Exception:
+                                            continue
+                                    return seen
+                                best_g = g_cached
+                                best_sp = sp_rel
+                                best_h = 0
+                                sp_engine2 = str(os.getenv('INSIGHTSPIKE_SP_ENGINE', str(_cfg_attr(self.config, 'graph.sp_engine', 'core') or 'core'))).lower()
+                                cand_edges = context.get('candidate_edges') if isinstance(context, dict) else None
+                                # Bring in metric helpers for ΔGED/ΔH per hop
+                                from ...algorithms.core.metrics import normalized_ged as _nx_norm_ged
+                                from ...algorithms.core.metrics import entropy_ig as _nx_entropy_ig
+                                def _feat_array(G, nodes):
+                                    import numpy as _np
+                                    arrs = []
+                                    for n in nodes:
+                                        try:
+                                            vec = G.nodes[n].get('features')
+                                            if vec is None:
+                                                arrs.append(_np.zeros((0,), dtype=_np.float32))
+                                            else:
+                                                v = _np.asarray(vec, dtype=_np.float32).flatten()
+                                                arrs.append(v)
+                                        except Exception:
+                                            arrs.append(_np.zeros((0,), dtype=_np.float32))
+                                    if not arrs:
+                                        return _np.zeros((0, 0), dtype=_np.float32)
+                                    # pad to same length
+                                    maxd = max((a.size for a in arrs), default=0)
+                                    if maxd <= 0:
+                                        return _np.zeros((len(arrs), 0), dtype=_np.float32)
+                                    out = _np.zeros((len(arrs), maxd), dtype=_np.float32)
+                                    for i, a in enumerate(arrs):
+                                        if a.size > 0:
+                                            L = min(maxd, a.size); out[i, :L] = a[:L]
+                                    return out
+                                for h in range(0, max(0, query_hops)+1):
+                                    nodes_prev_h = _k_hop_nodes(nx_prev, centers, h)
+                                    nodes_curr_h = _k_hop_nodes(nx_curr, centers, h)
+                                    sub_prev = nx_prev.subgraph(nodes_prev_h).copy()
+                                    sub_curr = nx_curr.subgraph(nodes_curr_h).copy()
+                                    sig_h = cache.signature(sub_prev, set(centers), h, 'union', boundary)
+                                    # ΔGED_norm per hop (NX normalized_ged)
+                                    try:
+                                        ged_h = _nx_norm_ged(sub_prev, sub_curr)
+                                        dged_h = float(ged_h.get('normalized_ged', 0.0))
+                                    except Exception:
+                                        dged_h = delta_ged_norm
+                                    # ΔH_norm per hop（after-before）
+                                    try:
+                                        feats_b = _feat_array(sub_prev, list(sub_prev.nodes()))
+                                        feats_a = _feat_array(sub_curr, list(sub_curr.nodes()))
+                                        ig_res = _nx_entropy_ig(sub_curr, feats_b, feats_a, delta_mode='after_before', fixed_den=ig_fixed_den)
+                                        dh_h = float(ig_res.get('ig_value', 0.0))
+                                    except Exception:
+                                        dh_h = float(metrics.get('delta_h', 0.0)) if isinstance(metrics.get('delta_h', None), (int, float)) else 0.0
+                                    if sp_engine2 == 'cached_incr' and cand_edges:
+                                        # Greedy sequential on sub_prev with filtered candidates
+                                        try:
+                                            # Filter candidates to subgraph nodes
+                                            nodes_set = set(nodes_prev_h)
+                                            rem = []
+                                            for item in cand_edges:
+                                                try:
+                                                    u = int(item[0]); v = int(item[1])
+                                                except Exception:
+                                                    continue
+                                                if (u in nodes_set) and (v in nodes_set):
+                                                    rem.append((u, v, item[2] if len(item) > 2 and isinstance(item[2], dict) else {}))
+                                            if not rem:
+                                                # fallback to between-graphs
+                                                sp_h = cache.estimate_sp_between_graphs(sig=sig_h, g_before=sub_prev, g_after=sub_curr)
+                                            else:
+                                                # reuse sequential-optimized routine (scoped to sub_prev)
+                                                def _unique_sources_pairs(ps):
+                                                    ss = set(); arr = []
+                                                    for a, b, _ in ps:
+                                                        if a not in ss:
+                                                            ss.add(a); arr.append(a)
+                                                    return arr
+                                                def _sssp_batch(G, nodes):
+                                                    out = {}
+                                                    for n in set(nodes):
+                                                        try:
+                                                            out[n] = dict(nx.single_source_shortest_path_length(G, n))
+                                                        except Exception:
+                                                            out[n] = {}
+                                                    return out
+                                                # Build pairs on sub_prev
+                                                pairs_obj = cache.get_fixed_pairs(sig_h, sub_prev)
+                                                lb = float(getattr(pairs_obj, 'lb_avg', 0.0) or 0.0)
+                                                if lb <= 0.0 or not pairs_obj.pairs:
+                                                    sp_h = 0.0
+                                                else:
+                                                    sources = _unique_sources_pairs(pairs_obj.pairs)
+                                                    sssp_sources = _sssp_batch(sub_prev, sources)
+                                                    # baseline la on sub_prev
+                                                    def _la_avg_from_sources(sssp_src, pairs):
+                                                        tot = 0.0; cnt = 0
+                                                        for a, b, dab in pairs:
+                                                            dmap = sssp_src.get(a, {}); dafter = dmap.get(b)
+                                                            la = float(dab) if dafter is None else float(dafter)
+                                                            tot += la; cnt += 1
+                                                        return (tot / cnt) if cnt else 0.0
+                                                    la_work = _la_avg_from_sources(sssp_sources, pairs_obj.pairs)
+                                                    nx_work = sub_prev.copy()
+                                                    budget = int(os.getenv('INSIGHTSPIKE_SP_BUDGET', str(_getf(self.config, 'graph.cached_incr_budget', 1) or 1)))
+                                                    budget = max(0, budget)
+                                                    steps = 0
+                                                    # simple greedy: pick candidate that minimizes la_work using virtual shortcut approximation
+                                                    def _la_with_virtual(u, v, pairs, sssp_src):
+                                                        du = sssp_src.get(u, {}); dv = sssp_src.get(v, {})
+                                                        tot = 0.0; cnt = 0
+                                                        for a, b, dab in pairs:
+                                                            base = float(dab)
+                                                            da = sssp_src.get(a, {}).get(b)
+                                                            if da is not None:
+                                                                base = float(da)
+                                                            au = du.get(a); vb = dv.get(b)
+                                                            if au is not None and vb is not None:
+                                                                base = min(base, float(au + 1 + vb))
+                                                            av = dv.get(a); ub = du.get(b)
+                                                            if av is not None and ub is not None:
+                                                                base = min(base, float(av + 1 + ub))
+                                                            tot += base; cnt += 1
+                                                        return (tot / cnt) if cnt else 0.0
+                                                    while steps < budget and rem:
+                                                        best_i = -1; best_la = la_work
+                                                        for i, (uu, vv, _) in enumerate(rem):
+                                                            la_cand = _la_with_virtual(int(uu), int(vv), pairs_obj.pairs, sssp_sources)
+                                                            if la_cand < best_la - 1e-9:
+                                                                best_la = la_cand; best_i = i
+                                                        if best_i < 0:
+                                                            break
+                                                        u_a, v_a, _ = rem.pop(best_i)
+                                                        try:
+                                                            nx_work.add_edge(int(u_a), int(v_a))
+                                                        except Exception:
+                                                            pass
+                                                        # recompute sources sssp on updated graph
+                                                        sssp_sources = _sssp_batch(nx_work, sources)
+                                                        la_work = best_la
+                                                    steps += 1
+                                                    sp_h = max(0.0, min(1.0, max(0.0, (lb - la_work) / lb)))
+                                        except Exception:
+                                            sp_h = cache.estimate_sp_between_graphs(sig=sig_h, g_before=sub_prev, g_after=sub_curr)
+                                    else:
+                                        sp_h = cache.estimate_sp_between_graphs(sig=sig_h, g_before=sub_prev, g_after=sub_curr)
+                                    ig_h = dh_h + sp_beta * sp_h
+                                    g_h = dged_h - lambda_w * ig_h
+                                    if g_h < best_g:
+                                        best_g = g_h; best_sp = sp_h; best_h = h; best_dh = dh_h; best_dged = dged_h
+                                # apply best hop
+                                metrics.update({
+                                    'gmin': float(best_g),
+                                    'delta_sp': float(best_sp),
+                                    'delta_ig': float((locals().get('best_dh', delta_h_norm)) + sp_beta * best_sp),
+                                    'delta_h': float(locals().get('best_dh', delta_h_norm)),
+                                    'delta_ged_norm': float(locals().get('best_dged', delta_ged_norm)),
+                                    'best_h': int(best_h),
+                                    'sp_engine': 'cached_incr' if sp_engine2 == 'cached_incr' else 'cached',
+                                    'sp_scope': 'union',
+                                })
+                        except Exception as _union_e:
+                            logger.debug(f"union-of-k-hop adaptive eval skipped: {_union_e}")
                         # Optional cached_incr: use candidate edges for greedy ΔSP update
                         sp_engine2 = str(os.getenv('INSIGHTSPIKE_SP_ENGINE', str(_cfg_attr(self.config, 'graph.sp_engine', 'core') or 'core'))).lower()
                         cand_edges = context.get('candidate_edges') if isinstance(context, dict) else None
@@ -1094,6 +1299,15 @@ class L3GraphReasoner(L3GraphReasonerInterface):
             metrics.setdefault("delta_h", float(metrics.get("delta_ig", 0.0)))
             metrics.setdefault("delta_sp", 0.0)
             metrics.setdefault("g0", float(metrics.get("delta_ged", 0.0)))
+            # Benefit-oriented helpers（正が良い）
+            try:
+                _dh = float(metrics.get('delta_h', 0.0))
+                _sp = float(metrics.get('delta_sp', 0.0))
+                _spb = float(os.getenv('INSIGHTSPIKE_SP_BETA', str(_cfg_attr(self.config, 'graph.sp_beta', 0.2))))
+                metrics.setdefault('h_benefit', float(-_dh))  # Hbefore-Hafter
+                metrics.setdefault('ig_benefit', float(-_dh + _spb * _sp))
+            except Exception:
+                pass
             metrics.setdefault("gmin", float(metrics.get("delta_ged", 0.0)))
 
             # Log metrics values
