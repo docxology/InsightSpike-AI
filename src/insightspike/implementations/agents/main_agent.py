@@ -904,31 +904,39 @@ class MainAgent:
                 logger.debug(
                     f"L3GraphReasoner available, processing {len(retrieved_docs)} documents"
                 )
-                # Optional: L1 conductor proposes Ecand (/by-hop) before L3
+                # L1 conductor proposes Ecand (/by-hop) before L3（本流）
                 try:
-                    use_l1c = False
+                    from ..layers.layer1_conductor import L1Conductor
+                    l1c = L1Conductor(self.config)
+                    # centers: Top 3 retrieved docs (adjustable)
+                    centers = []
+                    for doc in retrieved_docs[:3]:
+                        if "index" in doc:
+                            centers.append(int(doc["index"]))
+                    # defaults（設定で上書き可）
                     try:
-                        if self.is_pydantic_config:
-                            use_l1c = bool(getattr(getattr(self.config, 'agent', None), 'use_l1_conductor', False))
+                        top_k = int(getattr(getattr(self.config, 'graph', None), 'candidate_topk', 16) or 16)
                     except Exception:
-                        use_l1c = False
-                    if use_l1c:
-                        from ..layers.layer1_conductor import L1Conductor
-                        l1c = L1Conductor(self.config)
-                        # centers: from retrieved top docs (already chosen below for subgraph view)
-                        centers = []
-                        for doc in retrieved_docs[:3]:
-                            if "index" in doc:
-                                centers.append(int(doc["index"]))
-                        # choose defaults (can be refined via config)
                         top_k = 16
-                        theta_link = 0.3
+                    theta_link = 0.3
+                    try:
+                        ns = graph_context.get('norm_spec') or {}
+                        eff = ns.get('effective') or {}
+                        if 'theta_link' in eff:
+                            theta_link = float(eff['theta_link'])
+                    except Exception:
+                        pass
+                    max_hops = 3
+                    try:
                         max_hops = int(getattr(getattr(self.config, 'graph', None), 'sp_hop_expand', 3) or 3)
-                        l1_out = l1c.propose_candidates(retrieved_docs, centers, top_k=top_k, theta_link=theta_link, max_hops=max_hops)
-                        # pass candidates into context
+                    except Exception:
+                        pass
+                    l1_out = l1c.propose_candidates(retrieved_docs, centers, top_k=top_k, theta_link=theta_link, max_hops=max_hops)
+                    # pass candidates into context
+                    if l1_out.get('candidate_edges'):
                         graph_context["candidate_edges"] = l1_out.get('candidate_edges')
-                        if l1_out.get('candidate_edges_by_hop') is not None:
-                            graph_context["candidate_edges_by_hop"] = l1_out.get('candidate_edges_by_hop')
+                    if l1_out.get('candidate_edges_by_hop') is not None:
+                        graph_context["candidate_edges_by_hop"] = l1_out.get('candidate_edges_by_hop')
                 except Exception as _l1c_ex:
                     logger.debug(f"L1Conductor skipped: {_l1c_ex}")
 
