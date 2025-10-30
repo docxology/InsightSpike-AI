@@ -67,6 +67,9 @@ class NormalizedConfig:
     top_m: Optional[int] = None
     ig_denominator: str = "fixed_kstar"
     use_local_normalization: bool = False
+    # SP engine and NormSpec
+    sp_engine: str = "core"  # core | cached | cached_incr
+    norm_spec: Optional[Dict[str, Any]] = None
 
     # メタ
     source_type: str = field(default="unknown")  # pydantic|dict|legacy
@@ -143,6 +146,8 @@ class NormalizedConfig:
             top_m = _coerce_optional_int(o.get('top_m', get('metrics.top_m', None))),
             ig_denominator = str(o.get('ig_denominator', get('metrics.ig_denominator', 'fixed_kstar'))).lower(),
             use_local_normalization = bool(o.get('use_local_normalization', get('metrics.use_local_normalization', False))),
+            sp_engine = str(o.get('sp_engine', get('graph.sp_engine', 'core'))).lower(),
+            norm_spec = (o.get('norm_spec', get('graph.norm_spec', None)) or None),
             source_type = src_type,
             applied_defaults = tuple(applied),
             _raw = cfg,
@@ -184,6 +189,8 @@ class NormalizedConfig:
             'top_m': self.top_m,
             'ig_denominator': self.ig_denominator,
             'use_local_normalization': self.use_local_normalization,
+            'sp_engine': self.sp_engine,
+            'norm_spec': self.norm_spec,
             'source_type': self.source_type,
             'applied_defaults': list(self.applied_defaults),
         }

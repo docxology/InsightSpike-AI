@@ -199,3 +199,28 @@ NormalizedConfig では、`graph.sp_engine` と `graph.norm_spec.*` を読み出
 - レジストリの永続ファイルが成長しすぎない（簡易サイズチェック）
 - ENV と config.yaml の優先順位が意図どおり（ENV > config > 既定）
 
+---
+
+## ドキュメント更新（アーキテクチャ / API / 図）
+
+本仕様に合わせ、以下を更新する。
+
+- アーキテクチャドキュメント（docs/architecture/*）
+  - L1/L2/L3の責務分離に NormSpec と SP エンジン切替（core/cached/cached_incr）を追記
+  - クエリ中心パスにおける `centers`/`candidate_edges`/`candidate_selection`/`norm_spec` のデータフロー図
+  - 正規化台（Cmax）と IG 分母モード（fixed_kstar 等）の整合に関する注意
+
+- APIリファレンス（docs/api-reference/*）
+  - config.yaml の `graph.sp_engine`, `graph.lambda_weight`, `graph.sp_beta`, `graph.sp_scope_mode`, `graph.sp_boundary_mode`, `graph.norm_spec.*` を追加
+  - 環境変数の優先順位（INSIGHTSPIKE_SP_ENGINE / _SP_PAIR_SAMPLES / _SP_REGISTRY / _GEDIG_LAMBDA / _SP_BETA）を明記
+  - L3 `analyze_documents` context の拡張（`candidate_edges`, `norm_spec`）
+
+- 図（docs/images/* / docs/architecture/*）
+  - コンポーネント図：L1/L2→L3 の context 受け渡し（NormSpec と Ecand を明示）
+  - フローチャート：SP エンジンの分岐（core→multi‑hop / cached→between / cached_incr→増分）
+  - 正規化関連の図：S_link / k★ / norm_base と IG 分母の対応
+
+チェックリスト
+1) アーキテクチャ章のデータフロー図を更新（mermaid/plantUML いずれか）
+2) API サマリーに新規オプションを追記し、既存の設定例に `graph.norm_spec` を追加
+3) 迷路/RAG のミニチュアルート図を更新して、core/cached/cached_incr の切替位置を明確化

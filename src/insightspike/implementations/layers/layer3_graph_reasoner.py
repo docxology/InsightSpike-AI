@@ -764,6 +764,7 @@ class L3GraphReasoner(L3GraphReasonerInterface):
                             "graph_size_previous": int(getattr(previous_graph, 'num_nodes', 0)) if previous_graph is not None else 0,
                             "candidate_selection": selection_summary,
                         }
+                        metrics.setdefault("sp_engine", "core")
                     else:
                         # Cached (approximate ΔSP) path
                         # Step1: hop0 evaluate without SP gain

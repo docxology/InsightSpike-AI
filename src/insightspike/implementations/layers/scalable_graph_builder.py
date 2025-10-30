@@ -381,3 +381,63 @@ class ScalableGraphBuilder:
             "top_k": self.top_k,
             "similarity_threshold": self.similarity_threshold,
         }
+
+    # --- Candidate edge proposal (for L1/L2 use) ---
+    def propose_candidate_edges_from_graph(
+        self,
+        graph: Any,
+        centers: List[int],
+        *,
+        top_k: int = 10,
+        theta_link: float = 0.3,
+    ) -> List[Tuple[int, int, Dict[str, Any]]]:
+        """Propose candidate edges (center -> neighbor) from an existing graph.
+
+        Uses cosine similarity over node features (graph.x) to rank neighbors.
+        Returns a list of (u, v, meta) where meta contains 'score' (similarity).
+        """
+        try:
+            import numpy as _np
+            x = getattr(graph, 'x', None)
+            if x is None:
+                return []
+            if hasattr(x, 'detach'):
+                x = x.detach()
+            if hasattr(x, 'cpu'):
+                x = x.cpu()
+            feats = x.numpy() if hasattr(x, 'numpy') else _np.asarray(x)
+            if feats.ndim != 2 or feats.shape[0] == 0:
+                return []
+            # normalize
+            norms = _np.linalg.norm(feats, axis=1, keepdims=True) + 1e-12
+            feats = feats / norms
+            sims = feats @ feats.T  # cosine similarity matrix
+            n = sims.shape[0]
+            edges: List[Tuple[int, int, Dict[str, Any]]] = []
+            for c in centers:
+                if c is None or c < 0 or c >= n:
+                    continue
+                scores = sims[c]
+                # exclude self
+                scores = scores.copy()
+                scores[c] = -1.0
+                # top-k indices by similarity
+                k = min(max(1, top_k), n - 1)
+                idx = _np.argpartition(-scores, kth=k - 1)[:k]
+                # refine order
+                idx = idx[_np.argsort(-scores[idx])]
+                # filter by theta_link
+                for v in idx:
+                    s = float(scores[v])
+                    if s >= theta_link:
+                        edges.append((int(c), int(v), {"score": s}))
+            # de-duplicate (u,v) by keeping max score
+            best: Dict[Tuple[int, int], float] = {}
+            for u, v, meta in edges:
+                key = (u, v)
+                if key not in best or meta["score"] > best[key]:
+                    best[key] = meta["score"]
+            return [(u, v, {"score": sc}) for (u, v), sc in best.items()]
+        except Exception as e:
+            logger.warning(f"propose_candidate_edges_from_graph failed: {e}")
+            return []
