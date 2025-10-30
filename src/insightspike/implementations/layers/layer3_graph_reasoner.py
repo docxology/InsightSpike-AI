@@ -821,6 +821,36 @@ class L3GraphReasoner(L3GraphReasonerInterface):
                             "candidate_selection": selection_summary,
                             "sp_engine": 'cached',
                         }
+                        # Optional cached_incr: use candidate edges for greedy ΔSP update
+                        sp_engine2 = str(os.getenv('INSIGHTSPIKE_SP_ENGINE', str(_cfg_attr(self.config, 'graph.sp_engine', 'core') or 'core'))).lower()
+                        cand_edges = context.get('candidate_edges') if isinstance(context, dict) else None
+                        if sp_engine2 == 'cached_incr' and cand_edges:
+                            try:
+                                # Build PairSet for before-subgraph signature
+                                base_sp = cache.current_sp_from_pairs(cache.get_fixed_pairs(sig, nx_prev))
+                                deltas = []
+                                for (u, v, meta) in cand_edges:
+                                    try:
+                                        u = int(u); v = int(v)
+                                    except Exception:
+                                        continue
+                                    sp_new = cache.estimate_sp_cached(sig=sig, g_before=nx_prev, pairs=cache.get_fixed_pairs(sig, nx_prev), endpoint_u=u, endpoint_v=v)
+                                    deltas.append(max(0.0, float(sp_new - base_sp)))
+                                if deltas:
+                                    deltas.sort(reverse=True)
+                                    budget = int(os.getenv('INSIGHTSPIKE_SP_BUDGET', str(_getf(self.config, 'graph.cached_incr_budget', 1) or 1)))
+                                    delta_sp_add = float(sum(deltas[: max(0, budget)]))
+                                    sp_rel2 = max(0.0, min(1.0, base_sp + delta_sp_add))
+                                    ig_combined2 = delta_h_norm + sp_beta * sp_rel2
+                                    g_cached_incr = delta_ged_norm - lambda_w * ig_combined2
+                                    metrics.update({
+                                        "delta_sp": sp_rel2,
+                                        "delta_ig": ig_combined2,
+                                        "gmin": g_cached_incr,
+                                        "sp_engine": 'cached_incr',
+                                    })
+                            except Exception as _incr_e:
+                                logger.debug(f"cached_incr evaluation failed, kept cached: {_incr_e}")
                     logger.info(
                         f"[query-centric] Metrics - GED: {metrics['delta_ged']:.3f}, IG: {metrics['delta_ig']:.3f} (centers={len(centers)}, hops={query_hops})"
                     )

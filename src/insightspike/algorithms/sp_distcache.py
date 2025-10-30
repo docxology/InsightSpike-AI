@@ -200,6 +200,20 @@ class DistanceCache:
         gain = max(0.0, pairs.lb_avg - la_avg)
         return max(0.0, min(1.0, gain / pairs.lb_avg))
 
+    @staticmethod
+    def current_sp_from_pairs(pairs: PairSet) -> float:
+        """Compute current SP_rel for the before-graph from a PairSet.
+
+        SP_rel = max(0, (Lb - La) / Lb), where La is the average of pair distances in the set.
+        """
+        if not pairs.pairs or pairs.lb_avg <= 0.0:
+            return 0.0
+        total = 0.0
+        for _, _, dab in pairs.pairs:
+            total += float(dab)
+        la_avg = total / float(len(pairs.pairs))
+        return max(0.0, min(1.0, max(0.0, (pairs.lb_avg - la_avg) / pairs.lb_avg)))
+
 
 # ---------------- Registry (optional) ----------------
 class _PairsetRegistry(Protocol):

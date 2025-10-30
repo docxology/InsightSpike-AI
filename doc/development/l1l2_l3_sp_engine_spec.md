@@ -141,6 +141,15 @@ metrics = {
 3) ノブ（config/env）をまとめ、README/QUICKSTART に反映。
 4) 最小ユニット＋スモークテストの追加（core/cached/cached_incr を切り替えて整合性チェック）。
 
+進捗（実装状況）
+- [x] DistanceCache レジストリ（Memory/File）実装、between-graphs ΔSP 対応
+- [x] Layer3 SP エンジン切替（core/cached）、sp_engine を metrics に出力
+- [x] NormalizedConfig に `graph.sp_engine`, `graph.norm_spec` を取り込み
+- [x] L2 ヘルパ `propose_candidate_edges_from_graph` を追加
+- [x] Layer3 cached_incr の簡易実装（candidate_edges があれば貪欲/予算採用、なければ cached）
+- [ ] NormSpec の実値（effective θ_link/θ_cand 等）を L1/L2 で生成して context に格納（実装中）
+- [ ] Layer3 で `metrics["norm_spec"]` へのエコー（実装中）
+
 ---
 
 ## Config 設定（config.yaml）
