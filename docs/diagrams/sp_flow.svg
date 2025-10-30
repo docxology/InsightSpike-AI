@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="280" viewBox="0 0 720 280">
+  <style>
+    .box{fill:#f7f9fc;stroke:#2c3e50;stroke-width:1.2}
+    .arrow{stroke:#2c3e50;stroke-width:1.2;marker-end:url(#m)}
+    .label{font-family:monospace;font-size:12px;fill:#2c3e50}
+    .title{font-family:sans-serif;font-size:14px;font-weight:bold;fill:#2c3e50}
+  </style>
+  <defs>
+    <marker id="m" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L6,3 L0,6 z" fill="#2c3e50" />
+    </marker>
+  </defs>
+  <rect x="20" y="30" width="160" height="80" rx="6" class="box"/>
+  <text x="30" y="50" class="title">L1 (uncertainty)</text>
+  <text x="30" y="70" class="label">centers</text>
+  <text x="30" y="86" class="label">candidate_selection</text>
+  <rect x="200" y="30" width="160" height="80" rx="6" class="box"/>
+  <text x="210" y="50" class="title">L2 (retrieval)</text>
+  <text x="210" y="70" class="label">docs + embeddings</text>
+  <rect x="380" y="30" width="320" height="80" rx="6" class="box"/>
+  <text x="390" y="50" class="title">L3.analyze_documents</text>
+  <text x="390" y="70" class="label">context: centers / candidate_edges / norm_spec / previous_graph</text>
+  <line x1="180" y1="70" x2="200" y2="70" class="arrow"/>
+  <line x1="360" y1="70" x2="380" y2="70" class="arrow"/>
+  <rect x="80" y="140" width="200" height="60" rx="6" class="box"/>
+  <text x="90" y="160" class="title">NormSpec</text>
+  <text x="90" y="178" class="label">WakeSleep → NormalizedConfig</text>
+  <line x1="180" y1="140" x2="420" y2="110" class="arrow"/>
+  <rect x="320" y="140" width="120" height="60" rx="6" class="box"/>
+  <text x="330" y="160" class="title">core</text>
+  <text x="330" y="178" class="label">GeDIGCore (multi-hop)</text>
+  <rect x="460" y="140" width="120" height="60" rx="6" class="box"/>
+  <text x="470" y="160" class="title">cached</text>
+  <text x="470" y="178" class="label">between-graphs ΔSP</text>
+  <rect x="600" y="140" width="120" height="60" rx="6" class="box"/>
+  <text x="610" y="160" class="title">cached_incr</text>
+  <text x="610" y="178" class="label">sequential Ecand</text>
+  <line x1="540" y1="110" x2="380" y2="170" class="arrow"/>
+  <line x1="540" y1="110" x2="520" y2="170" class="arrow"/>
+  <line x1="540" y1="110" x2="660" y2="170" class="arrow"/>
+  <text x="360" y="220" class="label">metrics: delta_ged / delta_ig / delta_sp / gmin / sp_engine / norm_spec</text>
+</svg>

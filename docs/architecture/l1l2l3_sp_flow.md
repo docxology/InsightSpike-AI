@@ -36,3 +36,5 @@ metrics: { delta_ged, delta_ig, delta_h, delta_sp, g0, gmin, sp_engine, norm_spe
 - NormalizedConfig builds NormSpec defaults when unspecified
 - L3 echoes NormSpec in metrics for reproducibility
 
+## Diagram
+![SP Flow](../diagrams/sp_flow.svg)

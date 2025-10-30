@@ -780,12 +780,7 @@ class L3GraphReasoner(L3GraphReasonerInterface):
                         from ...algorithms.sp_distcache import DistanceCache
                         nx_prev = pyg_to_networkx(previous_graph)
                         nx_curr = pyg_to_networkx(current_graph)
-                        cache = DistanceCache(mode="cached", pair_samples=int(os.getenv("INSIGHTSPIKE_SP_PAIR_SAMPLES", "200")))
-                        scope = str(_cfg_attr(self.config, 'graph.sp_scope_mode', 'auto') or 'auto')
-                        boundary = str(_cfg_attr(self.config, 'graph.sp_boundary_mode', 'trim') or 'trim')
-                        sig = cache.signature(nx_prev, set(centers), max(0, query_hops), scope, boundary)
-                        sp_rel = cache.estimate_sp_between_graphs(sig=sig, g_before=nx_prev, g_after=nx_curr)
-                        # Combine IG with ΔSP using lambda/sp_beta from config/env
+                        # Pair sample count from ENV or config.graph.sp_pair_samples
                         def _getf(obj, path, default):
                             try:
                                 cur = obj
@@ -801,6 +796,16 @@ class L3GraphReasoner(L3GraphReasonerInterface):
                                 return cur
                             except Exception:
                                 return default
+                        _pair_samp_cfg = _getf(self.config, 'graph.sp_pair_samples', None)
+                        _pair_samp_env = os.getenv("INSIGHTSPIKE_SP_PAIR_SAMPLES", None)
+                        _pair_samp = int(_pair_samp_env) if _pair_samp_env is not None else int(_pair_samp_cfg) if _pair_samp_cfg is not None else 200
+                        cache = DistanceCache(mode="cached", pair_samples=_pair_samp)
+                        scope = str(_cfg_attr(self.config, 'graph.sp_scope_mode', 'auto') or 'auto')
+                        boundary = str(_cfg_attr(self.config, 'graph.sp_boundary_mode', 'trim') or 'trim')
+                        sig = cache.signature(nx_prev, set(centers), max(0, query_hops), scope, boundary)
+                        sp_rel = cache.estimate_sp_between_graphs(sig=sig, g_before=nx_prev, g_after=nx_curr)
+                        # Combine IG with ΔSP using lambda/sp_beta from config/env
+                        # helper retained from above
                         lambda_w = float(os.getenv('INSIGHTSPIKE_GEDIG_LAMBDA', str(_getf(self.config, 'graph.lambda_weight', 1.0))))
                         sp_beta = float(os.getenv('INSIGHTSPIKE_SP_BETA', str(_getf(self.config, 'graph.sp_beta', 0.2))))
                         delta_ged_norm = float(getattr(res0, 'delta_ged_norm', 0.0))
@@ -889,6 +894,13 @@ class L3GraphReasoner(L3GraphReasonerInterface):
                                 lb = float(getattr(pairs_obj, 'lb_avg', 0.0) or 0.0)
                                 if lb <= 0.0 or not pairs_obj.pairs:
                                     raise RuntimeError('no fixed pairs available')
+                                # Phase1 knobs
+                                prune_topk = int(os.getenv('INSIGHTSPIKE_CAND_PRUNE_TOPK', str(_getf(self.config, 'graph.candidate_prune_topk', 0) or 0)))
+                                endp_window = int(os.getenv('INSIGHTSPIKE_SP_ENDP_SSSP_WINDOW', str(_getf(self.config, 'graph.endpoint_sssp_window', 1) or 1)))
+                                endp_window = max(1, endp_window)
+                                gain_eps = float(os.getenv('INSIGHTSPIKE_SP_GAIN_EPS', str(_getf(self.config, 'graph.sp_gain_epsilon', 0.0) or 0.0)))
+                                sources_cap = int(os.getenv('INSIGHTSPIKE_SP_SOURCES_CAP', str(_getf(self.config, 'graph.sp_sources_cap', 0) or 0)))
+                                focus_mode = str(os.getenv('INSIGHTSPIKE_SP_SOURCES_FOCUS', str(_getf(self.config, 'graph.sp_sources_focus', 'off') or 'off'))).lower()
 
                                 def _unique_sources(_pairs):
                                     seen = set(); arr = []
@@ -931,18 +943,46 @@ class L3GraphReasoner(L3GraphReasonerInterface):
                                     return (tot / cnt) if cnt else 0.0
 
                                 sources = _unique_sources(pairs_obj.pairs)
+                                # Focus near centers if requested
+                                try:
+                                    if focus_mode in ('near', 'strict') and centers:
+                                        import networkx as _nx
+                                        allowed: set = set()
+                                        hops = 1 if focus_mode == 'strict' else 2
+                                        for c in centers:
+                                            # collect nodes within `hops`
+                                            lengths = _nx.single_source_shortest_path_length(nx_work, int(c), cutoff=hops)
+                                            allowed.update(int(n) for n in lengths.keys())
+                                        focused = [s for s in sources if s in allowed]
+                                        if focused:
+                                            sources = focused
+                                except Exception:
+                                    pass
+                                # Cap sources if requested
+                                if sources_cap > 0 and len(sources) > sources_cap:
+                                    sources = sources[:sources_cap]
                                 sssp_sources = _sssp_batch(nx_work, sources)
                                 la_work = _la_avg_from_sources(sssp_sources, pairs_obj.pairs)
                                 remaining = list(cand_edges)
+                                # Candidate pruning by pre-score
+                                if prune_topk > 0:
+                                    try:
+                                        remaining.sort(key=lambda t: float(t[2].get('score', 0.0)) if isinstance(t, (list, tuple)) and len(t) > 2 and isinstance(t[2], dict) else 0.0, reverse=True)
+                                        remaining = remaining[:prune_topk]
+                                    except Exception:
+                                        pass
                                 steps = 0
+                                sssp_endpoints = None
                                 while steps < budget and remaining:
+                                    la_prev = la_work
                                     endpoints = set()
                                     for uu, vv, _ in remaining:
                                         try:
                                             endpoints.add(int(uu)); endpoints.add(int(vv))
                                         except Exception:
                                             continue
-                                    sssp_endpoints = _sssp_batch(nx_work, endpoints)
+                                    if (steps % endp_window) == 0 or sssp_endpoints is None:
+                                        sssp_endpoints = _sssp_batch(nx_work, endpoints)
                                     best_idx = -1
                                     best_la = la_work
                                     for i, (uu, vv, _) in enumerate(remaining):
@@ -964,6 +1004,14 @@ class L3GraphReasoner(L3GraphReasonerInterface):
                                     steps += 1
                                     sssp_sources = _sssp_batch(nx_work, sources)
                                     la_work = best_la
+                                    if gain_eps > 0.0:
+                                        try:
+                                            sp_prev = max(0.0, (lb - la_prev) / lb)
+                                            sp_new = max(0.0, (lb - la_work) / lb)
+                                            if (sp_new - sp_prev) <= float(gain_eps) + 1e-12:
+                                                break
+                                        except Exception:
+                                            pass
                                 sp_rel2 = max(0.0, min(1.0, max(0.0, (lb - la_work) / lb)))
                                 ig_combined2 = delta_h_norm + sp_beta * sp_rel2
                                 g_cached_incr = delta_ged_norm - lambda_w * ig_combined2

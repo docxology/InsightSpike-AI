@@ -155,7 +155,7 @@ metrics = {
 -未完了/次タスク
 - [x] cached_incr の逐次適用（相互作用考慮）を実装（Greedy sequential; budget制御）。切替ノブは今後必要に応じ追加。
 - [ ] candidate_edges の堅牢化拡張（重複/空/無効index/予算境界を網羅するテスト追加）
-- [ ] config ノブの整理と API リファレンス反映（`graph.cached_incr_budget`, 自動候補 `candidate_topk`/`theta_link`）
+- [x] config ノブの整理と API リファレンス反映（`graph.cached_incr_budget`, 自動候補 `candidate_topk`/`theta_link`）
 - [ ] 図・アーキテクチャ更新（centers/Ecand/norm_spec データフロー、SP scope/boundary）
 - [x] Layer3 で `metrics["norm_spec"]` へのエコー（context→metrics。無い場合は config.graph.norm_spec を採用）
 
@@ -201,6 +201,21 @@ INSIGHTSPIKE_CAND_TOPK=10
 NormalizedConfig では、`graph.sp_engine` と `graph.norm_spec.*` を読み出し、L1/L2/L3 へ一貫して渡す。現行の SphereSearchConfig（intuitive_radius 等）からの移行は後方互換のブリッジで吸収する。
 
 ---
+
+### Phase1 追加ノブ（計算パスの最適化）
+
+- `graph.candidate_prune_topk`（ENV: `INSIGHTSPIKE_CAND_PRUNE_TOPK`）
+  - 候補事前スコアの上位Rのみ厳密評価（R≪|Ecand|）
+- `graph.endpoint_sssp_window`（ENV: `INSIGHTSPIKE_SP_ENDP_SSSP_WINDOW`）
+  - 端点SSSPの再計算をMステップごとにまとめる（M≥1、1=毎回）
+- `graph.sp_gain_epsilon`（ENV: `INSIGHTSPIKE_SP_GAIN_EPS`）
+  - 逐次適用の改善がε以下なら早期停止
+- `graph.sp_pair_samples`（ENV: `INSIGHTSPIKE_SP_PAIR_SAMPLES`）
+  - 固定ペアサンプル数（DistanceCache）
+- `graph.sp_sources_cap`（ENV: `INSIGHTSPIKE_SP_SOURCES_CAP`）
+  - 固定ペア由来のソースノード数の上限（SSSPの数を制限）
+- `graph.sp_sources_focus`（ENV: `INSIGHTSPIKE_SP_SOURCES_FOCUS`）
+  - ソース抽出を centers 近傍にバイアス（`off|near|strict`）
 
 ## テスト計画
 ### ユニットテスト
