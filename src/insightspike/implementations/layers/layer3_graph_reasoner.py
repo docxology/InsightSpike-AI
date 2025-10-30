@@ -715,9 +715,9 @@ class L3GraphReasoner(L3GraphReasonerInterface):
                     # Documents map 1:1 to current_graph node indices (0..n-1)
                     centers = list(range(min(max(1, query_centers_topk), int(getattr(current_graph, 'num_nodes', 0)))))
                     from ...algorithms.gedig_core import GeDIGCore
-                    # Optional SP engine: 'core' (default) or 'cached'
+                    # Optional SP engine: 'core' (default) or 'cached'/'cached_incr'
                     sp_engine = str(os.getenv('INSIGHTSPIKE_SP_ENGINE', str(_cfg_attr(self.config, 'graph.sp_engine', 'core') or 'core'))).lower()
-                    use_cached_sp = (sp_engine == 'cached')
+                    use_cached_sp = (sp_engine in ('cached', 'cached_incr'))
                     core = GeDIGCore(
                         enable_multihop=(query_hops > 0) and not use_cached_sp,
                         max_hops=max(0, query_hops),
@@ -880,49 +880,91 @@ class L3GraphReasoner(L3GraphReasonerInterface):
                             cand_edges = _normalize_candidates(cand_edges, getattr(current_graph, 'num_nodes', None))
                         if sp_engine2 == 'cached_incr' and cand_edges:
                             try:
-                                # Greedy sequential adoption: update after-graph each time
+                                # Greedy sequential adoption with batched SSSP reuse
+                                import networkx as _nx
                                 budget = int(os.getenv('INSIGHTSPIKE_SP_BUDGET', str(_getf(self.config, 'graph.cached_incr_budget', 1) or 1)))
                                 budget = max(0, budget)
-                                # Working graph starts from before-graph
                                 nx_work = nx_prev.copy()
-                                # Current SP relative gain for working graph
-                                sp_rel_work = cache.estimate_sp_between_graphs(sig=sig, g_before=nx_prev, g_after=nx_work)
+                                pairs_obj = cache.get_fixed_pairs(sig, nx_prev)
+                                lb = float(getattr(pairs_obj, 'lb_avg', 0.0) or 0.0)
+                                if lb <= 0.0 or not pairs_obj.pairs:
+                                    raise RuntimeError('no fixed pairs available')
+
+                                def _unique_sources(_pairs):
+                                    seen = set(); arr = []
+                                    for a, b, _ in _pairs:
+                                        if a not in seen:
+                                            arr.append(a); seen.add(a)
+                                    return arr
+
+                                def _sssp_batch(G, nodes):
+                                    out = {}
+                                    for n in set(nodes):
+                                        try:
+                                            out[n] = dict(_nx.single_source_shortest_path_length(G, n))
+                                        except Exception:
+                                            out[n] = {}
+                                    return out
+
+                                def _la_avg_from_sources(sssp_src, pairs):
+                                    tot = 0.0; cnt = 0
+                                    for a, b, dab in pairs:
+                                        dmap = sssp_src.get(a, {})
+                                        dafter = dmap.get(b)
+                                        la = float(dab) if dafter is None else float(dafter)
+                                        tot += la; cnt += 1
+                                    return (tot / cnt) if cnt else 0.0
+
+                                def _la_avg_with_virtual(u, v, sssp_src, sssp_endp, pairs):
+                                    du = sssp_endp.get(u, {}); dv = sssp_endp.get(v, {})
+                                    tot = 0.0; cnt = 0
+                                    for a, b, dab in pairs:
+                                        dafter = sssp_src.get(a, {}).get(b)
+                                        base = float(dab) if dafter is None else float(dafter)
+                                        au = du.get(a); vb = dv.get(b)
+                                        if au is not None and vb is not None:
+                                            base = min(base, float(au + 1 + vb))
+                                        av = dv.get(a); ub = du.get(b)
+                                        if av is not None and ub is not None:
+                                            base = min(base, float(av + 1 + ub))
+                                        tot += base; cnt += 1
+                                    return (tot / cnt) if cnt else 0.0
+
+                                sources = _unique_sources(pairs_obj.pairs)
+                                sssp_sources = _sssp_batch(nx_work, sources)
+                                la_work = _la_avg_from_sources(sssp_sources, pairs_obj.pairs)
                                 remaining = list(cand_edges)
                                 steps = 0
                                 while steps < budget and remaining:
-                                    best_idx = -1
-                                    best_sp = sp_rel_work
-                                    # Evaluate each candidate by temporary addition
-                                    for i, (u, v, meta) in enumerate(remaining):
+                                    endpoints = set()
+                                    for uu, vv, _ in remaining:
                                         try:
-                                            u = int(u); v = int(v)
+                                            endpoints.add(int(uu)); endpoints.add(int(vv))
                                         except Exception:
                                             continue
-                                        if nx_work.has_edge(u, v):
-                                            continue
-                                        nx_work.add_edge(u, v)
+                                    sssp_endpoints = _sssp_batch(nx_work, endpoints)
+                                    best_idx = -1
+                                    best_la = la_work
+                                    for i, (uu, vv, _) in enumerate(remaining):
                                         try:
-                                            sp_tmp = cache.estimate_sp_between_graphs(sig=sig, g_before=nx_prev, g_after=nx_work)
-                                        finally:
-                                            # revert temporary edge
-                                            try:
-                                                nx_work.remove_edge(u, v)
-                                            except Exception:
-                                                pass
-                                        if sp_tmp > best_sp:
-                                            best_sp = sp_tmp
+                                            uu = int(uu); vv = int(vv)
+                                        except Exception:
+                                            continue
+                                        la_cand = _la_avg_with_virtual(uu, vv, sssp_sources, sssp_endpoints, pairs_obj.pairs)
+                                        if la_cand < best_la - 1e-9:
+                                            best_la = la_cand
                                             best_idx = i
-                                    if best_idx < 0 or best_sp <= sp_rel_work:
+                                    if best_idx < 0:
                                         break
-                                    # Adopt best edge and continue
                                     u_a, v_a, _ = remaining.pop(best_idx)
                                     try:
                                         nx_work.add_edge(int(u_a), int(v_a))
                                     except Exception:
                                         continue
-                                    sp_rel_work = best_sp
                                     steps += 1
-                                sp_rel2 = max(0.0, min(1.0, sp_rel_work))
+                                    sssp_sources = _sssp_batch(nx_work, sources)
+                                    la_work = best_la
+                                sp_rel2 = max(0.0, min(1.0, max(0.0, (lb - la_work) / lb)))
                                 ig_combined2 = delta_h_norm + sp_beta * sp_rel2
                                 g_cached_incr = delta_ged_norm - lambda_w * ig_combined2
                                 metrics.update({
@@ -932,7 +974,7 @@ class L3GraphReasoner(L3GraphReasonerInterface):
                                     "sp_engine": 'cached_incr',
                                 })
                             except Exception as _incr_e:
-                                logger.debug(f"cached_incr evaluation (sequential) failed, kept cached: {_incr_e}")
+                                logger.debug(f"cached_incr evaluation (sequential-optimized) failed, kept cached: {_incr_e}")
                     logger.info(
                         f"[query-centric] Metrics - GED: {metrics['delta_ged']:.3f}, IG: {metrics['delta_ig']:.3f} (centers={len(centers)}, hops={query_hops})"
                     )
