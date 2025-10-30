@@ -34,6 +34,11 @@ INSIGHTSPIKE_GEDIG_LAMBDA=1.0
 INSIGHTSPIKE_SP_BETA=0.2
 INSIGHTSPIKE_SP_BUDGET=2
 INSIGHTSPIKE_CAND_TOPK=10
+INSIGHTSPIKE_CAND_PRUNE_TOPK=10
+INSIGHTSPIKE_SP_ENDP_SSSP_WINDOW=1
+INSIGHTSPIKE_SP_GAIN_EPS=0.0005
+INSIGHTSPIKE_SP_SOURCES_CAP=64
+INSIGHTSPIKE_SP_SOURCES_FOCUS=near
 ```
 
 ## Context interface (L1/L2 → L3)
@@ -67,3 +72,10 @@ context = {
 - NormSpec defaults derive from WakeSleep SphereSearchConfig (intuitive radii) when not explicitly configured
 - ENV overrides > config > defaults
 
+## Suggested defaults (Phase1 knobs)
+- `candidate_prune_topk`: 10
+- `endpoint_sssp_window`: 1
+- `sp_gain_epsilon`: 1e-4 … 5e-4
+- `sp_pair_samples`: 80 (small graphs), 200 (mid)
+- `sp_sources_cap`: 64
+- `sp_sources_focus`: near
