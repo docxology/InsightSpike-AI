@@ -2629,6 +2629,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--theta-dg", type=float, default=0.0)
     parser.add_argument("--top-link", type=int, default=1)
     parser.add_argument("--link-autowire-all", dest="link_autowire_all", action="store_true", help="Autowire all S_link edges at hop0 (base)")
+    parser.add_argument("--no-link-autowire-all", dest="link_autowire_all", action="store_false", help="Disable auto-wiring all S_link at hop0; use Top-L only")
     parser.add_argument("--commit-budget", type=int, default=1)
     parser.add_argument("--dg-commit-policy", type=str, default="threshold", choices=["threshold","always","never"], help="DG commit gating policy")
     parser.add_argument("--dg-commit-all-linkset", dest="dg_commit_all_linkset", action="store_true", help="On DG fire, commit all S_link (hop0) edges instead of Top-L only")

@@ -43,9 +43,16 @@ class GraphAnalyzer:
     ) -> Dict[str, float]:
         """Calculate ΔGED and ΔIG metrics between graphs.
 
-        Integrated former patch logic:
+        Notes on returned fields (conventions):
+        - `delta_ged` is signed and becomes negative when structure improves
+          (edit cost decreases / simplification). しきい値判定やゲート判定はこちらを使用。
+        - `delta_ged_norm` は正規化コストの大きさ（非負）で、報告値や重み付けに適する。
+        - `delta_ig`（およびエイリアス `delta_h`）は情報利得があれば正になる。
+
+        Integrated logic:
         - If delta_ged_func expects NetworkX graphs, convert PyG Data to NX.
-        - Always pass full graphs (not just features) to delta_ig_func.
+        - Always pass full graphs (not just features) to delta_ig_func; fall back
+          to feature-only when needed.
         """
         if previous_graph is None:
             return {
