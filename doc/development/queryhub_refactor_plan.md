@@ -233,7 +233,7 @@ Phase 5: g0 キャリブレーション（新規）
 - Runner: `--sp-cache-mode {core,cached,cached_incr}`, `--sp-verify-threshold`、L1 プリフィルタ、リング楕円、`sp_cand_topk`。
 
 完了事項（検討結了）
-- IG の符号（H の向き）は既定を after_before に統一（Core 既定に準拠）。一時的な切替は環境変数 `MAZE_GEDIG_IG_DELTA=before_after` の明示指定時のみ許可し、ログに記録する方針。
+- IG の符号（H の向き）は after_before に固定（Core に準拠）。環境変数/コンフィグによる切替は廃止。
 - 0‑hop 定義の厳密化：実行経路（Q_prev→dir→Q_now）の強制結線はデフォルトで行わない（`timeline_to_graph` 明示時のみ注入）。
 
 ---

@@ -32,7 +32,7 @@ def main():
         "--maze-size", "25", "--max-steps", "60",
         "--linkset-mode", "--norm-base", "link",
         "--output", str(s1), "--step-log", str(t1),
-    ], env={"MAZE_GEDIG_IG_DELTA": "after_before"})
+    ])
     build(s1, t1, h1)
 
     # L3 lite (cached_incr, global)
@@ -65,4 +65,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-

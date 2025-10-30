@@ -27,7 +27,6 @@ os.environ.setdefault("INSIGHTSPIKE_MIN_IMPORT", "1")
 os.environ.setdefault("MAZE_GEDIG_IG_NONNEG", "0")
 # IG 符号規約: 論文の新定義（ΔIG = ΔH + γ·ΔSP）に合わせ、
 # ΔH は after−before（秩序化で負）を既定に固定する。
-os.environ.setdefault("MAZE_GEDIG_IG_DELTA", "after_before")
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 SRC_ROOT = PROJECT_ROOT / "src"
@@ -2942,8 +2941,6 @@ def main() -> None:
             "theta_dg": float(args.theta_dg),
             "action_policy": str(args.action_policy),
             "action_temp": float(args.action_temp),
-            # Record IG/H sign convention (fixed): after_before
-            "ig_delta_mode": "after_before",
             # Also expose whether main L3 lite path was used (query-centric hop0)
             "use_main_l3": bool(getattr(args, 'use_main_l3', False)),
             "sp_cache_mode": str(getattr(args, 'sp_cache_mode', 'core')),

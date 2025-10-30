@@ -115,7 +115,7 @@ class GeDIGCore:
         lambda_weight: float = 1.0,
         ig_mode: str = 'raw',  # 'raw' | 'z' | 'norm'
         ig_norm_strategy: str = 'before',
-        ig_delta_mode: str = 'after_before',  # 'after_before' or 'before_after'
+        ig_delta_mode: str = 'after_before',  # ignored (fixed to 'after_before')
         mu: float = 0.5,
         warmup_steps: int = 10,
         use_refactored_reward: bool = True,

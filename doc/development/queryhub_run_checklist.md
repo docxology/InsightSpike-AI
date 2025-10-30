@@ -5,7 +5,7 @@ This note captures the guardrails to keep query‑hub runs consistent with the p
 Recommended defaults (set by the driver already):
 
 - MAZE_GEDIG_IG_NONNEG=0  (do not clamp IG ≥ 0)
-- MAZE_GEDIG_IG_DELTA=after_before  (ΔH = H_after − H_before; “秩序化で負/正の両方を許容”)
+// IG 符号は after_before 固定（ΔH = H_after − H_before）
 
 Driver improvements in this revision:
 
@@ -44,4 +44,4 @@ Notes:
   Cmax = c_node + |S_link|·c_edge （|S_link|=Top‑Lのリンク本数; |S_link|=0のときは最小1相当で分母ゼロ回避）
   hop0/≥1で同じスキーム（CLI `--norm-base link` が既定）
 - SP gain uses fixed‑before‑pairs when selected, with optional DS reuse.
-- If you need the alternative orientation (ΔH=before−after), export `MAZE_GEDIG_IG_DELTA=before_after` before running.
+// 代替の符号（ΔH=before−after）はサポート対象外（切替ノブは廃止）

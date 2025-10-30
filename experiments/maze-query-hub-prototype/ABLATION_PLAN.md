@@ -31,7 +31,7 @@
 | S2 | あり（Top‑L） | なし（S_link空時はEcandへ） | prev vs after(h) | なし | Fallbackは候補にのみ投入（配線せず） | results/ablations/S2/summary.json | results/ablations/S2/interactive.html |
 
 実行例（共通の推奨フラグ）
-- IG: `MAZE_GEDIG_IG_DELTA=after_before`
+// IG 符号は after_before 固定（切替ノブなし）
 - SP境界: `MAZE_GEDIG_SP_BOUNDARY=trim`
 - λ=0.5, H=15, union, eval-all-hops, linksetモード、k抑制（sp-cand-topk）を統一
 
@@ -284,7 +284,7 @@ python experiments/maze-query-hub-prototype/build_reports.py \
 
 実行例（200 steps, 1 seed）
 ```
-MAZE_GEDIG_IG_DELTA=after_before MAZE_GEDIG_SP_BOUNDARY=trim \
+MAZE_GEDIG_SP_BOUNDARY=trim \
 python experiments/maze-query-hub-prototype/run_experiment_query.py \
   --maze-size 25 --max-steps 200 --seeds 1 \
   --lambda-weight 1.0 --max-hops 15 --decay-factor 0.7 --adaptive-hops \
@@ -310,7 +310,7 @@ python experiments/maze-query-hub-prototype/build_reports.py \
 
 実行例（1seed/120steps, H=15, λ=1, γ=1, τ=0.1, linkset, union, hop_expand=3）
 ```
-MAZE_GEDIG_IG_DELTA=after_before MAZE_GEDIG_SP_BOUNDARY=trim \
+MAZE_GEDIG_SP_BOUNDARY=trim \
 python experiments/maze-query-hub-prototype/run_experiment_query.py \
   --maze-size 25 --max-steps 120 --seeds 1 \
   --lambda-weight 1.0 --max-hops 15 --decay-factor 0.7 --adaptive-hops \
