@@ -152,8 +152,8 @@ metrics = {
 - [x] torch 非依存の GraphBuilder フォールバック（numpy + Data スタブ）
 - [x] 非 query-centric 経路でも metrics に `sp_engine` を明示
 
-未完了/次タスク
-- [ ] cached_incr の逐次適用（相互作用考慮）と簡易→忠実版の切替ノブ整備
+-未完了/次タスク
+- [x] cached_incr の逐次適用（相互作用考慮）を実装（Greedy sequential; budget制御）。切替ノブは今後必要に応じ追加。
 - [ ] candidate_edges の堅牢化拡張（重複/空/無効index/予算境界を網羅するテスト追加）
 - [ ] config ノブの整理と API リファレンス反映（`graph.cached_incr_budget`, 自動候補 `candidate_topk`/`theta_link`）
 - [ ] 図・アーキテクチャ更新（centers/Ecand/norm_spec データフロー、SP scope/boundary）

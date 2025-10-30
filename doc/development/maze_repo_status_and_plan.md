@@ -11,7 +11,8 @@
   - between-graphs ΔSP 推定と固定ペア再利用
 - L3 SPエンジン切替（`core`/`cached`/`cached_incr`）
   - 実装: `src/insightspike/implementations/layers/layer3_graph_reasoner.py`
-  - `cached_incr` は候補エッジ単位の貪欲採用（予算制御: `graph.cached_incr_budget` または ENV `INSIGHTSPIKE_SP_BUDGET`）
+  - `cached_incr` は候補エッジ単位の貪欲・逐次採用（sequential、相互作用考慮）
+    - 予算制御: `graph.cached_incr_budget` または ENV `INSIGHTSPIKE_SP_BUDGET`
   - 候補が無い場合は自動で `cached` にフォールバック
   - 追加: 候補未提供時は L3 内で `graph.x` と `centers` から自動提案（Top‑K/θ_link）
 - NormSpec（ノルム仕様）の受け渡し
@@ -28,8 +29,8 @@
 - candidate_edges 自動提案のパラメータ最適化
   - `centers`/`top_k`/`theta_link` の既定値の調整と config 露出
   - 重複/無効エッジ、空集合時の堅牢化（ログ・メトリクス）
-- `cached_incr` の逐次適用（相互作用ありの厳密化）を段階導入
-  - 現行は「基底SP + 上位Δの和」の簡易近似 → 逐次 `la` 状態更新型に拡張（maze と整合）
+- `cached_incr` 逐次適用の最適化（計算効率の改善）
+  - 現状は greedy sequential（各候補を一時追加→評価）。pair_samples/候補数/予算に応じた高速化（SSSP再利用）
 - 追加テスト
   - 小規模グラフで `core` vs `cached_incr` の順位相関/劣化しないことの保証
   - 空/重複/無効候補、budget > |Ecand| 等のエッジケース
@@ -99,4 +100,3 @@ git push origin main --force
   - A: `graph.sp_engine: cached_incr` を指定。`candidate_edges` が無い場合でも L3 が `graph.x` と `centers` から自動提案（Top‑K/θ_link）。
 - Q: NormSpec の統一と受け渡しは？
   - A: `NormalizedConfig` の `graph.norm_spec` を ExplorationLoop から `context['norm_spec']` に渡し、L3 metrics にエコー。Layer 間で一貫した半径/閾値を担保。
-
