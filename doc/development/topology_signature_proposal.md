@@ -1,6 +1,6 @@
 # トポロジ署名（Topology Signature）による SP 前処理再利用 — 提案（保留）
 
-Status: Proposed (on hold) / Owner: QH / Date: 2025‑10‑29
+Status: Phased (Phase 0 shipped; Phase 1 planned; topo_v1 on hold) / Owner: QH / Date: 2025‑10‑30
 
 ## 背景と目的
 
@@ -8,7 +8,29 @@ Status: Proposed (on hold) / Owner: QH / Date: 2025‑10‑29
 - 現行の DS 再利用（厳格署名: ノード/エッジ/anchors/eff_hop/scope/boundary を完全一致）は“正しさ優先”で安全だが、跨ステップで一致しづらい（迷路のように窓が滑っていく場合）。
 - トポロジ（同型）ベースの署名で“座標や絶対IDに依存しない”指紋を作れば、跨ステップ/跨ランでも固定ペア＋Lb を再利用できる可能性がある。
 
-本提案は、正しさを後退させない範囲で「トポロジ署名（topo_v1）」を追加し、A/B 評価で効果を測る計画である。なお、迷路はほぼ直線グラフでパターンが少なく、効果判定が難しいため“保留”とする（複雑なグラフで SP 問題に直面した時に再検討）。
+本提案は、正しさを後退させない範囲で「厳格署名（strict）」を既定として運用しつつ、“計算パス最適化”→“署名強化（topo_v1）”の段階導入を行う。迷路/RAGの運用実験で必要性が顕在化した時点で topo_v1 をA/B導入する。
+
+## フェーズ構成（MVP→強化）
+
+- Phase 0（現行・出荷済み）: 厳格署名 + 計算パス最適化（cached/cached_incr）
+  - DistanceCache.signature = hash(nodes,edges)+meta(|A|,hop,scope,boundary)
+  - 固定ペア再利用（Lb/pairs）+ between-graphs ΔSP
+  - cached_incr（逐次適用 Greedy）+ batched SSSP 再利用
+  - ノブ（ENV/Config）: SP_ENGINE, SP_PAIR_SAMPLES, SP_BUDGET, CAND_TOPK, ほか
+  - 自動候補（centers + graph.x）フォールバック、NormSpec 伝播/エコー
+
+- Phase 1（計算パスの追加最適化・必要に応じ導入）
+  - candidate pruning: 事前スコア上位Rのみ厳密評価（`candidate_prune_topk`）
+  - endpoint SSSP window: 端点SSSPの再計算をMステップごとに（`endpoint_sssp_window`）
+  - 早期打ち切り ε（`sp_gain_epsilon`）
+  - pair_samples と sources 上限（`sp_pair_samples`, `sp_sources_cap`）
+  - sources 近傍バイアス（`sp_sources_focus`: off|near|strict）
+  - 導入は実験で効果が出たものから段階的に採用（既定は保守的）
+
+- Phase 2（topo_v1: 署名強化; A/Bで必要時に導入）
+  - カノニカル化（層分け→1-WL）で座標非依存の署名を構成
+  - `scheme=strict|topo_v1` をDSに併記し、厳格署名ミス時に topo_v1 を試行
+  - 実グラフのSSSPは必要（端点仮想短絡の評価は温存）
 
 ## 要件（非機能含む）
 
@@ -91,4 +113,3 @@ Status: Proposed (on hold) / Owner: QH / Date: 2025‑10‑29
 
 - 迷路はほぼ直線グラフでパターンが少なく、判定が難しい。複雑な形状で SP 問題（特に円環の早期検出）が必要になったタイミングで再検討する。
 - 現時点では「正しく計算すること」を第一目的に、leaf スキップや厳格署名 DS（既存）、円環時限定検証の最適化を優先する。
-
