@@ -132,3 +132,52 @@ class DistanceCache:
         gain = max(0.0, pairs.lb_avg - la_avg)
         return max(0.0, min(1.0, gain / pairs.lb_avg))
 
+    def estimate_sp_between_graphs(
+        self,
+        *,
+        sig: str,
+        g_before: nx.Graph,
+        g_after: nx.Graph,
+    ) -> float:
+        """Estimate ΔSP_rel between two graphs using fixed-before pairs.
+
+        - Uses (up to) `pair_samples` shortest-path pairs sampled on g_before
+        - Computes average shortest-path on g_after for the same pair set using SSSP per source
+        - Returns relative signed gain: (Lb - La) / Lb, clamped to [0, 1]
+        """
+        pairs = self.get_fixed_pairs(sig, g_before)
+        if not pairs.pairs or pairs.lb_avg <= 0.0:
+            return 0.0
+
+        # Pre-compute SSSP on after-graph for unique sources in pairs
+        # Reuse the same signature to hit the SSSP cache when available
+        sources: List[object] = []
+        seen_src = set()
+        for a, b, _ in pairs.pairs:
+            if a not in seen_src:
+                sources.append(a)
+                seen_src.add(a)
+        sssp_after: Dict[object, Dict[object, int]] = {}
+        for a in sources:
+            try:
+                sssp_after[a] = dict(nx.single_source_shortest_path_length(g_after, a))
+            except Exception:
+                sssp_after[a] = {}
+
+        total_la = 0.0
+        count = 0
+        for a, b, dab in pairs.pairs:
+            dmap = sssp_after.get(a, {})
+            dafter = dmap.get(b)
+            if dafter is None:
+                # If disconnected, assume no improvement over before distance
+                la = float(dab)
+            else:
+                la = float(dafter)
+            total_la += la
+            count += 1
+        if count == 0:
+            return 0.0
+        la_avg = total_la / count
+        gain = max(0.0, pairs.lb_avg - la_avg)
+        return max(0.0, min(1.0, gain / pairs.lb_avg))

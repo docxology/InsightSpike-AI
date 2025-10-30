@@ -715,8 +715,11 @@ class L3GraphReasoner(L3GraphReasonerInterface):
                     # Documents map 1:1 to current_graph node indices (0..n-1)
                     centers = list(range(min(max(1, query_centers_topk), int(getattr(current_graph, 'num_nodes', 0)))))
                     from ...algorithms.gedig_core import GeDIGCore
+                    # Optional SP engine: 'core' (default) or 'cached'
+                    sp_engine = str(os.getenv('INSIGHTSPIKE_SP_ENGINE', str(_cfg_attr(self.config, 'graph.sp_engine', 'core') or 'core'))).lower()
+                    use_cached_sp = (sp_engine == 'cached')
                     core = GeDIGCore(
-                        enable_multihop=(query_hops > 0),
+                        enable_multihop=(query_hops > 0) and not use_cached_sp,
                         max_hops=max(0, query_hops),
                         use_local_normalization=use_local_norm,
                     )
@@ -738,27 +741,85 @@ class L3GraphReasoner(L3GraphReasonerInterface):
                         else:
                             k_star = None
 
-                    res = core.calculate(
-                        g_prev=previous_graph,
-                        g_now=current_graph,
-                        focal_nodes=set(centers),
-                        k_star=k_star,
-                        l1_candidates=l1_candidates,
-                        ig_fixed_den=ig_fixed_den,
-                    )
-                    hop0 = res.hop_results.get(0) if res.hop_results else None
-                    metrics = {
-                        "delta_ged": -float(res.delta_ged_norm),
-                        "delta_ged_norm": float(res.delta_ged_norm),
-                        "delta_ig": float(res.ig_value),
-                        "delta_h": float(res.delta_h_norm),
-                        "delta_sp": float(res.delta_sp_rel),
-                        "g0": float(hop0.gedig if hop0 else res.gedig_value),
-                        "gmin": float(res.gedig_value),
-                        "graph_size_current": int(getattr(current_graph, 'num_nodes', 0)),
-                        "graph_size_previous": int(getattr(previous_graph, 'num_nodes', 0)) if previous_graph is not None else 0,
-                        "candidate_selection": selection_summary,
-                    }
+                    if not use_cached_sp:
+                        # Core (multi-hop) path
+                        res = core.calculate(
+                            g_prev=previous_graph,
+                            g_now=current_graph,
+                            focal_nodes=set(centers),
+                            k_star=k_star,
+                            l1_candidates=l1_candidates,
+                            ig_fixed_den=ig_fixed_den,
+                        )
+                        hop0 = res.hop_results.get(0) if res.hop_results else None
+                        metrics = {
+                            "delta_ged": -float(res.delta_ged_norm),
+                            "delta_ged_norm": float(res.delta_ged_norm),
+                            "delta_ig": float(res.ig_value),
+                            "delta_h": float(res.delta_h_norm),
+                            "delta_sp": float(res.delta_sp_rel),
+                            "g0": float(hop0.gedig if hop0 else res.gedig_value),
+                            "gmin": float(res.gedig_value),
+                            "graph_size_current": int(getattr(current_graph, 'num_nodes', 0)),
+                            "graph_size_previous": int(getattr(previous_graph, 'num_nodes', 0)) if previous_graph is not None else 0,
+                            "candidate_selection": selection_summary,
+                        }
+                    else:
+                        # Cached (approximate ΔSP) path
+                        # Step1: hop0 evaluate without SP gain
+                        res0 = core.calculate(
+                            g_prev=previous_graph,
+                            g_now=current_graph,
+                            focal_nodes=set(centers),
+                            k_star=k_star,
+                            l1_candidates=l1_candidates,
+                            ig_fixed_den=ig_fixed_den,
+                        )
+                        from ...metrics.pyg_compatible_metrics import pyg_to_networkx
+                        from ...algorithms.sp_distcache import DistanceCache
+                        nx_prev = pyg_to_networkx(previous_graph)
+                        nx_curr = pyg_to_networkx(current_graph)
+                        cache = DistanceCache(mode="cached", pair_samples=int(os.getenv("INSIGHTSPIKE_SP_PAIR_SAMPLES", "200")))
+                        scope = str(_cfg_attr(self.config, 'graph.sp_scope_mode', 'auto') or 'auto')
+                        boundary = str(_cfg_attr(self.config, 'graph.sp_boundary_mode', 'trim') or 'trim')
+                        sig = cache.signature(nx_prev, set(centers), max(0, query_hops), scope, boundary)
+                        sp_rel = cache.estimate_sp_between_graphs(sig=sig, g_before=nx_prev, g_after=nx_curr)
+                        # Combine IG with ΔSP using lambda/sp_beta from config/env
+                        def _getf(obj, path, default):
+                            try:
+                                cur = obj
+                                for p in path.split('.'):
+                                    if cur is None:
+                                        return default
+                                    if hasattr(cur, p):
+                                        cur = getattr(cur, p)
+                                    elif isinstance(cur, dict) and p in cur:
+                                        cur = cur[p]
+                                    else:
+                                        return default
+                                return cur
+                            except Exception:
+                                return default
+                        lambda_w = float(os.getenv('INSIGHTSPIKE_GEDIG_LAMBDA', str(_getf(self.config, 'graph.lambda_weight', 1.0))))
+                        sp_beta = float(os.getenv('INSIGHTSPIKE_SP_BETA', str(_getf(self.config, 'graph.sp_beta', 0.2))))
+                        delta_ged_norm = float(getattr(res0, 'delta_ged_norm', 0.0))
+                        delta_h_norm = float(getattr(res0, 'delta_h_norm', 0.0))
+                        ig_combined = delta_h_norm + sp_beta * sp_rel
+                        g_cached = delta_ged_norm - lambda_w * ig_combined
+                        g0_val = float(res0.hop_results.get(0).gedig) if res0.hop_results and 0 in res0.hop_results else float(res0.gedig_value)
+                        metrics = {
+                            "delta_ged": -delta_ged_norm,
+                            "delta_ged_norm": delta_ged_norm,
+                            "delta_ig": ig_combined,
+                            "delta_h": delta_h_norm,
+                            "delta_sp": sp_rel,
+                            "g0": g0_val,   # hop0 (without multi-hop SP)
+                            "gmin": g_cached,  # approximate best
+                            "graph_size_current": int(getattr(current_graph, 'num_nodes', 0)),
+                            "graph_size_previous": int(getattr(previous_graph, 'num_nodes', 0)) if previous_graph is not None else 0,
+                            "candidate_selection": selection_summary,
+                            "sp_engine": 'cached',
+                        }
                     logger.info(
                         f"[query-centric] Metrics - GED: {metrics['delta_ged']:.3f}, IG: {metrics['delta_ig']:.3f} (centers={len(centers)}, hops={query_hops})"
                     )
