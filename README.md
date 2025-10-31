@@ -1,5 +1,8 @@
 # InsightSpike-AI — geDIG: 統一ゲージで洞察を測る
 
+[![CI (Lite)](https://github.com/miyauchikazuyoshi/InsightSpike-AI/actions/workflows/ci-lite.yml/badge.svg)](https://github.com/miyauchikazuyoshi/InsightSpike-AI/actions/workflows/ci-lite.yml)
+[![CI (Unit)](https://github.com/miyauchikazuyoshi/InsightSpike-AI/actions/workflows/ci-unit.yml/badge.svg)](https://github.com/miyauchikazuyoshi/InsightSpike-AI/actions/workflows/ci-unit.yml)
+
 世界初の「Aha!モーメント」検出AI。知識グラフ上の構造コストと情報利得を単一ゲージで評価し、洞察（スパイク）を検出・制御する。
 
 F = ΔEPC_norm − λ·ΔIG  （ΔIG = ΔH_norm + γ·ΔSP_rel）
@@ -60,4 +63,3 @@ print(getattr(res, 'response', res.get('response', 'No response')))
 
 - License: Apache-2.0
 - 連絡先: miyauchikazuyoshi@gmail.com （コラボ歓迎：数理/実装/検証）
-
