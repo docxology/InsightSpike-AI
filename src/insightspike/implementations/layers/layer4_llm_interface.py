@@ -295,7 +295,7 @@ class L4LLMInterface:
             # First try ProviderFactory path for supported providers
             try:
                 provider_name = self._provider_name
-                if provider_name in {"openai", "anthropic", "local", "mock"}:
+                if provider_name in {"openai", "anthropic", "local", "mock", "ollama"}:
                     from ...providers.provider_factory import ProviderFactory  # lazy import
                     cfg = {
                         "provider": provider_name,

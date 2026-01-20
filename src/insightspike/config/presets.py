@@ -68,13 +68,14 @@ class ConfigPresets:
         return InsightSpikeConfig(
             environment="experiment",
             llm=LLMConfig(
-                provider="local",
-                model="distilgpt2",
+                provider="ollama",
+                model="ministral-3:3b",
+                api_base="http://localhost:11434/v1",
+                api_key="ollama",
                 temperature=0.7,
-                max_tokens=512,
-                prompt_style="minimal",
-                use_simple_prompt=True,
-                max_context_docs=3,
+                max_tokens=2048,
+                prompt_style="standard",
+                max_context_docs=5,
             ),
             memory=MemoryConfig(
                 episodic_memory_capacity=100,
@@ -153,11 +154,12 @@ class ConfigPresets:
         return InsightSpikeConfig(
             environment="research",
             llm=LLMConfig(
-                provider="anthropic",
-                model="claude-2",
-                temperature=0.5,
+                provider="ollama",
+                model="ministral-3:3b",
+                api_base="http://localhost:11434/v1",
+                api_key="ollama",
+                temperature=0.6,
                 max_tokens=2048,
-                api_key=None,  # Should be set via environment variable
                 prompt_style="detailed",
                 max_context_docs=10,
                 include_metadata=True,
@@ -311,6 +313,131 @@ class ConfigPresets:
         config.processing.enable_insight_search = True
         config.graph.enable_graph_search = True
         return config
+    @staticmethod
+    def ministral() -> InsightSpikeConfig:
+        """Ministral-3B preset - available local model"""
+        return InsightSpikeConfig(
+            environment="experiment",
+            llm=LLMConfig(
+                provider="ollama",
+                model="ministral-3:3b",
+                api_base="http://localhost:11434/v1",
+                api_key="ollama",
+                temperature=0.6,
+                max_tokens=2048,
+                prompt_style="standard",
+                max_context_docs=5,
+            ),
+            memory=MemoryConfig(
+                episodic_memory_capacity=100,
+                max_retrieved_docs=10,
+                similarity_threshold=0.35,
+            ),
+            embedding=EmbeddingConfig(
+                model_name="sentence-transformers/all-MiniLM-L6-v2",
+                dimension=384,
+            ),
+            graph=GraphConfig(
+                spike_ged_threshold=-0.4,
+                spike_ig_threshold=0.25,
+                similarity_threshold=0.35,
+                use_gnn=False,
+                ged_algorithm="advanced",
+                ig_algorithm="advanced",
+            ),
+            monitoring=MonitoringConfig(
+                enabled=True,
+                performance_tracking=False,
+            ),
+            logging=LoggingConfig(
+                level="INFO",
+                file_path="results/logs",
+            ),
+        )
+
+    @staticmethod
+    def gemma() -> InsightSpikeConfig:
+        """Gemma3-4B preset - available local model"""
+        return InsightSpikeConfig(
+            environment="experiment",
+            llm=LLMConfig(
+                provider="ollama",
+                model="gemma3:4b",
+                api_base="http://localhost:11434/v1",
+                api_key="ollama",
+                temperature=0.6,
+                max_tokens=2048,
+                prompt_style="standard",
+                max_context_docs=5,
+            ),
+            memory=MemoryConfig(
+                episodic_memory_capacity=100,
+                max_retrieved_docs=10,
+                similarity_threshold=0.35,
+            ),
+            embedding=EmbeddingConfig(
+                model_name="sentence-transformers/all-MiniLM-L6-v2",
+                dimension=384,
+            ),
+            graph=GraphConfig(
+                spike_ged_threshold=-0.4,
+                spike_ig_threshold=0.25,
+                similarity_threshold=0.35,
+                use_gnn=False,
+                ged_algorithm="advanced",
+                ig_algorithm="advanced",
+            ),
+            monitoring=MonitoringConfig(
+                enabled=True,
+                performance_tracking=False,
+            ),
+            logging=LoggingConfig(
+                level="INFO",
+                file_path="results/logs",
+            ),
+        )
+
+    @staticmethod
+    def glm_flash() -> InsightSpikeConfig:
+        """GLM-4.7-Flash preset - fast, high-performance local model"""
+        return InsightSpikeConfig(
+            environment="experiment",
+            llm=LLMConfig(
+                provider="ollama",
+                model="glm-4.7-flash",  # Explicit model name for Ollama
+                api_base="http://localhost:11434/v1", # Point to local Ollama
+                api_key="ollama", # Required non-empty key
+                temperature=0.6,
+                max_tokens=2048,
+                prompt_style="standard",
+                max_context_docs=5,
+            ),
+            memory=MemoryConfig(
+                episodic_memory_capacity=100,
+                max_retrieved_docs=10,
+                similarity_threshold=0.35,
+            ),
+            embedding=EmbeddingConfig(
+                model_name="sentence-transformers/all-MiniLM-L6-v2",
+                dimension=384,
+            ),
+            graph=GraphConfig(
+                spike_ged_threshold=-0.4,
+                spike_ig_threshold=0.25,
+                similarity_threshold=0.35,
+                use_gnn=False,
+                ged_algorithm="advanced",
+                ig_algorithm="advanced",
+            ),
+            monitoring=MonitoringConfig(
+                enabled=True,
+                performance_tracking=False,
+            ),
+            logging=LoggingConfig(
+                level="INFO",
+                file_path="results/logs",
+            ),
+        )
 
     @staticmethod
     def get_preset(name: str) -> Dict[str, Any]:
@@ -328,6 +455,9 @@ class ConfigPresets:
             "minimal": ConfigPresets.minimal(),
             "graph_enhanced": ConfigPresets.graph_enhanced(),
             "adaptive_learning": ConfigPresets.adaptive_learning(),
+            "glm_flash": ConfigPresets.glm_flash(),
+            "ministral": ConfigPresets.ministral(),
+            "gemma": ConfigPresets.gemma(),
         }
 
         if name not in presets:

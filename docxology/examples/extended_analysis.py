@@ -362,23 +362,27 @@ def main():
     runner = ScriptRunner()
     scripts = runner.list_scripts()
     
+    examples_runner = ScriptRunner(scripts_dir=DOCXOLOGY_ROOT.parent / "examples")
+    examples = examples_runner.list_scripts()
+    all_scripts = scripts + examples
+    
     script_analysis = {
-        'count': len(scripts),
+        'count': len(all_scripts),
         'scripts': [],
         'total_size': 0,
     }
     
-    for script in scripts:
-        info = runner.get_script_info(script.name)
+    for script in all_scripts:
+        info = runner.get_script_info(str(script))
         script_analysis['scripts'].append(info)
         script_analysis['total_size'] += info.get('size', 0)
     
-    console.print(f"  ✓ Scripts found: [green]{len(scripts)}[/green]")
+    console.print(f"  ✓ Scripts found: [green]{len(all_scripts)}[/green]")
     console.print(f"  ✓ Total size: [cyan]{script_analysis['total_size']:,}[/cyan] bytes")
     
     # Show script categories
-    analysis_scripts = [s for s in scripts if 'analyze' in s.name or 'aggregate' in s.name]
-    run_scripts = [s for s in scripts if 'run_' in s.name]
+    analysis_scripts = [s for s in all_scripts if 'analyze' in s.name or 'aggregate' in s.name]
+    run_scripts = [s for s in all_scripts if 'run_' in s.name]
     console.print(f"  ✓ Analysis scripts: [cyan]{len(analysis_scripts)}[/cyan]")
     console.print(f"  ✓ Runner scripts: [cyan]{len(run_scripts)}[/cyan]")
     
@@ -443,7 +447,7 @@ def main():
     summary_table.add_row("Functions", str(stats['by_type'].get('function', 0)))
     summary_table.add_row("Modules Analyzed", str(analysis_data['module_structure']['module_count']))
     summary_table.add_row("Documentation Coverage", f"{analysis_data['documentation']['coverage_percentage']:.1f}%")
-    summary_table.add_row("Scripts Inventoried", str(len(scripts)))
+    summary_table.add_row("Scripts Inventoried", str(len(all_scripts)))
     summary_table.add_row("Figures Generated", str(len(generated_figures)))
     summary_table.add_row("Reports Exported", "5")
     

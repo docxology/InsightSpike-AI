@@ -100,7 +100,29 @@ def main() -> None:
         if len(scripts) > 10:
             console.print(f"\n[dim]... and {len(scripts) - 10} more[/dim]")
     else:
-        console.print("[dim]No scripts found[/dim]")
+        console.print("[dim]No scripts found in scripts/[/dim]")
+    
+    # 5. List available examples
+    console.print("\n[bold blue]Available Examples[/bold blue]\n")
+    
+    examples_runner = ScriptRunner(scripts_dir=DOCXOLOGY_ROOT.parent / "examples")
+    examples = examples_runner.list_scripts()
+    
+    if examples:
+        example_table = Table()
+        example_table.add_column("Example", style="green")
+        example_table.add_column("Size", style="dim")
+        
+        for script in examples[:10]:
+            size = script.stat().st_size
+            example_table.add_row(script.name, f"{size:,} bytes")
+        
+        console.print(example_table)
+        
+        if len(examples) > 10:
+            console.print(f"\n[dim]... and {len(examples) - 10} more[/dim]")
+    else:
+        console.print("[dim]No examples found[/dim]")
     
     console.print("\n[bold green]Discovery complete![/bold green]\n")
 

@@ -30,7 +30,7 @@ class OpenAIProvider:
                 # Dict config
                 self.api_key = config.get("api_key")
                 self.base_url = config.get("api_base")
-                self.model = config.get("model_name", "gpt-3.5-turbo")
+                self.model = config.get("model_name") or config.get("model") or "gpt-3.5-turbo"
                 self.temperature = config.get("temperature", 0.7)
                 self.max_tokens = config.get("max_tokens", 1000)
             else:

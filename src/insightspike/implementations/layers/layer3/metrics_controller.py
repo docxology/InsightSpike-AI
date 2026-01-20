@@ -13,7 +13,7 @@ class MetricsController:
 
     def __init__(self, config: Optional[Any] = None):
         try:
-            from ...algorithms.metrics_selector import MetricsSelector  # type: ignore
+            from insightspike.algorithms.metrics_selector import MetricsSelector  # type: ignore
 
             self._selector = MetricsSelector(config)
             self.delta_ged = self._selector.delta_ged

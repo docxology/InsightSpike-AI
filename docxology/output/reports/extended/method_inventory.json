@@ -1,6 +1,6 @@
 {
-  "timestamp": "2026-01-19T10:41:32.932146",
-  "total": 790,
+  "timestamp": "2026-01-19T20:49:40.834345",
+  "total": 1105,
   "methods": [
     {
       "name": "About",
@@ -39,6 +39,15 @@
       "tags": []
     },
     {
+      "name": "ErrorMonitor",
+      "module": "insightspike",
+      "type": "class",
+      "signature": "(layer_id: str = 'L1_ErrorMonitor', config: Dict[str, Any] = None)",
+      "docstring": "Layer 1 implementation for error monitoring and uncertainty calculation.",
+      "full_name": "insightspike.ErrorMonitor",
+      "tags": []
+    },
+    {
       "name": "GenericInsightSpikeAgent",
       "module": "insightspike",
       "type": "class",
@@ -63,6 +72,15 @@
       "signature": "()",
       "docstring": "Factory for creating InsightSpike agents for different domains",
       "full_name": "insightspike.InsightSpikeAgentFactory",
+      "tags": []
+    },
+    {
+      "name": "L2MemoryManager",
+      "module": "insightspike",
+      "type": "class",
+      "signature": "(config: Union[insightspike.implementations.layers.layer2_memory_manager.MemoryConfig, Dict[str, Any], Any, NoneType] = None)",
+      "docstring": "Layer 2 Memory Manager - Graph-centric episodic memory.",
+      "full_name": "insightspike.L2MemoryManager",
       "tags": []
     },
     {
@@ -120,6 +138,15 @@
       "tags": []
     },
     {
+      "name": "create_agent",
+      "module": "insightspike",
+      "type": "function",
+      "signature": "(provider: 'str' = 'mock', **kwargs) -> 'MainAgent'",
+      "docstring": "Create a ready-to-use InsightSpike agent with minimal configuration.",
+      "full_name": "insightspike.create_agent",
+      "tags": []
+    },
+    {
       "name": "create_configured_maze_agent",
       "module": "insightspike",
       "type": "function",
@@ -153,6 +180,24 @@
       "signature": "() -> insightspike.config.models.InsightSpikeConfig",
       "docstring": "Get current configuration or load defaults",
       "full_name": "insightspike.get_config",
+      "tags": []
+    },
+    {
+      "name": "get_llm_provider",
+      "module": "insightspike",
+      "type": "function",
+      "signature": "(config=None, safe_mode: bool = False, use_cache: bool = True) -> insightspike.implementations.layers.layer4_llm_interface.L4LLMInterface",
+      "docstring": "Get LLM provider instance.",
+      "full_name": "insightspike.get_llm_provider",
+      "tags": []
+    },
+    {
+      "name": "quick_demo",
+      "module": "insightspike",
+      "type": "function",
+      "signature": "()",
+      "docstring": "Run a quick demonstration of InsightSpike capabilities.",
+      "full_name": "insightspike.quick_demo",
       "tags": []
     },
     {
@@ -687,6 +732,1788 @@
       "tags": []
     },
     {
+      "name": "ContentStructureSeparation",
+      "module": "insightspike.algorithms",
+      "type": "class",
+      "signature": "()",
+      "docstring": "Separates content and structural aspects of data for entropy calculation.",
+      "full_name": "insightspike.algorithms.ContentStructureSeparation",
+      "tags": []
+    },
+    {
+      "name": "EntropyCalculator",
+      "module": "insightspike.algorithms",
+      "type": "class",
+      "signature": "(content_method: Union[str, insightspike.algorithms.information_gain.EntropyMethod] = <EntropyMethod.CLUSTERING: 'clustering'>, structure_method: str = 'combined', content_weight: float = 0.6, structure_weight: float = 0.4)",
+      "docstring": "Unified entropy calculator with proper content/structure separation.",
+      "full_name": "insightspike.algorithms.EntropyCalculator",
+      "tags": []
+    },
+    {
+      "name": "EntropyMethod",
+      "module": "insightspike.algorithms",
+      "type": "class",
+      "signature": "(*values)",
+      "docstring": "Methods for calculating entropy.",
+      "full_name": "insightspike.algorithms.EntropyMethod",
+      "tags": []
+    },
+    {
+      "name": "EntropyResult",
+      "module": "insightspike.algorithms",
+      "type": "class",
+      "signature": "(content_entropy: float, structural_entropy: float, combined_entropy: float, content_weight: float, structure_weight: float, method_used: str) -> None",
+      "docstring": "Result of entropy calculation with content/structure separation.",
+      "full_name": "insightspike.algorithms.EntropyResult",
+      "tags": []
+    },
+    {
+      "name": "GEDResult",
+      "module": "insightspike.algorithms",
+      "type": "class",
+      "signature": "(ged_value: float, computation_time: float, optimization_level: insightspike.algorithms.graph_edit_distance.OptimizationLevel, graph1_size: int, graph2_size: int, timeout_occurred: bool = False, approximation_used: bool = False) -> None",
+      "docstring": "Result of GED calculation with metadata.",
+      "full_name": "insightspike.algorithms.GEDResult",
+      "tags": []
+    },
+    {
+      "name": "GraphEditDistance",
+      "module": "insightspike.algorithms",
+      "type": "class",
+      "signature": "(node_cost: float = 1.0, edge_cost: float = 1.0, optimization_level: Union[str, insightspike.algorithms.graph_edit_distance.OptimizationLevel] = <OptimizationLevel.STANDARD: 'standard'>, timeout_seconds: float = 5.0, max_graph_size_exact: int = 50)",
+      "docstring": "Graph Edit Distance calculator for PyTorch Geometric graphs.",
+      "full_name": "insightspike.algorithms.GraphEditDistance",
+      "tags": []
+    },
+    {
+      "name": "IGResult",
+      "module": "insightspike.algorithms",
+      "type": "class",
+      "signature": "(ig_value: float, entropy_before: float, entropy_after: float, computation_time: float, method: insightspike.algorithms.information_gain.EntropyMethod, sample_count: int, feature_count: int, approximation_used: bool = False) -> None",
+      "docstring": "Result of Information Gain calculation with metadata.",
+      "full_name": "insightspike.algorithms.IGResult",
+      "tags": []
+    },
+    {
+      "name": "InformationGain",
+      "module": "insightspike.algorithms",
+      "type": "class",
+      "signature": "(method: Union[str, insightspike.algorithms.information_gain.EntropyMethod] = <EntropyMethod.CLUSTERING: 'clustering'>, k_clusters: int = 8, min_samples: int = 2, random_state: int = 42)",
+      "docstring": "Information Gain calculator for measuring learning progress.",
+      "full_name": "insightspike.algorithms.InformationGain",
+      "tags": []
+    },
+    {
+      "name": "OptimizationLevel",
+      "module": "insightspike.algorithms",
+      "type": "class",
+      "signature": "(*values)",
+      "docstring": "Optimization levels for GED calculation.",
+      "full_name": "insightspike.algorithms.OptimizationLevel",
+      "tags": []
+    },
+    {
+      "name": "clustering_coefficient_entropy",
+      "module": "insightspike.algorithms",
+      "type": "function",
+      "signature": "(graph: Any) -> float",
+      "docstring": "Calculate entropy based on clustering coefficient distribution.",
+      "full_name": "insightspike.algorithms.clustering_coefficient_entropy",
+      "tags": []
+    },
+    {
+      "name": "compute_delta_ged",
+      "module": "insightspike.algorithms",
+      "type": "function",
+      "signature": "(graph_before: torch_geometric.data.data.Data, graph_after: torch_geometric.data.data.Data, reference_graph: Optional[torch_geometric.data.data.Data] = None, **kwargs) -> float",
+      "docstring": "Compute \u0394GED for insight detection.",
+      "full_name": "insightspike.algorithms.compute_delta_ged",
+      "tags": []
+    },
+    {
+      "name": "compute_delta_ig",
+      "module": "insightspike.algorithms",
+      "type": "function",
+      "signature": "(state_before: Any, state_after: Any, method: str = 'clustering', **kwargs) -> float",
+      "docstring": "Compute \u0394IG for insight detection.",
+      "full_name": "insightspike.algorithms.compute_delta_ig",
+      "tags": []
+    },
+    {
+      "name": "compute_graph_edit_distance",
+      "module": "insightspike.algorithms",
+      "type": "function",
+      "signature": "(graph1: torch_geometric.data.data.Data, graph2: torch_geometric.data.data.Data, **kwargs) -> float",
+      "docstring": "Compute Graph Edit Distance between two PyG graphs.",
+      "full_name": "insightspike.algorithms.compute_graph_edit_distance",
+      "tags": []
+    },
+    {
+      "name": "compute_information_gain",
+      "module": "insightspike.algorithms",
+      "type": "function",
+      "signature": "(data_before: Any, data_after: Any, method: str = 'clustering', **kwargs) -> float",
+      "docstring": "Compute Information Gain between two data states.",
+      "full_name": "insightspike.algorithms.compute_information_gain",
+      "tags": []
+    },
+    {
+      "name": "compute_shannon_entropy",
+      "module": "insightspike.algorithms",
+      "type": "function",
+      "signature": "(data: Any) -> float",
+      "docstring": "Compute Shannon entropy for data.",
+      "full_name": "insightspike.algorithms.compute_shannon_entropy",
+      "tags": []
+    },
+    {
+      "name": "create_default_ged_calculator",
+      "module": "insightspike.algorithms",
+      "type": "function",
+      "signature": "(**kwargs) -> 'GraphEditDistance'",
+      "docstring": "Create a GED calculator with recommended default settings.",
+      "full_name": "insightspike.algorithms.create_default_ged_calculator",
+      "tags": []
+    },
+    {
+      "name": "create_default_ig_calculator",
+      "module": "insightspike.algorithms",
+      "type": "function",
+      "signature": "(**kwargs) -> 'InformationGain'",
+      "docstring": "Create an IG calculator with recommended default settings.",
+      "full_name": "insightspike.algorithms.create_default_ig_calculator",
+      "tags": []
+    },
+    {
+      "name": "degree_distribution_entropy",
+      "module": "insightspike.algorithms",
+      "type": "function",
+      "signature": "(graph: Any) -> float",
+      "docstring": "Calculate entropy of the degree distribution.",
+      "full_name": "insightspike.algorithms.degree_distribution_entropy",
+      "tags": []
+    },
+    {
+      "name": "get_algorithm_info",
+      "module": "insightspike.algorithms",
+      "type": "function",
+      "signature": "() -> 'dict'",
+      "docstring": "Get comprehensive information about available algorithms.",
+      "full_name": "insightspike.algorithms.get_algorithm_info",
+      "tags": []
+    },
+    {
+      "name": "path_length_entropy",
+      "module": "insightspike.algorithms",
+      "type": "function",
+      "signature": "(graph: Any, sample_size: Optional[int] = 100) -> float",
+      "docstring": "Calculate entropy based on shortest path length distribution.",
+      "full_name": "insightspike.algorithms.path_length_entropy",
+      "tags": []
+    },
+    {
+      "name": "structural_entropy",
+      "module": "insightspike.algorithms",
+      "type": "function",
+      "signature": "(graph: Any, weights: Optional[Dict[str, float]] = None) -> Dict[str, float]",
+      "docstring": "Calculate multiple structural entropy measures.",
+      "full_name": "insightspike.algorithms.structural_entropy",
+      "tags": []
+    },
+    {
+      "name": "von_neumann_entropy",
+      "module": "insightspike.algorithms",
+      "type": "function",
+      "signature": "(graph: Any, normalized: bool = True) -> float",
+      "docstring": "Calculate Von Neumann entropy of the graph.",
+      "full_name": "insightspike.algorithms.von_neumann_entropy",
+      "tags": []
+    },
+    {
+      "name": "entropy_ig",
+      "module": "insightspike.algorithms.core",
+      "type": "function",
+      "signature": "(graph: 'nx.Graph', features_before: 'np.ndarray', features_after: 'np.ndarray', *, smoothing: 'float' = 1e-10, min_nodes: 'int' = 2, epsilon: 'float' = 0.001, norm_strategy: 'str' = 'before', extra_vectors: 'Optional[Sequence[Sequence[float]]]' = None, fixed_den: 'Optional[float]' = None, k_star: 'Optional[int]' = None, min_candidates: 'int' = 2, delta_mode: 'str' = 'after_before') -> 'Dict[str, float]'",
+      "docstring": "Compute IG as reduction in mean local entropy, normalised by log(candidate_count).",
+      "full_name": "insightspike.algorithms.core.entropy_ig",
+      "tags": []
+    },
+    {
+      "name": "graph_efficiency",
+      "module": "insightspike.algorithms.core",
+      "type": "function",
+      "signature": "(g: 'nx.Graph') -> 'float'",
+      "docstring": "",
+      "full_name": "insightspike.algorithms.core.graph_efficiency",
+      "tags": []
+    },
+    {
+      "name": "local_entropies",
+      "module": "insightspike.algorithms.core",
+      "type": "function",
+      "signature": "(graph: 'nx.Graph', features: 'np.ndarray', smoothing: 'float' = 1e-10) -> 'np.ndarray'",
+      "docstring": "",
+      "full_name": "insightspike.algorithms.core.local_entropies",
+      "tags": []
+    },
+    {
+      "name": "normalized_ged",
+      "module": "insightspike.algorithms.core",
+      "type": "function",
+      "signature": "(g1: 'nx.Graph', g2: 'nx.Graph', *, node_cost: 'float' = 1.0, edge_cost: 'float' = 1.0, normalization: 'str' = 'sum', efficiency_weight: 'float' = 0.3, enable_spectral: 'bool' = False, spectral_weight: 'float' = 0.3, norm_override: 'float | None' = None) -> 'Dict[str, float]'",
+      "docstring": "Compute normalized GED and structural improvement.",
+      "full_name": "insightspike.algorithms.core.normalized_ged",
+      "tags": []
+    },
+    {
+      "name": "spectral_score",
+      "module": "insightspike.algorithms.core",
+      "type": "function",
+      "signature": "(g: 'nx.Graph') -> 'float'",
+      "docstring": "",
+      "full_name": "insightspike.algorithms.core.spectral_score",
+      "tags": []
+    },
+    {
+      "name": "entropy_ig",
+      "module": "insightspike.algorithms.core.metrics",
+      "type": "function",
+      "signature": "(graph: 'nx.Graph', features_before: 'np.ndarray', features_after: 'np.ndarray', *, smoothing: 'float' = 1e-10, min_nodes: 'int' = 2, epsilon: 'float' = 0.001, norm_strategy: 'str' = 'before', extra_vectors: 'Optional[Sequence[Sequence[float]]]' = None, fixed_den: 'Optional[float]' = None, k_star: 'Optional[int]' = None, min_candidates: 'int' = 2, delta_mode: 'str' = 'after_before') -> 'Dict[str, float]'",
+      "docstring": "Compute IG as reduction in mean local entropy, normalised by log(candidate_count).",
+      "full_name": "insightspike.algorithms.core.metrics.entropy_ig",
+      "tags": []
+    },
+    {
+      "name": "graph_efficiency",
+      "module": "insightspike.algorithms.core.metrics",
+      "type": "function",
+      "signature": "(g: 'nx.Graph') -> 'float'",
+      "docstring": "",
+      "full_name": "insightspike.algorithms.core.metrics.graph_efficiency",
+      "tags": []
+    },
+    {
+      "name": "local_entropies",
+      "module": "insightspike.algorithms.core.metrics",
+      "type": "function",
+      "signature": "(graph: 'nx.Graph', features: 'np.ndarray', smoothing: 'float' = 1e-10) -> 'np.ndarray'",
+      "docstring": "",
+      "full_name": "insightspike.algorithms.core.metrics.local_entropies",
+      "tags": []
+    },
+    {
+      "name": "normalized_ged",
+      "module": "insightspike.algorithms.core.metrics",
+      "type": "function",
+      "signature": "(g1: 'nx.Graph', g2: 'nx.Graph', *, node_cost: 'float' = 1.0, edge_cost: 'float' = 1.0, normalization: 'str' = 'sum', efficiency_weight: 'float' = 0.3, enable_spectral: 'bool' = False, spectral_weight: 'float' = 0.3, norm_override: 'float | None' = None) -> 'Dict[str, float]'",
+      "docstring": "Compute normalized GED and structural improvement.",
+      "full_name": "insightspike.algorithms.core.metrics.normalized_ged",
+      "tags": []
+    },
+    {
+      "name": "spectral_score",
+      "module": "insightspike.algorithms.core.metrics",
+      "type": "function",
+      "signature": "(g: 'nx.Graph') -> 'float'",
+      "docstring": "",
+      "full_name": "insightspike.algorithms.core.metrics.spectral_score",
+      "tags": []
+    },
+    {
+      "name": "ContentStructureSeparation",
+      "module": "insightspike.algorithms.entropy_calculator",
+      "type": "class",
+      "signature": "()",
+      "docstring": "Separates content and structural aspects of data for entropy calculation.",
+      "full_name": "insightspike.algorithms.entropy_calculator.ContentStructureSeparation",
+      "tags": []
+    },
+    {
+      "name": "EntropyCalculator",
+      "module": "insightspike.algorithms.entropy_calculator",
+      "type": "class",
+      "signature": "(content_method: Union[str, insightspike.algorithms.information_gain.EntropyMethod] = <EntropyMethod.CLUSTERING: 'clustering'>, structure_method: str = 'combined', content_weight: float = 0.6, structure_weight: float = 0.4)",
+      "docstring": "Unified entropy calculator with proper content/structure separation.",
+      "full_name": "insightspike.algorithms.entropy_calculator.EntropyCalculator",
+      "tags": []
+    },
+    {
+      "name": "EntropyMethod",
+      "module": "insightspike.algorithms.entropy_calculator",
+      "type": "class",
+      "signature": "(*values)",
+      "docstring": "Methods for calculating entropy.",
+      "full_name": "insightspike.algorithms.entropy_calculator.EntropyMethod",
+      "tags": []
+    },
+    {
+      "name": "EntropyResult",
+      "module": "insightspike.algorithms.entropy_calculator",
+      "type": "class",
+      "signature": "(content_entropy: float, structural_entropy: float, combined_entropy: float, content_weight: float, structure_weight: float, method_used: str) -> None",
+      "docstring": "Result of entropy calculation with content/structure separation.",
+      "full_name": "insightspike.algorithms.entropy_calculator.EntropyResult",
+      "tags": []
+    },
+    {
+      "name": "InformationGain",
+      "module": "insightspike.algorithms.entropy_calculator",
+      "type": "class",
+      "signature": "(method: Union[str, insightspike.algorithms.information_gain.EntropyMethod] = <EntropyMethod.CLUSTERING: 'clustering'>, k_clusters: int = 8, min_samples: int = 2, random_state: int = 42)",
+      "docstring": "Information Gain calculator for measuring learning progress.",
+      "full_name": "insightspike.algorithms.entropy_calculator.InformationGain",
+      "tags": []
+    },
+    {
+      "name": "calc_structural_entropy",
+      "module": "insightspike.algorithms.entropy_calculator",
+      "type": "function",
+      "signature": "(graph: Any, weights: Optional[Dict[str, float]] = None) -> Dict[str, float]",
+      "docstring": "Calculate multiple structural entropy measures.",
+      "full_name": "insightspike.algorithms.entropy_calculator.calc_structural_entropy",
+      "tags": []
+    },
+    {
+      "name": "clustering_coefficient_entropy",
+      "module": "insightspike.algorithms.entropy_calculator",
+      "type": "function",
+      "signature": "(graph: Any) -> float",
+      "docstring": "Calculate entropy based on clustering coefficient distribution.",
+      "full_name": "insightspike.algorithms.entropy_calculator.clustering_coefficient_entropy",
+      "tags": []
+    },
+    {
+      "name": "degree_distribution_entropy",
+      "module": "insightspike.algorithms.entropy_calculator",
+      "type": "function",
+      "signature": "(graph: Any) -> float",
+      "docstring": "Calculate entropy of the degree distribution.",
+      "full_name": "insightspike.algorithms.entropy_calculator.degree_distribution_entropy",
+      "tags": []
+    },
+    {
+      "name": "von_neumann_entropy",
+      "module": "insightspike.algorithms.entropy_calculator",
+      "type": "function",
+      "signature": "(graph: Any, normalized: bool = True) -> float",
+      "docstring": "Calculate Von Neumann entropy of the graph.",
+      "full_name": "insightspike.algorithms.entropy_calculator.von_neumann_entropy",
+      "tags": []
+    },
+    {
+      "name": "GateDecision",
+      "module": "insightspike.algorithms.gating",
+      "type": "class",
+      "signature": "(g0: 'float', gmin: 'float', ag: 'bool', dg: 'bool', b_value: 'float') -> None",
+      "docstring": "GateDecision(g0: 'float', gmin: 'float', ag: 'bool', dg: 'bool', b_value: 'float')",
+      "full_name": "insightspike.algorithms.gating.GateDecision",
+      "tags": []
+    },
+    {
+      "name": "decide_gates",
+      "module": "insightspike.algorithms.gating",
+      "type": "function",
+      "signature": "(g0: 'float', gmin: 'float', theta_ag: 'float', theta_dg: 'float') -> 'GateDecision'",
+      "docstring": "",
+      "full_name": "insightspike.algorithms.gating.decide_gates",
+      "tags": []
+    },
+    {
+      "name": "create_csv_writer",
+      "module": "insightspike.algorithms.gedig.ab_writer_helper",
+      "type": "function",
+      "signature": "(path: 'str | None' = None) -> 'Tuple[csv.writer, IO[str]]'",
+      "docstring": "Create a CSV writer for A/B logs.",
+      "full_name": "insightspike.algorithms.gedig.ab_writer_helper.create_csv_writer",
+      "tags": []
+    },
+    {
+      "name": "TwoThresholdCandidateSelector",
+      "module": "insightspike.algorithms.gedig.selector",
+      "type": "class",
+      "signature": "(theta_cand: 'float', theta_link: 'float', k_cap: 'int', *, top_m: 'Optional[int]' = None, score_key: 'str' = 'similarity', radius_cand: 'Optional[float]' = None, radius_link: 'Optional[float]' = None, higher_is_better: 'bool' = True, prefilter_fn: 'Optional[Callable[[Iterable[Dict[str, Any]]], Iterable[Dict[str, Any]]]]' = None) -> 'None'",
+      "docstring": "Selects candidates using \u03b8_cand and \u03b8_link thresholds.",
+      "full_name": "insightspike.algorithms.gedig.selector.TwoThresholdCandidateSelector",
+      "tags": []
+    },
+    {
+      "name": "TwoThresholdSelection",
+      "module": "insightspike.algorithms.gedig.selector",
+      "type": "class",
+      "signature": "(candidates: 'List[Dict[str, Any]]', links: 'List[Dict[str, Any]]', forced_links: 'List[Dict[str, Any]]', k_star: 'int', theta_cand: 'float', theta_link: 'float', k_cap: 'int', top_m: 'Optional[int]' = None) -> None",
+      "docstring": "Result container for two-threshold candidate selection.",
+      "full_name": "insightspike.algorithms.gedig.selector.TwoThresholdSelection",
+      "tags": []
+    },
+    {
+      "name": "compute_gedig",
+      "module": "insightspike.algorithms.gedig.selector",
+      "type": "function",
+      "signature": "(G_prev: 'Any', G_curr: 'Any', *, mode: 'Optional[str]' = None, variant: 'Optional[str]' = None) -> 'Dict[str, Any]'",
+      "docstring": "Canonical geDIG entry.",
+      "full_name": "insightspike.algorithms.gedig.selector.compute_gedig",
+      "tags": []
+    },
+    {
+      "name": "GeDIGABLogger",
+      "module": "insightspike.algorithms.gedig_ab_logger",
+      "type": "class",
+      "signature": "(window: 'int' = 100, threshold: 'float' = 0.85, min_pairs: 'int' = 30, flush_every: 'int' = 50) -> 'None'",
+      "docstring": "",
+      "full_name": "insightspike.algorithms.gedig_ab_logger.GeDIGABLogger",
+      "tags": []
+    },
+    {
+      "name": "GeDIGResult",
+      "module": "insightspike.algorithms.gedig_ab_logger",
+      "type": "class",
+      "signature": "(mode: 'str', gedig: 'float', ged: 'Optional[float]', ig: 'Optional[float]') -> None",
+      "docstring": "GeDIGResult(mode: 'str', gedig: 'float', ged: 'Optional[float]', ig: 'Optional[float]')",
+      "full_name": "insightspike.algorithms.gedig_ab_logger.GeDIGResult",
+      "tags": []
+    },
+    {
+      "name": "DivergenceStats",
+      "module": "insightspike.algorithms.gedig_analysis",
+      "type": "class",
+      "signature": "(count: 'int', mean_delta: 'float', max_delta: 'float', mean_legacy: 'float', mean_ref: 'float', pct_over_threshold: 'float', threshold: 'float') -> None",
+      "docstring": "DivergenceStats(count: 'int', mean_delta: 'float', max_delta: 'float', mean_legacy: 'float', mean_ref: 'float', pct_over_threshold: 'float', threshold: 'float')",
+      "full_name": "insightspike.algorithms.gedig_analysis.DivergenceStats",
+      "tags": []
+    },
+    {
+      "name": "analyze_divergence",
+      "module": "insightspike.algorithms.gedig_analysis",
+      "type": "function",
+      "signature": "(csv_path: 'str', threshold: 'float' = 0.3) -> 'DivergenceStats'",
+      "docstring": "Analyze a divergence CSV produced by dual_evaluate.",
+      "full_name": "insightspike.algorithms.gedig_analysis.analyze_divergence",
+      "tags": []
+    },
+    {
+      "name": "GeDIGCalculator",
+      "module": "insightspike.algorithms.gedig_calculator",
+      "type": "class",
+      "signature": "(config=None)",
+      "docstring": "Unified geDIG calculator with configuration-based behavior.",
+      "full_name": "insightspike.algorithms.gedig_calculator.GeDIGCalculator",
+      "tags": []
+    },
+    {
+      "name": "GeDIGCore",
+      "module": "insightspike.algorithms.gedig_calculator",
+      "type": "class",
+      "signature": "(node_cost: 'float' = 1.0, edge_cost: 'float' = 1.0, normalization: 'str' = 'sum', efficiency_weight: 'float' = 0.3, min_nodes: 'int' = 2, smoothing: 'float' = 1e-10, enable_multihop: 'bool' = False, max_hops: 'int' = 3, decay_factor: 'float' = 0.7, adaptive_hops: 'bool' = True, spike_threshold: 'float' = -0.5, enable_spectral: 'bool' = False, spectral_weight: 'float' = 0.3, lambda_weight: 'float' = 1.0, ig_mode: 'str' = 'raw', ig_norm_strategy: 'str' = 'before', ig_delta_mode: 'str' = 'after_before', entropy_tau: 'float' = 1.0, mu: 'float' = 0.5, warmup_steps: 'int' = 10, use_refactored_reward: 'bool' = True, use_legacy_formula: 'bool' = False, spike_detection_mode: 'str | SpikeDetectionMode' = 'and', tau_s: 'float' = 0.15, tau_i: 'float' = 0.25, use_multihop_sp_gain: 'bool' = True, sp_norm_mode: 'str' = 'relative', sp_beta: 'float' = 0.2, use_local_normalization: 'bool' = False, local_norm_mode: 'str' = 'layer1', enable_ged_min_diag: 'bool' = False, sp_node_cap: 'int' = 200, sp_pair_samples: 'int' = 400, sp_use_sampling: 'bool' = True, feature_weights: 'Optional[Sequence[float]]' = None, linkset_mode: 'bool' = False, sp_scope_mode: 'str' = 'auto', sp_hop_expand: 'int' = 0, sp_eval_mode: 'str' = 'connected', ig_source_mode: 'str' = 'graph', ig_hop_apply: 'str' = 'all', ged_norm_scheme: 'str' = 'edges_after', structural_similarity_config: 'Optional[Dict[str, Any]]' = None) -> 'None'",
+      "docstring": "",
+      "full_name": "insightspike.algorithms.gedig_calculator.GeDIGCore",
+      "tags": []
+    },
+    {
+      "name": "GeDIGResult",
+      "module": "insightspike.algorithms.gedig_calculator",
+      "type": "class",
+      "signature": "(gedig_value: 'float', ged_value: 'float', ig_value: 'float', raw_ged: 'float' = 0.0, ged_norm_den: 'float' = 1.0, ig_raw: 'float' = 0.0, ig_norm_den: 'float' = 1.0, ig_z_score: 'float' = 0.0, delta_ged_norm: 'float' = 0.0, delta_sp_rel: 'float' = 0.0, delta_h_norm: 'float' = 0.0, structural_cost: 'float' = 0.0, structural_improvement: 'float' = 0.0, information_integration: 'float' = 0.0, entropy_before: 'float' = 0.0, entropy_after: 'float' = 0.0, ig_delta: 'float' = 0.0, variance_reduction: 'float' = 0.0, hop0_reward: 'float' = 0.0, aggregate_reward: 'float' = 0.0, reward: 'float' = 0.0, hop_results: 'Optional[Dict[int, HopResult]]' = None, computation_time: 'float' = 0.0, focal_nodes: 'Optional[Set[str]]' = None, version: 'str' = 'refactor_phaseA', spike: 'bool' = False, linkset_metrics: \"Optional['LinksetMetrics']\" = None, ged_min_proxy: 'float' = 0.0) -> None",
+      "docstring": "GeDIGResult(gedig_value: 'float', ged_value: 'float', ig_value: 'float', raw_ged: 'float' = 0.0, ged_norm_den: 'float' = 1.0, ig_raw: 'float' = 0.0, ig_norm_den: 'float' = 1.0, ig_z_score: 'float' = 0.0, delta_ged_norm: 'float' = 0.0, delta_sp_rel: 'float' = 0.0, delta_h_norm: 'float' = 0.0, structural_cost: 'float' = 0.0, structural_improvement: 'float' = 0.0, information_integration: 'float' = 0.0, entropy_before: 'float' = 0.0, entropy_after: 'float' = 0.0, ig_delta: 'float' = 0.0, variance_reduction: 'float' = 0.0, hop0_reward: 'float' = 0.0, aggregate_reward: 'float' = 0.0, reward: 'float' = 0.0, hop_results: 'Optional[Dict[int, HopResult]]' = None, computation_time: 'float' = 0.0, focal_nodes: 'Optional[Set[str]]' = None, version: 'str' = 'refactor_phaseA', spike: 'bool' = False, linkset_metrics: \"Optional['LinksetMetrics']\" = None, ged_min_proxy: 'float' = 0.0)",
+      "full_name": "insightspike.algorithms.gedig_calculator.GeDIGResult",
+      "tags": []
+    },
+    {
+      "name": "calculate_gedig",
+      "module": "insightspike.algorithms.gedig_calculator",
+      "type": "function",
+      "signature": "(graph_before: Any, graph_after: Any, config: Optional[Dict[str, Any]] = None, **kwargs) -> float",
+      "docstring": "Simple interface for geDIG calculation.",
+      "full_name": "insightspike.algorithms.gedig_calculator.calculate_gedig",
+      "tags": []
+    },
+    {
+      "name": "GeDIGCore",
+      "module": "insightspike.algorithms.gedig_core",
+      "type": "class",
+      "signature": "(node_cost: 'float' = 1.0, edge_cost: 'float' = 1.0, normalization: 'str' = 'sum', efficiency_weight: 'float' = 0.3, min_nodes: 'int' = 2, smoothing: 'float' = 1e-10, enable_multihop: 'bool' = False, max_hops: 'int' = 3, decay_factor: 'float' = 0.7, adaptive_hops: 'bool' = True, spike_threshold: 'float' = -0.5, enable_spectral: 'bool' = False, spectral_weight: 'float' = 0.3, lambda_weight: 'float' = 1.0, ig_mode: 'str' = 'raw', ig_norm_strategy: 'str' = 'before', ig_delta_mode: 'str' = 'after_before', entropy_tau: 'float' = 1.0, mu: 'float' = 0.5, warmup_steps: 'int' = 10, use_refactored_reward: 'bool' = True, use_legacy_formula: 'bool' = False, spike_detection_mode: 'str | SpikeDetectionMode' = 'and', tau_s: 'float' = 0.15, tau_i: 'float' = 0.25, use_multihop_sp_gain: 'bool' = True, sp_norm_mode: 'str' = 'relative', sp_beta: 'float' = 0.2, use_local_normalization: 'bool' = False, local_norm_mode: 'str' = 'layer1', enable_ged_min_diag: 'bool' = False, sp_node_cap: 'int' = 200, sp_pair_samples: 'int' = 400, sp_use_sampling: 'bool' = True, feature_weights: 'Optional[Sequence[float]]' = None, linkset_mode: 'bool' = False, sp_scope_mode: 'str' = 'auto', sp_hop_expand: 'int' = 0, sp_eval_mode: 'str' = 'connected', ig_source_mode: 'str' = 'graph', ig_hop_apply: 'str' = 'all', ged_norm_scheme: 'str' = 'edges_after', structural_similarity_config: 'Optional[Dict[str, Any]]' = None) -> 'None'",
+      "docstring": "",
+      "full_name": "insightspike.algorithms.gedig_core.GeDIGCore",
+      "tags": []
+    },
+    {
+      "name": "GeDIGLogger",
+      "module": "insightspike.algorithms.gedig_core",
+      "type": "class",
+      "signature": "(output_path: 'Any', max_lines: 'int' = 50000, max_bytes: 'int' = 52428800, compress_on_rotate: 'bool' = False)",
+      "docstring": "",
+      "full_name": "insightspike.algorithms.gedig_core.GeDIGLogger",
+      "tags": []
+    },
+    {
+      "name": "GeDIGMonitor",
+      "module": "insightspike.algorithms.gedig_core",
+      "type": "class",
+      "signature": "(window_size: 'int' = 200, target_fp_rate: 'float' = 0.1, adjust_factor: 'float' = 1.1, gt_si_threshold: 'float | None' = None, gt_igz_threshold: 'float | None' = None, gt_mode: 'str' = 'and')",
+      "docstring": "Runtime monitoring for spike predictions.",
+      "full_name": "insightspike.algorithms.gedig_core.GeDIGMonitor",
+      "tags": []
+    },
+    {
+      "name": "GeDIGPresets",
+      "module": "insightspike.algorithms.gedig_core",
+      "type": "class",
+      "signature": "()",
+      "docstring": "",
+      "full_name": "insightspike.algorithms.gedig_core.GeDIGPresets",
+      "tags": []
+    },
+    {
+      "name": "GeDIGResult",
+      "module": "insightspike.algorithms.gedig_core",
+      "type": "class",
+      "signature": "(gedig_value: 'float', ged_value: 'float', ig_value: 'float', raw_ged: 'float' = 0.0, ged_norm_den: 'float' = 1.0, ig_raw: 'float' = 0.0, ig_norm_den: 'float' = 1.0, ig_z_score: 'float' = 0.0, delta_ged_norm: 'float' = 0.0, delta_sp_rel: 'float' = 0.0, delta_h_norm: 'float' = 0.0, structural_cost: 'float' = 0.0, structural_improvement: 'float' = 0.0, information_integration: 'float' = 0.0, entropy_before: 'float' = 0.0, entropy_after: 'float' = 0.0, ig_delta: 'float' = 0.0, variance_reduction: 'float' = 0.0, hop0_reward: 'float' = 0.0, aggregate_reward: 'float' = 0.0, reward: 'float' = 0.0, hop_results: 'Optional[Dict[int, HopResult]]' = None, computation_time: 'float' = 0.0, focal_nodes: 'Optional[Set[str]]' = None, version: 'str' = 'refactor_phaseA', spike: 'bool' = False, linkset_metrics: \"Optional['LinksetMetrics']\" = None, ged_min_proxy: 'float' = 0.0) -> None",
+      "docstring": "GeDIGResult(gedig_value: 'float', ged_value: 'float', ig_value: 'float', raw_ged: 'float' = 0.0, ged_norm_den: 'float' = 1.0, ig_raw: 'float' = 0.0, ig_norm_den: 'float' = 1.0, ig_z_score: 'float' = 0.0, delta_ged_norm: 'float' = 0.0, delta_sp_rel: 'float' = 0.0, delta_h_norm: 'float' = 0.0, structural_cost: 'float' = 0.0, structural_improvement: 'float' = 0.0, information_integration: 'float' = 0.0, entropy_before: 'float' = 0.0, entropy_after: 'float' = 0.0, ig_delta: 'float' = 0.0, variance_reduction: 'float' = 0.0, hop0_reward: 'float' = 0.0, aggregate_reward: 'float' = 0.0, reward: 'float' = 0.0, hop_results: 'Optional[Dict[int, HopResult]]' = None, computation_time: 'float' = 0.0, focal_nodes: 'Optional[Set[str]]' = None, version: 'str' = 'refactor_phaseA', spike: 'bool' = False, linkset_metrics: \"Optional['LinksetMetrics']\" = None, ged_min_proxy: 'float' = 0.0)",
+      "full_name": "insightspike.algorithms.gedig_core.GeDIGResult",
+      "tags": []
+    },
+    {
+      "name": "HopResult",
+      "module": "insightspike.algorithms.gedig_core",
+      "type": "class",
+      "signature": "(hop: 'int', ged: 'float', ig: 'float', gedig: 'float', struct_cost: 'float', node_count: 'int', edge_count: 'int', sp: 'float' = 0.0, h_component: 'float' = 0.0, ged_raw: 'float' = 0.0, ged_den: 'float' = 1.0, entropy_before: 'float' = 0.0, entropy_after: 'float' = 0.0, ig_delta: 'float' = 0.0, ig_den: 'float' = 1.0, variance_reduction: 'float' = 0.0) -> None",
+      "docstring": "HopResult(hop: 'int', ged: 'float', ig: 'float', gedig: 'float', struct_cost: 'float', node_count: 'int', edge_count: 'int', sp: 'float' = 0.0, h_component: 'float' = 0.0, ged_raw: 'float' = 0.0, ged_den: 'float' = 1.0, entropy_before: 'float' = 0.0, entropy_after: 'float' = 0.0, ig_delta: 'float' = 0.0, ig_den: 'float' = 1.0, variance_reduction: 'float' = 0.0)",
+      "full_name": "insightspike.algorithms.gedig_core.HopResult",
+      "tags": []
+    },
+    {
+      "name": "LinksetMetrics",
+      "module": "insightspike.algorithms.gedig_core",
+      "type": "class",
+      "signature": "(delta_ged_norm: 'float', delta_h_norm: 'float', delta_sp_rel: 'float', gedig_value: 'float', raw_ged: 'float', ged_norm_den: 'float', ig_norm_den: 'float', entropy_before: 'float', entropy_after: 'float', ig_delta: 'float', before_size: 'int', after_size: 'int', query_similarity: 'float', pos_w_before: 'int' = 0, pos_w_after: 'int' = 0, topw_before: 'list[float] | None' = None, topw_after: 'list[float] | None' = None) -> None",
+      "docstring": "LinksetMetrics(delta_ged_norm: 'float', delta_h_norm: 'float', delta_sp_rel: 'float', gedig_value: 'float', raw_ged: 'float', ged_norm_den: 'float', ig_norm_den: 'float', entropy_before: 'float', entropy_after: 'float', ig_delta: 'float', before_size: 'int', after_size: 'int', query_similarity: 'float', pos_w_before: 'int' = 0, pos_w_after: 'int' = 0, topw_before: 'list[float] | None' = None, topw_after: 'list[float] | None' = None)",
+      "full_name": "insightspike.algorithms.gedig_core.LinksetMetrics",
+      "tags": []
+    },
+    {
+      "name": "ProcessingMode",
+      "module": "insightspike.algorithms.gedig_core",
+      "type": "class",
+      "signature": "(*values)",
+      "docstring": "Create a collection of name/value pairs.",
+      "full_name": "insightspike.algorithms.gedig_core.ProcessingMode",
+      "tags": []
+    },
+    {
+      "name": "SpikeDetectionMode",
+      "module": "insightspike.algorithms.gedig_core",
+      "type": "class",
+      "signature": "(*values)",
+      "docstring": "Create a collection of name/value pairs.",
+      "full_name": "insightspike.algorithms.gedig_core.SpikeDetectionMode",
+      "tags": []
+    },
+    {
+      "name": "calculate_gedig",
+      "module": "insightspike.algorithms.gedig_core",
+      "type": "function",
+      "signature": "(graph_before: 'Any', graph_after: 'Any', config: 'Optional[Dict[str, Any]]' = None, **kwargs) -> 'float'",
+      "docstring": "Simple interface to calculate geDIG value.",
+      "full_name": "insightspike.algorithms.gedig_core.calculate_gedig",
+      "tags": []
+    },
+    {
+      "name": "delta_ged",
+      "module": "insightspike.algorithms.gedig_core",
+      "type": "function",
+      "signature": "(graph_before: 'Any', graph_after: 'Any', **kwargs) -> 'float'",
+      "docstring": "Calculate \u0394GED for backward compatibility.",
+      "full_name": "insightspike.algorithms.gedig_core.delta_ged",
+      "tags": []
+    },
+    {
+      "name": "delta_ig",
+      "module": "insightspike.algorithms.gedig_core",
+      "type": "function",
+      "signature": "(graph_before: 'Any', graph_after: 'Any', **kwargs) -> 'float'",
+      "docstring": "Calculate \u0394IG for backward compatibility.",
+      "full_name": "insightspike.algorithms.gedig_core.delta_ig",
+      "tags": []
+    },
+    {
+      "name": "detect_insight_spike",
+      "module": "insightspike.algorithms.gedig_core",
+      "type": "function",
+      "signature": "(graph_before: 'Any', graph_after: 'Any', threshold: 'float' = -0.5, **kwargs) -> 'bool'",
+      "docstring": "Check if the graph change represents an insight spike.",
+      "full_name": "insightspike.algorithms.gedig_core.detect_insight_spike",
+      "tags": []
+    },
+    {
+      "name": "GeDIGCore",
+      "module": "insightspike.algorithms.gedig_factory",
+      "type": "class",
+      "signature": "(node_cost: 'float' = 1.0, edge_cost: 'float' = 1.0, normalization: 'str' = 'sum', efficiency_weight: 'float' = 0.3, min_nodes: 'int' = 2, smoothing: 'float' = 1e-10, enable_multihop: 'bool' = False, max_hops: 'int' = 3, decay_factor: 'float' = 0.7, adaptive_hops: 'bool' = True, spike_threshold: 'float' = -0.5, enable_spectral: 'bool' = False, spectral_weight: 'float' = 0.3, lambda_weight: 'float' = 1.0, ig_mode: 'str' = 'raw', ig_norm_strategy: 'str' = 'before', ig_delta_mode: 'str' = 'after_before', entropy_tau: 'float' = 1.0, mu: 'float' = 0.5, warmup_steps: 'int' = 10, use_refactored_reward: 'bool' = True, use_legacy_formula: 'bool' = False, spike_detection_mode: 'str | SpikeDetectionMode' = 'and', tau_s: 'float' = 0.15, tau_i: 'float' = 0.25, use_multihop_sp_gain: 'bool' = True, sp_norm_mode: 'str' = 'relative', sp_beta: 'float' = 0.2, use_local_normalization: 'bool' = False, local_norm_mode: 'str' = 'layer1', enable_ged_min_diag: 'bool' = False, sp_node_cap: 'int' = 200, sp_pair_samples: 'int' = 400, sp_use_sampling: 'bool' = True, feature_weights: 'Optional[Sequence[float]]' = None, linkset_mode: 'bool' = False, sp_scope_mode: 'str' = 'auto', sp_hop_expand: 'int' = 0, sp_eval_mode: 'str' = 'connected', ig_source_mode: 'str' = 'graph', ig_hop_apply: 'str' = 'all', ged_norm_scheme: 'str' = 'edges_after', structural_similarity_config: 'Optional[Dict[str, Any]]' = None) -> 'None'",
+      "docstring": "",
+      "full_name": "insightspike.algorithms.gedig_factory.GeDIGCore",
+      "tags": []
+    },
+    {
+      "name": "GeDIGFactory",
+      "module": "insightspike.algorithms.gedig_factory",
+      "type": "class",
+      "signature": "()",
+      "docstring": "",
+      "full_name": "insightspike.algorithms.gedig_factory.GeDIGFactory",
+      "tags": []
+    },
+    {
+      "name": "dual_evaluate",
+      "module": "insightspike.algorithms.gedig_factory",
+      "type": "function",
+      "signature": "(legacy_core: 'GeDIGCore', ref_core: 'GeDIGCore', *, g_prev: 'Any', g_now: 'Any', delta_threshold: 'float' = 0.3, divergence_logger: 'Optional[str]' = None) -> 'Tuple[Any, float]'",
+      "docstring": "Run both cores and emit warning if divergence exceeds threshold.",
+      "full_name": "insightspike.algorithms.gedig_factory.dual_evaluate",
+      "tags": []
+    },
+    {
+      "name": "PureGeDIGCalculator",
+      "module": "insightspike.algorithms.gedig_pure",
+      "type": "class",
+      "signature": "(k: 'float' = 0.5, adaptive_k: 'bool' = False, k_min: 'float' = 0.3, k_max: 'float' = 0.7, decay: 'float' = 0.02)",
+      "docstring": "Minimal calculator (GED\u5dee\u5206\u6b63\u898f\u5316, IG=entropy\u5897\u52a0, geDIG=ged - k*ig).",
+      "full_name": "insightspike.algorithms.gedig_pure.PureGeDIGCalculator",
+      "tags": []
+    },
+    {
+      "name": "PureGeDIGResult",
+      "module": "insightspike.algorithms.gedig_pure",
+      "type": "class",
+      "signature": "(gedig: 'float', ged: 'float', ig: 'float', k: 'float', nodes_before: 'int', nodes_after: 'int', edges_before: 'int', edges_after: 'int', entropy_before: 'float', entropy_after: 'float', metadata: 'Optional[Dict[str, Any]]' = None) -> None",
+      "docstring": "PureGeDIGResult(gedig: 'float', ged: 'float', ig: 'float', k: 'float', nodes_before: 'int', nodes_after: 'int', edges_before: 'int', edges_after: 'int', entropy_before: 'float', entropy_after: 'float', metadata: 'Optional[Dict[str, Any]]' = None)",
+      "full_name": "insightspike.algorithms.gedig_pure.PureGeDIGResult",
+      "tags": []
+    },
+    {
+      "name": "GEDCalculationUtils",
+      "module": "insightspike.algorithms.gedig_utils",
+      "type": "class",
+      "signature": "()",
+      "docstring": "Utilities for Graph Edit Distance calculations.",
+      "full_name": "insightspike.algorithms.gedig_utils.GEDCalculationUtils",
+      "tags": []
+    },
+    {
+      "name": "GeDIGComputationUtils",
+      "module": "insightspike.algorithms.gedig_utils",
+      "type": "class",
+      "signature": "()",
+      "docstring": "High-level utilities for geDIG computations.",
+      "full_name": "insightspike.algorithms.gedig_utils.GeDIGComputationUtils",
+      "tags": []
+    },
+    {
+      "name": "GraphValidationUtils",
+      "module": "insightspike.algorithms.gedig_utils",
+      "type": "class",
+      "signature": "()",
+      "docstring": "Utilities for graph validation and sanitization.",
+      "full_name": "insightspike.algorithms.gedig_utils.GraphValidationUtils",
+      "tags": []
+    },
+    {
+      "name": "IGCalculationUtils",
+      "module": "insightspike.algorithms.gedig_utils",
+      "type": "class",
+      "signature": "()",
+      "docstring": "Utilities for Information Gain calculations.",
+      "full_name": "insightspike.algorithms.gedig_utils.IGCalculationUtils",
+      "tags": []
+    },
+    {
+      "name": "GeDIGCore",
+      "module": "insightspike.algorithms.gedig_wake_mode",
+      "type": "class",
+      "signature": "(node_cost: 'float' = 1.0, edge_cost: 'float' = 1.0, normalization: 'str' = 'sum', efficiency_weight: 'float' = 0.3, min_nodes: 'int' = 2, smoothing: 'float' = 1e-10, enable_multihop: 'bool' = False, max_hops: 'int' = 3, decay_factor: 'float' = 0.7, adaptive_hops: 'bool' = True, spike_threshold: 'float' = -0.5, enable_spectral: 'bool' = False, spectral_weight: 'float' = 0.3, lambda_weight: 'float' = 1.0, ig_mode: 'str' = 'raw', ig_norm_strategy: 'str' = 'before', ig_delta_mode: 'str' = 'after_before', entropy_tau: 'float' = 1.0, mu: 'float' = 0.5, warmup_steps: 'int' = 10, use_refactored_reward: 'bool' = True, use_legacy_formula: 'bool' = False, spike_detection_mode: 'str | SpikeDetectionMode' = 'and', tau_s: 'float' = 0.15, tau_i: 'float' = 0.25, use_multihop_sp_gain: 'bool' = True, sp_norm_mode: 'str' = 'relative', sp_beta: 'float' = 0.2, use_local_normalization: 'bool' = False, local_norm_mode: 'str' = 'layer1', enable_ged_min_diag: 'bool' = False, sp_node_cap: 'int' = 200, sp_pair_samples: 'int' = 400, sp_use_sampling: 'bool' = True, feature_weights: 'Optional[Sequence[float]]' = None, linkset_mode: 'bool' = False, sp_scope_mode: 'str' = 'auto', sp_hop_expand: 'int' = 0, sp_eval_mode: 'str' = 'connected', ig_source_mode: 'str' = 'graph', ig_hop_apply: 'str' = 'all', ged_norm_scheme: 'str' = 'edges_after', structural_similarity_config: 'Optional[Dict[str, Any]]' = None) -> 'None'",
+      "docstring": "",
+      "full_name": "insightspike.algorithms.gedig_wake_mode.GeDIGCore",
+      "tags": []
+    },
+    {
+      "name": "GeDIGResult",
+      "module": "insightspike.algorithms.gedig_wake_mode",
+      "type": "class",
+      "signature": "(gedig_value: 'float', ged_value: 'float', ig_value: 'float', raw_ged: 'float' = 0.0, ged_norm_den: 'float' = 1.0, ig_raw: 'float' = 0.0, ig_norm_den: 'float' = 1.0, ig_z_score: 'float' = 0.0, delta_ged_norm: 'float' = 0.0, delta_sp_rel: 'float' = 0.0, delta_h_norm: 'float' = 0.0, structural_cost: 'float' = 0.0, structural_improvement: 'float' = 0.0, information_integration: 'float' = 0.0, entropy_before: 'float' = 0.0, entropy_after: 'float' = 0.0, ig_delta: 'float' = 0.0, variance_reduction: 'float' = 0.0, hop0_reward: 'float' = 0.0, aggregate_reward: 'float' = 0.0, reward: 'float' = 0.0, hop_results: 'Optional[Dict[int, HopResult]]' = None, computation_time: 'float' = 0.0, focal_nodes: 'Optional[Set[str]]' = None, version: 'str' = 'refactor_phaseA', spike: 'bool' = False, linkset_metrics: \"Optional['LinksetMetrics']\" = None, ged_min_proxy: 'float' = 0.0) -> None",
+      "docstring": "GeDIGResult(gedig_value: 'float', ged_value: 'float', ig_value: 'float', raw_ged: 'float' = 0.0, ged_norm_den: 'float' = 1.0, ig_raw: 'float' = 0.0, ig_norm_den: 'float' = 1.0, ig_z_score: 'float' = 0.0, delta_ged_norm: 'float' = 0.0, delta_sp_rel: 'float' = 0.0, delta_h_norm: 'float' = 0.0, structural_cost: 'float' = 0.0, structural_improvement: 'float' = 0.0, information_integration: 'float' = 0.0, entropy_before: 'float' = 0.0, entropy_after: 'float' = 0.0, ig_delta: 'float' = 0.0, variance_reduction: 'float' = 0.0, hop0_reward: 'float' = 0.0, aggregate_reward: 'float' = 0.0, reward: 'float' = 0.0, hop_results: 'Optional[Dict[int, HopResult]]' = None, computation_time: 'float' = 0.0, focal_nodes: 'Optional[Set[str]]' = None, version: 'str' = 'refactor_phaseA', spike: 'bool' = False, linkset_metrics: \"Optional['LinksetMetrics']\" = None, ged_min_proxy: 'float' = 0.0)",
+      "full_name": "insightspike.algorithms.gedig_wake_mode.GeDIGResult",
+      "tags": []
+    },
+    {
+      "name": "ProcessingMode",
+      "module": "insightspike.algorithms.gedig_wake_mode",
+      "type": "class",
+      "signature": "(*values)",
+      "docstring": "Processing modes for geDIG calculation.",
+      "full_name": "insightspike.algorithms.gedig_wake_mode.ProcessingMode",
+      "tags": []
+    },
+    {
+      "name": "WakeModeGeDIG",
+      "module": "insightspike.algorithms.gedig_wake_mode",
+      "type": "class",
+      "signature": "(**base_params)",
+      "docstring": "Wake Mode geDIG calculator for efficient query processing.",
+      "full_name": "insightspike.algorithms.gedig_wake_mode.WakeModeGeDIG",
+      "tags": []
+    },
+    {
+      "name": "WakeModeResult",
+      "module": "insightspike.algorithms.gedig_wake_mode",
+      "type": "class",
+      "signature": "(gedig_value: 'float', ged_value: 'float', ig_value: 'float', raw_ged: 'float' = 0.0, ged_norm_den: 'float' = 1.0, ig_raw: 'float' = 0.0, ig_norm_den: 'float' = 1.0, ig_z_score: 'float' = 0.0, delta_ged_norm: 'float' = 0.0, delta_sp_rel: 'float' = 0.0, delta_h_norm: 'float' = 0.0, structural_cost: 'float' = 0.0, structural_improvement: 'float' = 0.0, information_integration: 'float' = 0.0, entropy_before: 'float' = 0.0, entropy_after: 'float' = 0.0, ig_delta: 'float' = 0.0, variance_reduction: 'float' = 0.0, hop0_reward: 'float' = 0.0, aggregate_reward: 'float' = 0.0, reward: 'float' = 0.0, hop_results: 'Optional[Dict[int, HopResult]]' = None, computation_time: 'float' = 0.0, focal_nodes: 'Optional[Set[str]]' = None, version: 'str' = 'refactor_phaseA', spike: 'bool' = False, linkset_metrics: \"Optional['LinksetMetrics']\" = None, ged_min_proxy: 'float' = 0.0, mode: str = 'wake', pattern_match_score: float = 0.0, convergence_score: float = 0.0, efficiency_score: float = 0.0, nearest_patterns: Optional[List[str]] = None) -> None",
+      "docstring": "Extended result for Wake Mode processing.",
+      "full_name": "insightspike.algorithms.gedig_wake_mode.WakeModeResult",
+      "tags": []
+    },
+    {
+      "name": "calculate_wake_mode_gedig",
+      "module": "insightspike.algorithms.gedig_wake_mode",
+      "type": "function",
+      "signature": "(graph: networkx.classes.graph.Graph, focal_nodes: Set[str], query_context: Optional[Dict[str, Any]] = None, **kwargs) -> insightspike.algorithms.gedig_wake_mode.WakeModeResult",
+      "docstring": "Calculate geDIG in Wake Mode.",
+      "full_name": "insightspike.algorithms.gedig_wake_mode.calculate_wake_mode_gedig",
+      "tags": []
+    },
+    {
+      "name": "GeometricProbabilisticGraph",
+      "module": "insightspike.algorithms.geometric_probabilistic_graph",
+      "type": "class",
+      "signature": "(embedding_dim: 'int' = 384, attention_heads: 'int' = 4, attention_hidden_dim: 'int' = 128, model_name: 'str' = 'all-MiniLM-L6-v2', use_gpu: 'bool' = False)",
+      "docstring": "Unified representation integrating three spaces:",
+      "full_name": "insightspike.algorithms.geometric_probabilistic_graph.GeometricProbabilisticGraph",
+      "tags": []
+    },
+    {
+      "name": "GraphAttentionProbability",
+      "module": "insightspike.algorithms.geometric_probabilistic_graph",
+      "type": "class",
+      "signature": "(in_channels: 'int', out_channels: 'int', heads: 'int' = 4, dropout: 'float' = 0.1, concat: 'bool' = True)",
+      "docstring": "Graph Attention layer that produces probability distributions.",
+      "full_name": "insightspike.algorithms.geometric_probabilistic_graph.GraphAttentionProbability",
+      "tags": []
+    },
+    {
+      "name": "ThreeSpaceMetrics",
+      "module": "insightspike.algorithms.geometric_probabilistic_graph",
+      "type": "class",
+      "signature": "(num_nodes: 'int', num_edges: 'int', graph_density: 'float', avg_degree: 'float', shannon_entropy: 'float', probability_mass: 'float', entropy_per_node: 'np.ndarray', avg_cosine_similarity: 'float', embedding_std: 'float', pairwise_distances: 'Optional[np.ndarray]' = None) -> None",
+      "docstring": "Metrics capturing all three spaces",
+      "full_name": "insightspike.algorithms.geometric_probabilistic_graph.ThreeSpaceMetrics",
+      "tags": []
+    },
+    {
+      "name": "calculate_three_space_entropy",
+      "module": "insightspike.algorithms.geometric_probabilistic_graph",
+      "type": "function",
+      "signature": "(texts: 'List[str]', edges: 'Optional[List[Tuple[int, int]]]' = None, embedding_dim: 'int' = 384) -> 'float'",
+      "docstring": "Convenience function: Calculate Shannon entropy from texts and graph structure.",
+      "full_name": "insightspike.algorithms.geometric_probabilistic_graph.calculate_three_space_entropy",
+      "tags": []
+    },
+    {
+      "name": "calculate_three_space_information_gain",
+      "module": "insightspike.algorithms.geometric_probabilistic_graph",
+      "type": "function",
+      "signature": "(texts_before: 'List[str]', texts_after: 'List[str]', edges_before: 'Optional[List[Tuple[int, int]]]' = None, edges_after: 'Optional[List[Tuple[int, int]]]' = None, embedding_dim: 'int' = 384) -> 'float'",
+      "docstring": "Convenience function: Calculate information gain between two states.",
+      "full_name": "insightspike.algorithms.geometric_probabilistic_graph.calculate_three_space_information_gain",
+      "tags": []
+    },
+    {
+      "name": "GEDResult",
+      "module": "insightspike.algorithms.graph_edit_distance",
+      "type": "class",
+      "signature": "(ged_value: float, computation_time: float, optimization_level: insightspike.algorithms.graph_edit_distance.OptimizationLevel, graph1_size: int, graph2_size: int, timeout_occurred: bool = False, approximation_used: bool = False) -> None",
+      "docstring": "Result of GED calculation with metadata.",
+      "full_name": "insightspike.algorithms.graph_edit_distance.GEDResult",
+      "tags": []
+    },
+    {
+      "name": "GraphEditDistance",
+      "module": "insightspike.algorithms.graph_edit_distance",
+      "type": "class",
+      "signature": "(node_cost: float = 1.0, edge_cost: float = 1.0, optimization_level: Union[str, insightspike.algorithms.graph_edit_distance.OptimizationLevel] = <OptimizationLevel.STANDARD: 'standard'>, timeout_seconds: float = 5.0, max_graph_size_exact: int = 50)",
+      "docstring": "Graph Edit Distance calculator for PyTorch Geometric graphs.",
+      "full_name": "insightspike.algorithms.graph_edit_distance.GraphEditDistance",
+      "tags": []
+    },
+    {
+      "name": "OptimizationLevel",
+      "module": "insightspike.algorithms.graph_edit_distance",
+      "type": "class",
+      "signature": "(*values)",
+      "docstring": "Optimization levels for GED calculation.",
+      "full_name": "insightspike.algorithms.graph_edit_distance.OptimizationLevel",
+      "tags": []
+    },
+    {
+      "name": "compute_delta_ged",
+      "module": "insightspike.algorithms.graph_edit_distance",
+      "type": "function",
+      "signature": "(graph_before: torch_geometric.data.data.Data, graph_after: torch_geometric.data.data.Data, reference_graph: Optional[torch_geometric.data.data.Data] = None, **kwargs) -> float",
+      "docstring": "Compute \u0394GED for insight detection.",
+      "full_name": "insightspike.algorithms.graph_edit_distance.compute_delta_ged",
+      "tags": []
+    },
+    {
+      "name": "compute_graph_edit_distance",
+      "module": "insightspike.algorithms.graph_edit_distance",
+      "type": "function",
+      "signature": "(graph1: torch_geometric.data.data.Data, graph2: torch_geometric.data.data.Data, **kwargs) -> float",
+      "docstring": "Compute Graph Edit Distance between two PyG graphs.",
+      "full_name": "insightspike.algorithms.graph_edit_distance.compute_graph_edit_distance",
+      "tags": []
+    },
+    {
+      "name": "get_global_ged_calculator",
+      "module": "insightspike.algorithms.graph_edit_distance",
+      "type": "function",
+      "signature": "() -> insightspike.algorithms.graph_edit_distance.GraphEditDistance",
+      "docstring": "Get or create global GED calculator instance.",
+      "full_name": "insightspike.algorithms.graph_edit_distance.get_global_ged_calculator",
+      "tags": []
+    },
+    {
+      "name": "reset_ged_state",
+      "module": "insightspike.algorithms.graph_edit_distance",
+      "type": "function",
+      "signature": "()",
+      "docstring": "Reset the global GED calculator state.",
+      "full_name": "insightspike.algorithms.graph_edit_distance.reset_ged_state",
+      "tags": []
+    },
+    {
+      "name": "DynamicImportanceTracker",
+      "module": "insightspike.algorithms.graph_importance",
+      "type": "class",
+      "signature": "(calculator: Optional[insightspike.algorithms.graph_importance.GraphImportanceCalculator] = None)",
+      "docstring": "Track and update importance scores dynamically as the graph evolves.",
+      "full_name": "insightspike.algorithms.graph_importance.DynamicImportanceTracker",
+      "tags": []
+    },
+    {
+      "name": "GraphImportanceCalculator",
+      "module": "insightspike.algorithms.graph_importance",
+      "type": "class",
+      "signature": "(decay_factor: float = 0.1, alpha: float = 0.85, epsilon: float = 1e-06, max_iterations: int = 100)",
+      "docstring": "Calculate node importance using various graph centrality measures.",
+      "full_name": "insightspike.algorithms.graph_importance.GraphImportanceCalculator",
+      "tags": []
+    },
+    {
+      "name": "GraphStructureAnalyzer",
+      "module": "insightspike.algorithms.graph_structure_analyzer",
+      "type": "class",
+      "signature": "()",
+      "docstring": "Analyzes structural changes in graphs for insight detection.",
+      "full_name": "insightspike.algorithms.graph_structure_analyzer.GraphStructureAnalyzer",
+      "tags": []
+    },
+    {
+      "name": "analyze_graph_structure",
+      "module": "insightspike.algorithms.graph_structure_analyzer",
+      "type": "function",
+      "signature": "(graph_before: Any, graph_after: Any) -> Dict[str, float]",
+      "docstring": "Convenience function for structure analysis.",
+      "full_name": "insightspike.algorithms.graph_structure_analyzer.analyze_graph_structure",
+      "tags": []
+    },
+    {
+      "name": "NormalizationMethod",
+      "module": "insightspike.algorithms.improved_similarity_entropy",
+      "type": "class",
+      "signature": "(*values)",
+      "docstring": "Available normalization methods",
+      "full_name": "insightspike.algorithms.improved_similarity_entropy.NormalizationMethod",
+      "tags": []
+    },
+    {
+      "name": "calculate_entropy_change",
+      "module": "insightspike.algorithms.improved_similarity_entropy",
+      "type": "function",
+      "signature": "(before_vectors: numpy.ndarray, after_vectors: numpy.ndarray, method: insightspike.algorithms.improved_similarity_entropy.NormalizationMethod = <NormalizationMethod.SIGMOID: 'sigmoid'>, **kwargs) -> float",
+      "docstring": "Calculate the change in entropy (\u0394H).",
+      "full_name": "insightspike.algorithms.improved_similarity_entropy.calculate_entropy_change",
+      "tags": []
+    },
+    {
+      "name": "calculate_information_gain",
+      "module": "insightspike.algorithms.improved_similarity_entropy",
+      "type": "function",
+      "signature": "(before_vectors: numpy.ndarray, after_vectors: numpy.ndarray, method: insightspike.algorithms.improved_similarity_entropy.NormalizationMethod = <NormalizationMethod.SIGMOID: 'sigmoid'>, **kwargs) -> float",
+      "docstring": "Calculate information gain (IG).",
+      "full_name": "insightspike.algorithms.improved_similarity_entropy.calculate_information_gain",
+      "tags": []
+    },
+    {
+      "name": "calculate_similarity_entropy",
+      "module": "insightspike.algorithms.improved_similarity_entropy",
+      "type": "function",
+      "signature": "(vectors: numpy.ndarray, method: insightspike.algorithms.improved_similarity_entropy.NormalizationMethod = <NormalizationMethod.SIGMOID: 'sigmoid'>, **kwargs) -> float",
+      "docstring": "Calculate entropy based on pairwise similarities with improved normalization.",
+      "full_name": "insightspike.algorithms.improved_similarity_entropy.calculate_similarity_entropy",
+      "tags": []
+    },
+    {
+      "name": "exponential_normalization",
+      "module": "insightspike.algorithms.improved_similarity_entropy",
+      "type": "function",
+      "signature": "(similarity: float, alpha: float = 2.0) -> float",
+      "docstring": "Exponential normalization emphasizing high similarities.",
+      "full_name": "insightspike.algorithms.improved_similarity_entropy.exponential_normalization",
+      "tags": []
+    },
+    {
+      "name": "linear_normalization",
+      "module": "insightspike.algorithms.improved_similarity_entropy",
+      "type": "function",
+      "signature": "(similarity: float) -> float",
+      "docstring": "Linear mapping from similarity to entropy.",
+      "full_name": "insightspike.algorithms.improved_similarity_entropy.linear_normalization",
+      "tags": []
+    },
+    {
+      "name": "piecewise_normalization",
+      "module": "insightspike.algorithms.improved_similarity_entropy",
+      "type": "function",
+      "signature": "(similarity: float) -> float",
+      "docstring": "Custom piecewise normalization with different sensitivity regions.",
+      "full_name": "insightspike.algorithms.improved_similarity_entropy.piecewise_normalization",
+      "tags": []
+    },
+    {
+      "name": "sigmoid_normalization",
+      "module": "insightspike.algorithms.improved_similarity_entropy",
+      "type": "function",
+      "signature": "(similarity: float, steepness: float = 5.0) -> float",
+      "docstring": "Sigmoid-based normalization for smoother transitions.",
+      "full_name": "insightspike.algorithms.improved_similarity_entropy.sigmoid_normalization",
+      "tags": []
+    },
+    {
+      "name": "EntropyMethod",
+      "module": "insightspike.algorithms.information_gain",
+      "type": "class",
+      "signature": "(*values)",
+      "docstring": "Methods for calculating entropy.",
+      "full_name": "insightspike.algorithms.information_gain.EntropyMethod",
+      "tags": []
+    },
+    {
+      "name": "IGResult",
+      "module": "insightspike.algorithms.information_gain",
+      "type": "class",
+      "signature": "(ig_value: float, entropy_before: float, entropy_after: float, computation_time: float, method: insightspike.algorithms.information_gain.EntropyMethod, sample_count: int, feature_count: int, approximation_used: bool = False) -> None",
+      "docstring": "Result of Information Gain calculation with metadata.",
+      "full_name": "insightspike.algorithms.information_gain.IGResult",
+      "tags": []
+    },
+    {
+      "name": "ImprovedEntropyMethods",
+      "module": "insightspike.algorithms.information_gain",
+      "type": "class",
+      "signature": "()",
+      "docstring": "Advanced entropy calculation methods integrated from graph/metrics/entropy_ig.py.",
+      "full_name": "insightspike.algorithms.information_gain.ImprovedEntropyMethods",
+      "tags": []
+    },
+    {
+      "name": "InformationGain",
+      "module": "insightspike.algorithms.information_gain",
+      "type": "class",
+      "signature": "(method: Union[str, insightspike.algorithms.information_gain.EntropyMethod] = <EntropyMethod.CLUSTERING: 'clustering'>, k_clusters: int = 8, min_samples: int = 2, random_state: int = 42)",
+      "docstring": "Information Gain calculator for measuring learning progress.",
+      "full_name": "insightspike.algorithms.information_gain.InformationGain",
+      "tags": []
+    },
+    {
+      "name": "calc_structural_entropy",
+      "module": "insightspike.algorithms.information_gain",
+      "type": "function",
+      "signature": "(graph: Any, weights: Optional[Dict[str, float]] = None) -> Dict[str, float]",
+      "docstring": "Calculate multiple structural entropy measures.",
+      "full_name": "insightspike.algorithms.information_gain.calc_structural_entropy",
+      "tags": []
+    },
+    {
+      "name": "compute_delta_ig",
+      "module": "insightspike.algorithms.information_gain",
+      "type": "function",
+      "signature": "(state_before: Any, state_after: Any, method: str = 'clustering', **kwargs) -> float",
+      "docstring": "Compute \u0394IG for insight detection.",
+      "full_name": "insightspike.algorithms.information_gain.compute_delta_ig",
+      "tags": []
+    },
+    {
+      "name": "compute_information_gain",
+      "module": "insightspike.algorithms.information_gain",
+      "type": "function",
+      "signature": "(data_before: Any, data_after: Any, method: str = 'clustering', **kwargs) -> float",
+      "docstring": "Compute Information Gain between two data states.",
+      "full_name": "insightspike.algorithms.information_gain.compute_information_gain",
+      "tags": []
+    },
+    {
+      "name": "compute_shannon_entropy",
+      "module": "insightspike.algorithms.information_gain",
+      "type": "function",
+      "signature": "(data: Any) -> float",
+      "docstring": "Compute Shannon entropy for data.",
+      "full_name": "insightspike.algorithms.information_gain.compute_shannon_entropy",
+      "tags": []
+    },
+    {
+      "name": "degree_distribution_entropy",
+      "module": "insightspike.algorithms.information_gain",
+      "type": "function",
+      "signature": "(graph: Any) -> float",
+      "docstring": "Calculate entropy of the degree distribution.",
+      "full_name": "insightspike.algorithms.information_gain.degree_distribution_entropy",
+      "tags": []
+    },
+    {
+      "name": "von_neumann_entropy",
+      "module": "insightspike.algorithms.information_gain",
+      "type": "function",
+      "signature": "(graph: Any, normalized: bool = True) -> float",
+      "docstring": "Calculate Von Neumann entropy of the graph.",
+      "full_name": "insightspike.algorithms.information_gain.von_neumann_entropy",
+      "tags": []
+    },
+    {
+      "name": "EditOperation",
+      "module": "insightspike.algorithms.isomorphism_discovery",
+      "type": "class",
+      "signature": "(edit_type: insightspike.algorithms.isomorphism_discovery.EditType, source: Optional[str] = None, target: Optional[str] = None, params: Dict[str, Any] = <factory>) -> None",
+      "docstring": "\u5358\u4e00\u306e\u7de8\u96c6\u64cd\u4f5c",
+      "full_name": "insightspike.algorithms.isomorphism_discovery.EditOperation",
+      "tags": []
+    },
+    {
+      "name": "EditType",
+      "module": "insightspike.algorithms.isomorphism_discovery",
+      "type": "class",
+      "signature": "(*values)",
+      "docstring": "\u7de8\u96c6\u64cd\u4f5c\u306e\u7a2e\u985e",
+      "full_name": "insightspike.algorithms.isomorphism_discovery.EditType",
+      "tags": []
+    },
+    {
+      "name": "IsomorphismDiscovery",
+      "module": "insightspike.algorithms.isomorphism_discovery",
+      "type": "class",
+      "signature": "(node_cost: float = 1.0, edge_cost: float = 1.0, relabel_cost: float = 0.5, use_semantic_similarity: bool = True, beam_width: int = 10, max_iterations: int = 1000)",
+      "docstring": "\u540c\u578b\u767a\u898b\u30a2\u30eb\u30b4\u30ea\u30ba\u30e0",
+      "full_name": "insightspike.algorithms.isomorphism_discovery.IsomorphismDiscovery",
+      "tags": []
+    },
+    {
+      "name": "PartialMapping",
+      "module": "insightspike.algorithms.isomorphism_discovery",
+      "type": "class",
+      "signature": "(mapped: Dict[str, str], remaining_source: List[str], remaining_target: Set[str], score: float = inf) -> None",
+      "docstring": "\u90e8\u5206\u7684\u306a\u30de\u30c3\u30d4\u30f3\u30b0\uff08\u63a2\u7d22\u4e2d\u306e\u72b6\u614b\uff09",
+      "full_name": "insightspike.algorithms.isomorphism_discovery.PartialMapping",
+      "tags": []
+    },
+    {
+      "name": "Transform",
+      "module": "insightspike.algorithms.isomorphism_discovery",
+      "type": "class",
+      "signature": "(node_mapping: Dict[str, str] = <factory>, edit_operations: List[insightspike.algorithms.isomorphism_discovery.EditOperation] = <factory>, cost: float = 0.0, metadata: Dict[str, Any] = <factory>) -> None",
+      "docstring": "\u30b0\u30e9\u30d5\u5909\u63db\u3092\u8868\u3059\u30af\u30e9\u30b9",
+      "full_name": "insightspike.algorithms.isomorphism_discovery.Transform",
+      "tags": []
+    },
+    {
+      "name": "create_test_graphs",
+      "module": "insightspike.algorithms.isomorphism_discovery",
+      "type": "function",
+      "signature": "() -> Tuple[networkx.classes.graph.Graph, networkx.classes.graph.Graph, Dict[str, str]]",
+      "docstring": "\u30c6\u30b9\u30c8\u7528\u306e\u30b0\u30e9\u30d5\u30da\u30a2\uff08\u65e2\u77e5\u306e\u5909\u63db\u4ed8\u304d\uff09\u3092\u4f5c\u6210",
+      "full_name": "insightspike.algorithms.isomorphism_discovery.create_test_graphs",
+      "tags": []
+    },
+    {
+      "name": "discover_insight",
+      "module": "insightspike.algorithms.isomorphism_discovery",
+      "type": "function",
+      "signature": "(source_graph: networkx.classes.graph.Graph, target_graph: networkx.classes.graph.Graph, **kwargs) -> insightspike.algorithms.isomorphism_discovery.Transform",
+      "docstring": "2\u3064\u306e\u30b0\u30e9\u30d5\u9593\u306e\u300c\u9583\u304d\u300d\uff08\u6700\u5c0f\u5909\u63db\uff09\u3092\u767a\u898b\u3059\u308b",
+      "full_name": "insightspike.algorithms.isomorphism_discovery.discover_insight",
+      "tags": []
+    },
+    {
+      "name": "build_linkset_info",
+      "module": "insightspike.algorithms.linkset_adapter",
+      "type": "function",
+      "signature": "(*, s_link: 'Optional[Sequence[Dict[str, Any]]]' = None, candidate_pool: 'Optional[Sequence[Dict[str, Any]]]' = None, decision: 'Optional[Dict[str, Any]]' = None, query_vector: 'Optional[Sequence[float]]' = None, base_mode: 'str' = 'link') -> 'Dict[str, Any]'",
+      "docstring": "Construct a linkset_info payload from selection data.",
+      "full_name": "insightspike.algorithms.linkset_adapter.build_linkset_info",
+      "tags": []
+    },
+    {
+      "name": "LocalIGResult",
+      "module": "insightspike.algorithms.local_information_gain_v2",
+      "type": "class",
+      "signature": "(total_ig: 'float', ig_value: 'float', computation_time: 'float', avg_surprise_before: 'float', avg_surprise_after: 'float', global_ig: 'float' = 0.0, homogenization: 'float' = 0.0, tension_reduction: 'float' = 0.0, max_surprise_after: 'float' = 0.0) -> None",
+      "docstring": "LocalIGResult(total_ig: 'float', ig_value: 'float', computation_time: 'float', avg_surprise_before: 'float', avg_surprise_after: 'float', global_ig: 'float' = 0.0, homogenization: 'float' = 0.0, tension_reduction: 'float' = 0.0, max_surprise_after: 'float' = 0.0)",
+      "full_name": "insightspike.algorithms.local_information_gain_v2.LocalIGResult",
+      "tags": []
+    },
+    {
+      "name": "LocalInformationGainV2",
+      "module": "insightspike.algorithms.local_information_gain_v2",
+      "type": "class",
+      "signature": "(diffusion_steps: 'int' = 3, alpha: 'float' = 0.1, surprise_method: 'str' = 'entropy', normalize: 'bool' = True, teleport: 'float' = 0.02) -> 'None'",
+      "docstring": "Minimal, self-contained Local IG implementation.",
+      "full_name": "insightspike.algorithms.local_information_gain_v2.LocalInformationGainV2",
+      "tags": []
+    },
+    {
+      "name": "compute_local_ig",
+      "module": "insightspike.algorithms.local_information_gain_v2",
+      "type": "function",
+      "signature": "(before: 'Any', after: 'Any', **kwargs: 'Any') -> 'float'",
+      "docstring": "Convenience wrapper returning IG value as float (backward compatible).",
+      "full_name": "insightspike.algorithms.local_information_gain_v2.compute_local_ig",
+      "tags": []
+    },
+    {
+      "name": "GraphEditDistance",
+      "module": "insightspike.algorithms.metrics_selector",
+      "type": "class",
+      "signature": "(node_cost: float = 1.0, edge_cost: float = 1.0, optimization_level: Union[str, insightspike.algorithms.graph_edit_distance.OptimizationLevel] = <OptimizationLevel.STANDARD: 'standard'>, timeout_seconds: float = 5.0, max_graph_size_exact: int = 50)",
+      "docstring": "Graph Edit Distance calculator for PyTorch Geometric graphs.",
+      "full_name": "insightspike.algorithms.metrics_selector.GraphEditDistance",
+      "tags": []
+    },
+    {
+      "name": "InformationGain",
+      "module": "insightspike.algorithms.metrics_selector",
+      "type": "class",
+      "signature": "(method: Union[str, insightspike.algorithms.information_gain.EntropyMethod] = <EntropyMethod.CLUSTERING: 'clustering'>, k_clusters: int = 8, min_samples: int = 2, random_state: int = 42)",
+      "docstring": "Information Gain calculator for measuring learning progress.",
+      "full_name": "insightspike.algorithms.metrics_selector.InformationGain",
+      "tags": []
+    },
+    {
+      "name": "MetricsSelector",
+      "module": "insightspike.algorithms.metrics_selector",
+      "type": "class",
+      "signature": "(config=None)",
+      "docstring": "Select and manage metric calculation methods",
+      "full_name": "insightspike.algorithms.metrics_selector.MetricsSelector",
+      "tags": []
+    },
+    {
+      "name": "advanced_delta_ged",
+      "module": "insightspike.algorithms.metrics_selector",
+      "type": "function",
+      "signature": "(graph_before: 'Any', graph_after: 'Any', **kwargs) -> 'float'",
+      "docstring": "Calculate \u0394GED for backward compatibility.",
+      "full_name": "insightspike.algorithms.metrics_selector.advanced_delta_ged",
+      "tags": []
+    },
+    {
+      "name": "advanced_delta_ig",
+      "module": "insightspike.algorithms.metrics_selector",
+      "type": "function",
+      "signature": "(graph_before: 'Any', graph_after: 'Any', **kwargs) -> 'float'",
+      "docstring": "Calculate \u0394IG for backward compatibility.",
+      "full_name": "insightspike.algorithms.metrics_selector.advanced_delta_ig",
+      "tags": []
+    },
+    {
+      "name": "delta_ged",
+      "module": "insightspike.algorithms.metrics_selector",
+      "type": "function",
+      "signature": "(graph1: Any, graph2: Any, config=None) -> float",
+      "docstring": "Calculate \u0394GED with configured algorithm",
+      "full_name": "insightspike.algorithms.metrics_selector.delta_ged",
+      "tags": []
+    },
+    {
+      "name": "delta_ged_pyg",
+      "module": "insightspike.algorithms.metrics_selector",
+      "type": "function",
+      "signature": "(g_old: Any, g_new: Any) -> float",
+      "docstring": "Calculate \u0394GED for PyTorch Geometric graphs.",
+      "full_name": "insightspike.algorithms.metrics_selector.delta_ged_pyg",
+      "tags": []
+    },
+    {
+      "name": "delta_ig",
+      "module": "insightspike.algorithms.metrics_selector",
+      "type": "function",
+      "signature": "(graph1: Any, graph2: Any, config=None) -> float",
+      "docstring": "Calculate \u0394IG with configured algorithm",
+      "full_name": "insightspike.algorithms.metrics_selector.delta_ig",
+      "tags": []
+    },
+    {
+      "name": "delta_ig_pyg",
+      "module": "insightspike.algorithms.metrics_selector",
+      "type": "function",
+      "signature": "(g_old: Any, g_new: Any) -> float",
+      "docstring": "Calculate \u0394IG for PyG graphs using variance proxy.",
+      "full_name": "insightspike.algorithms.metrics_selector.delta_ig_pyg",
+      "tags": []
+    },
+    {
+      "name": "get_metrics_selector",
+      "module": "insightspike.algorithms.metrics_selector",
+      "type": "function",
+      "signature": "(config=None) -> insightspike.algorithms.metrics_selector.MetricsSelector",
+      "docstring": "Get or create metrics selector",
+      "full_name": "insightspike.algorithms.metrics_selector.get_metrics_selector",
+      "tags": []
+    },
+    {
+      "name": "simple_delta_ged",
+      "module": "insightspike.algorithms.metrics_selector",
+      "type": "function",
+      "signature": "(g_old: networkx.classes.graph.Graph, g_new: networkx.classes.graph.Graph) -> float",
+      "docstring": "Calculate graph edit distance delta.",
+      "full_name": "insightspike.algorithms.metrics_selector.simple_delta_ged",
+      "tags": []
+    },
+    {
+      "name": "simple_delta_ig",
+      "module": "insightspike.algorithms.metrics_selector",
+      "type": "function",
+      "signature": "(vecs_old: numpy.ndarray, vecs_new: numpy.ndarray, k: int = 8) -> float",
+      "docstring": "Calculate information gain delta between two vector sets.",
+      "full_name": "insightspike.algorithms.metrics_selector.simple_delta_ig",
+      "tags": []
+    },
+    {
+      "name": "ProperDeltaGED",
+      "module": "insightspike.algorithms.proper_delta_ged",
+      "type": "class",
+      "signature": "()",
+      "docstring": "Maintains reference graph state for proper \u0394GED calculation.",
+      "full_name": "insightspike.algorithms.proper_delta_ged.ProperDeltaGED",
+      "tags": []
+    },
+    {
+      "name": "proper_delta_ged",
+      "module": "insightspike.algorithms.proper_delta_ged",
+      "type": "function",
+      "signature": "(current_graph: Any, previous_graph: Optional[Any] = None, reference_graph: Optional[Any] = None) -> float",
+      "docstring": "Calculate proper \u0394GED with persistent reference state.",
+      "full_name": "insightspike.algorithms.proper_delta_ged.proper_delta_ged",
+      "tags": []
+    },
+    {
+      "name": "reset_ged_state",
+      "module": "insightspike.algorithms.proper_delta_ged",
+      "type": "function",
+      "signature": "()",
+      "docstring": "Reset the global GED calculator state.",
+      "full_name": "insightspike.algorithms.proper_delta_ged.reset_ged_state",
+      "tags": []
+    },
+    {
+      "name": "calculate_information_gain",
+      "module": "insightspike.algorithms.proper_entropy",
+      "type": "function",
+      "signature": "(vectors_before: numpy.ndarray, vectors_after: numpy.ndarray) -> float",
+      "docstring": "Calculate information gain as entropy reduction.",
+      "full_name": "insightspike.algorithms.proper_entropy.calculate_information_gain",
+      "tags": []
+    },
+    {
+      "name": "calculate_vector_entropy",
+      "module": "insightspike.algorithms.proper_entropy",
+      "type": "function",
+      "signature": "(vectors: numpy.ndarray) -> float",
+      "docstring": "Calculate entropy based on vector similarity distribution.",
+      "full_name": "insightspike.algorithms.proper_entropy.calculate_vector_entropy",
+      "tags": []
+    },
+    {
+      "name": "PyGAdapter",
+      "module": "insightspike.algorithms.pyg_adapter",
+      "type": "class",
+      "signature": "()",
+      "docstring": "Adapter to use PyTorch Geometric graphs with NetworkX-based algorithms",
+      "full_name": "insightspike.algorithms.pyg_adapter.PyGAdapter",
+      "tags": []
+    },
+    {
+      "name": "PyGGraphEditDistance",
+      "module": "insightspike.algorithms.pyg_adapter",
+      "type": "class",
+      "signature": "(structural_weight: float = 0.7, embedding_weight: float = 0.3, use_networkx: bool = True)",
+      "docstring": "Graph Edit Distance calculator that works directly with PyG graphs.",
+      "full_name": "insightspike.algorithms.pyg_adapter.PyGGraphEditDistance",
+      "tags": []
+    },
+    {
+      "name": "QueryContext",
+      "module": "insightspike.algorithms.query_type_processor",
+      "type": "class",
+      "signature": "(query_text: Optional[str] = None, query_type: insightspike.algorithms.query_type_processor.QueryType = <QueryType.UNKNOWN: 'unknown'>, position: Optional[Tuple[float, float]] = None, direction: Optional[int] = None, language_embedding: Optional[numpy.ndarray] = None, spatial_bounds: Optional[Dict[str, float]] = None, metadata: Dict[str, Any] = None) -> None",
+      "docstring": "Enhanced query context with type information.",
+      "full_name": "insightspike.algorithms.query_type_processor.QueryContext",
+      "tags": []
+    },
+    {
+      "name": "QueryType",
+      "module": "insightspike.algorithms.query_type_processor",
+      "type": "class",
+      "signature": "(*values)",
+      "docstring": "Types of queries with different processing needs.",
+      "full_name": "insightspike.algorithms.query_type_processor.QueryType",
+      "tags": []
+    },
+    {
+      "name": "QueryTypeProcessor",
+      "module": "insightspike.algorithms.query_type_processor",
+      "type": "class",
+      "signature": "(language_dim: int = 384, spatial_dim: int = 5, auto_detect: bool = True)",
+      "docstring": "Processes queries differently based on their type.",
+      "full_name": "insightspike.algorithms.query_type_processor.QueryTypeProcessor",
+      "tags": []
+    },
+    {
+      "name": "WakeModeGeDIG",
+      "module": "insightspike.algorithms.query_type_processor",
+      "type": "class",
+      "signature": "(**base_params)",
+      "docstring": "Wake Mode geDIG calculator for efficient query processing.",
+      "full_name": "insightspike.algorithms.query_type_processor.WakeModeGeDIG",
+      "tags": []
+    },
+    {
+      "name": "WakeModeResult",
+      "module": "insightspike.algorithms.query_type_processor",
+      "type": "class",
+      "signature": "(gedig_value: 'float', ged_value: 'float', ig_value: 'float', raw_ged: 'float' = 0.0, ged_norm_den: 'float' = 1.0, ig_raw: 'float' = 0.0, ig_norm_den: 'float' = 1.0, ig_z_score: 'float' = 0.0, delta_ged_norm: 'float' = 0.0, delta_sp_rel: 'float' = 0.0, delta_h_norm: 'float' = 0.0, structural_cost: 'float' = 0.0, structural_improvement: 'float' = 0.0, information_integration: 'float' = 0.0, entropy_before: 'float' = 0.0, entropy_after: 'float' = 0.0, ig_delta: 'float' = 0.0, variance_reduction: 'float' = 0.0, hop0_reward: 'float' = 0.0, aggregate_reward: 'float' = 0.0, reward: 'float' = 0.0, hop_results: 'Optional[Dict[int, HopResult]]' = None, computation_time: 'float' = 0.0, focal_nodes: 'Optional[Set[str]]' = None, version: 'str' = 'refactor_phaseA', spike: 'bool' = False, linkset_metrics: \"Optional['LinksetMetrics']\" = None, ged_min_proxy: 'float' = 0.0, mode: str = 'wake', pattern_match_score: float = 0.0, convergence_score: float = 0.0, efficiency_score: float = 0.0, nearest_patterns: Optional[List[str]] = None) -> None",
+      "docstring": "Extended result for Wake Mode processing.",
+      "full_name": "insightspike.algorithms.query_type_processor.WakeModeResult",
+      "tags": []
+    },
+    {
+      "name": "RehydrationStats",
+      "module": "insightspike.algorithms.rehydration",
+      "type": "class",
+      "signature": "(attempted: 'int' = 0, restored: 'int' = 0, skipped: 'int' = 0) -> None",
+      "docstring": "RehydrationStats(attempted: 'int' = 0, restored: 'int' = 0, skipped: 'int' = 0)",
+      "full_name": "insightspike.algorithms.rehydration.RehydrationStats",
+      "tags": []
+    },
+    {
+      "name": "Rehydrator",
+      "module": "insightspike.algorithms.rehydration",
+      "type": "class",
+      "signature": "()",
+      "docstring": "Minimal placeholder rehydrator.",
+      "full_name": "insightspike.algorithms.rehydration.Rehydrator",
+      "tags": []
+    },
+    {
+      "name": "calculate_similarity_entropy",
+      "module": "insightspike.algorithms.similarity_entropy",
+      "type": "function",
+      "signature": "(vectors: numpy.ndarray) -> float",
+      "docstring": "Calculate entropy based on pairwise similarities.",
+      "full_name": "insightspike.algorithms.similarity_entropy.calculate_similarity_entropy",
+      "tags": []
+    },
+    {
+      "name": "DistanceCache",
+      "module": "insightspike.algorithms.sp_distcache",
+      "type": "class",
+      "signature": "(*, mode: 'str' = 'core', pair_samples: 'int' = 400) -> 'None'",
+      "docstring": "",
+      "full_name": "insightspike.algorithms.sp_distcache.DistanceCache",
+      "tags": []
+    },
+    {
+      "name": "PairSet",
+      "module": "insightspike.algorithms.sp_distcache",
+      "type": "class",
+      "signature": "(pairs: 'List[Tuple[object, object, float]]', lb_avg: 'float') -> None",
+      "docstring": "PairSet(pairs: 'List[Tuple[object, object, float]]', lb_avg: 'float')",
+      "full_name": "insightspike.algorithms.sp_distcache.PairSet",
+      "tags": []
+    },
+    {
+      "name": "clustering_coefficient_entropy",
+      "module": "insightspike.algorithms.structural_entropy",
+      "type": "function",
+      "signature": "(graph: Any) -> float",
+      "docstring": "Calculate entropy based on clustering coefficient distribution.",
+      "full_name": "insightspike.algorithms.structural_entropy.clustering_coefficient_entropy",
+      "tags": []
+    },
+    {
+      "name": "degree_distribution_entropy",
+      "module": "insightspike.algorithms.structural_entropy",
+      "type": "function",
+      "signature": "(graph: Any) -> float",
+      "docstring": "Calculate entropy of the degree distribution.",
+      "full_name": "insightspike.algorithms.structural_entropy.degree_distribution_entropy",
+      "tags": []
+    },
+    {
+      "name": "path_length_entropy",
+      "module": "insightspike.algorithms.structural_entropy",
+      "type": "function",
+      "signature": "(graph: Any, sample_size: Optional[int] = 100) -> float",
+      "docstring": "Calculate entropy based on shortest path length distribution.",
+      "full_name": "insightspike.algorithms.structural_entropy.path_length_entropy",
+      "tags": []
+    },
+    {
+      "name": "structural_entropy",
+      "module": "insightspike.algorithms.structural_entropy",
+      "type": "function",
+      "signature": "(graph: Any, weights: Optional[Dict[str, float]] = None) -> Dict[str, float]",
+      "docstring": "Calculate multiple structural entropy measures.",
+      "full_name": "insightspike.algorithms.structural_entropy.structural_entropy",
+      "tags": []
+    },
+    {
+      "name": "von_neumann_entropy",
+      "module": "insightspike.algorithms.structural_entropy",
+      "type": "function",
+      "signature": "(graph: Any, normalized: bool = True) -> float",
+      "docstring": "Calculate Von Neumann entropy of the graph.",
+      "full_name": "insightspike.algorithms.structural_entropy.von_neumann_entropy",
+      "tags": []
+    },
+    {
+      "name": "SimilarityResult",
+      "module": "insightspike.algorithms.structural_similarity",
+      "type": "class",
+      "signature": "(similarity: 'float', method: 'str', is_analogy: 'bool' = False, signature_a: 'Optional[np.ndarray]' = None, signature_b: 'Optional[np.ndarray]' = None, domain_a: 'Optional[str]' = None, domain_b: 'Optional[str]' = None, is_cross_domain: 'bool' = False, details: 'Dict[str, Any]' = <factory>) -> None",
+      "docstring": "Result of structural similarity evaluation.",
+      "full_name": "insightspike.algorithms.structural_similarity.SimilarityResult",
+      "tags": []
+    },
+    {
+      "name": "StructuralSimilarityEvaluator",
+      "module": "insightspike.algorithms.structural_similarity",
+      "type": "class",
+      "signature": "(config: \"'StructuralSimilarityConfig'\")",
+      "docstring": "Evaluates structural similarity between graphs/subgraphs.",
+      "full_name": "insightspike.algorithms.structural_similarity.StructuralSimilarityEvaluator",
+      "tags": []
+    },
+    {
+      "name": "compute_structural_similarity",
+      "module": "insightspike.algorithms.structural_similarity",
+      "type": "function",
+      "signature": "(g1: 'nx.Graph', g2: 'nx.Graph', method: 'str' = 'signature', threshold: 'float' = 0.7) -> 'SimilarityResult'",
+      "docstring": "Quick structural similarity computation.",
+      "full_name": "insightspike.algorithms.structural_similarity.compute_structural_similarity",
+      "tags": []
+    },
+    {
+      "name": "StructuralSimilarityConfig",
+      "module": "insightspike.algorithms.structure_enricher",
+      "type": "class",
+      "signature": "(*, enabled: bool = False, method: Literal['signature', 'spectral', 'wl_kernel', 'motif'] = 'signature', max_signature_hops: Annotated[int, Ge(ge=1), Le(le=5)] = 3, include_triangles: bool = True, include_clustering: bool = True, include_density: bool = True, spectral_k: Annotated[int, Ge(ge=1), Le(le=50)] = 10, wl_iterations: Annotated[int, Ge(ge=1), Le(le=10)] = 5, analogy_threshold: Annotated[float, Ge(ge=0.0), Le(le=1.0)] = 0.7, analogy_weight: Annotated[float, Ge(ge=0.0), Le(le=1.0)] = 0.3, cross_domain_only: bool = True, domain_attribute: str = 'domain') -> None",
+      "docstring": "Structural similarity evaluation for analogy detection.",
+      "full_name": "insightspike.algorithms.structure_enricher.StructuralSimilarityConfig",
+      "tags": []
+    },
+    {
+      "name": "StructuralSimilarityEvaluator",
+      "module": "insightspike.algorithms.structure_enricher",
+      "type": "class",
+      "signature": "(config: \"'StructuralSimilarityConfig'\")",
+      "docstring": "Evaluates structural similarity between graphs/subgraphs.",
+      "full_name": "insightspike.algorithms.structure_enricher.StructuralSimilarityEvaluator",
+      "tags": []
+    },
+    {
+      "name": "StructureEnricher",
+      "module": "insightspike.algorithms.structure_enricher",
+      "type": "class",
+      "signature": "(config: Optional[insightspike.config.models.StructuralSimilarityConfig] = None)",
+      "docstring": "Enriches graph nodes with structural metadata.",
+      "full_name": "insightspike.algorithms.structure_enricher.StructureEnricher",
+      "tags": []
+    },
+    {
+      "name": "discover_command",
+      "module": "insightspike.cli.commands",
+      "type": "function",
+      "signature": "(ctx: typer.models.Context, corpus: Optional[pathlib._local.Path] = <typer.models.OptionInfo object at 0x14b95e350>, min_spike: float = <typer.models.OptionInfo object at 0x14b95e490>, max_insights: int = <typer.models.OptionInfo object at 0x14b95e5d0>, categories: Optional[str] = <typer.models.OptionInfo object at 0x14b95e710>, export_path: Optional[pathlib._local.Path] = <typer.models.OptionInfo object at 0x14b95e850>, verbose: bool = <typer.models.OptionInfo object at 0x14b95e990>)",
+      "docstring": "Discover hidden insights and unexpected connections in your knowledge base.",
+      "full_name": "insightspike.cli.commands.discover_command",
+      "tags": []
+    },
+    {
+      "name": "ConceptBridge",
+      "module": "insightspike.cli.commands.bridge",
+      "type": "class",
+      "signature": "(agent: insightspike.implementations.agents.main_agent.MainAgent)",
+      "docstring": "Find conceptual paths between seemingly unrelated ideas",
+      "full_name": "insightspike.cli.commands.bridge.ConceptBridge",
+      "tags": []
+    },
+    {
+      "name": "SimpleRAGGraph",
+      "module": "insightspike.cli.commands.bridge",
+      "type": "class",
+      "signature": "(config=None, datastore: Optional[insightspike.core.base.datastore.DataStore] = None)",
+      "docstring": "Main orchestrating agent that coordinates all layers.",
+      "full_name": "insightspike.cli.commands.bridge.SimpleRAGGraph",
+      "tags": []
+    },
+    {
+      "name": "bridge_command",
+      "module": "insightspike.cli.commands.bridge",
+      "type": "function",
+      "signature": "(concept1: str = <typer.models.ArgumentInfo object at 0x14badc830>, concept2: str = <typer.models.ArgumentInfo object at 0x14b95ed50>, max_hops: int = <typer.models.OptionInfo object at 0x14b95ee90>, top_k: int = <typer.models.OptionInfo object at 0x14b95efd0>, export: Optional[pathlib._local.Path] = <typer.models.OptionInfo object at 0x14b95f110>, verbose: bool = <typer.models.OptionInfo object at 0x14b95f250>)",
+      "docstring": "Find conceptual bridges between two ideas",
+      "full_name": "insightspike.cli.commands.bridge.bridge_command",
+      "tags": []
+    },
+    {
+      "name": "visualize_bridge_path",
+      "module": "insightspike.cli.commands.bridge",
+      "type": "function",
+      "signature": "(bridge_result: Dict) -> None",
+      "docstring": "Visualize a bridge path with Rich",
+      "full_name": "insightspike.cli.commands.bridge.visualize_bridge_path",
+      "tags": []
+    },
+    {
+      "name": "InsightDiscovery",
+      "module": "insightspike.cli.commands.discover",
+      "type": "class",
+      "signature": "(agent: insightspike.implementations.agents.main_agent.MainAgent)",
+      "docstring": "Handles insight discovery from knowledge base",
+      "full_name": "insightspike.cli.commands.discover.InsightDiscovery",
+      "tags": []
+    },
+    {
+      "name": "MainAgent",
+      "module": "insightspike.cli.commands.discover",
+      "type": "class",
+      "signature": "(config=None, datastore: Optional[insightspike.core.base.datastore.DataStore] = None)",
+      "docstring": "Main orchestrating agent that coordinates all layers.",
+      "full_name": "insightspike.cli.commands.discover.MainAgent",
+      "tags": []
+    },
+    {
+      "name": "discover_command",
+      "module": "insightspike.cli.commands.discover",
+      "type": "function",
+      "signature": "(ctx: typer.models.Context, corpus: Optional[pathlib._local.Path] = <typer.models.OptionInfo object at 0x14b95e350>, min_spike: float = <typer.models.OptionInfo object at 0x14b95e490>, max_insights: int = <typer.models.OptionInfo object at 0x14b95e5d0>, categories: Optional[str] = <typer.models.OptionInfo object at 0x14b95e710>, export_path: Optional[pathlib._local.Path] = <typer.models.OptionInfo object at 0x14b95e850>, verbose: bool = <typer.models.OptionInfo object at 0x14b95e990>)",
+      "docstring": "Discover hidden insights and unexpected connections in your knowledge base.",
+      "full_name": "insightspike.cli.commands.discover.discover_command",
+      "tags": []
+    },
+    {
+      "name": "get_logger",
+      "module": "insightspike.cli.commands.discover",
+      "type": "function",
+      "signature": "(name: str) -> logging.Logger",
+      "docstring": "\u30ed\u30ac\u30fc\u3092\u53d6\u5f97\u3059\u308b\u4fbf\u5229\u95a2\u6570",
+      "full_name": "insightspike.cli.commands.discover.get_logger",
+      "tags": []
+    },
+    {
+      "name": "DataStoreConfig",
+      "module": "insightspike.cli.commands.graph",
+      "type": "class",
+      "signature": "(*, type: Literal['filesystem', 'in_memory'] = 'filesystem', root_path: str = './data/insight_store', explicit_root_path: bool = False) -> None",
+      "docstring": "DataStore configuration",
+      "full_name": "insightspike.cli.commands.graph.DataStoreConfig",
+      "tags": []
+    },
+    {
+      "name": "DataStoreFactory",
+      "module": "insightspike.cli.commands.graph",
+      "type": "class",
+      "signature": "()",
+      "docstring": "Factory for creating DataStore instances",
+      "full_name": "insightspike.cli.commands.graph.DataStoreFactory",
+      "tags": []
+    },
+    {
+      "name": "GraphAnalyzer",
+      "module": "insightspike.cli.commands.graph",
+      "type": "class",
+      "signature": "(agent: insightspike.implementations.agents.main_agent.MainAgent)",
+      "docstring": "Analyze and visualize knowledge graph structure",
+      "full_name": "insightspike.cli.commands.graph.GraphAnalyzer",
+      "tags": []
+    },
+    {
+      "name": "SimpleRAGGraph",
+      "module": "insightspike.cli.commands.graph",
+      "type": "class",
+      "signature": "(config=None, datastore: Optional[insightspike.core.base.datastore.DataStore] = None)",
+      "docstring": "Main orchestrating agent that coordinates all layers.",
+      "full_name": "insightspike.cli.commands.graph.SimpleRAGGraph",
+      "tags": []
+    },
+    {
+      "name": "analyze_command",
+      "module": "insightspike.cli.commands.graph",
+      "type": "function",
+      "signature": "(export: Optional[pathlib._local.Path] = <typer.models.OptionInfo object at 0x14b95f4d0>, verbose: bool = <typer.models.OptionInfo object at 0x14b95f610>)",
+      "docstring": "Analyze knowledge graph structure and metrics",
+      "full_name": "insightspike.cli.commands.graph.analyze_command",
+      "tags": []
+    },
+    {
+      "name": "graph_command",
+      "module": "insightspike.cli.commands.graph",
+      "type": "function",
+      "signature": "()",
+      "docstring": "Graph subcommand group",
+      "full_name": "insightspike.cli.commands.graph.graph_command",
+      "tags": []
+    },
+    {
+      "name": "load_config",
+      "module": "insightspike.cli.commands.graph",
+      "type": "function",
+      "signature": "(config_path: Union[str, pathlib._local.Path, NoneType] = None, preset: Optional[str] = None, overrides: Optional[Dict[str, Any]] = None) -> insightspike.config.models.InsightSpikeConfig",
+      "docstring": "Load configuration using global loader",
+      "full_name": "insightspike.cli.commands.graph.load_config",
+      "tags": []
+    },
+    {
+      "name": "resolve_project_relative",
+      "module": "insightspike.cli.commands.graph",
+      "type": "function",
+      "signature": "(path_like: 'Union[str, Path]') -> 'str'",
+      "docstring": "Resolve a path relative to the project root if it's not absolute.",
+      "full_name": "insightspike.cli.commands.graph.resolve_project_relative",
+      "tags": []
+    },
+    {
+      "name": "sleep_gc_command",
+      "module": "insightspike.cli.commands.graph",
+      "type": "function",
+      "signature": "(namespace: str = <typer.models.OptionInfo object at 0x14b95fc50>, max_degree: int = <typer.models.OptionInfo object at 0x14b95fd90>, min_weight: float = <typer.models.OptionInfo object at 0x14b95fed0>, decay: float = <typer.models.OptionInfo object at 0x14bb10050>, keep_pinned: bool = <typer.models.OptionInfo object at 0x14bb10190>)",
+      "docstring": "Run sleep/forget maintenance: edge pooling, weight decay, orphan pruning.",
+      "full_name": "insightspike.cli.commands.graph.sleep_gc_command",
+      "tags": []
+    },
+    {
+      "name": "visualize_command",
+      "module": "insightspike.cli.commands.graph",
+      "type": "function",
+      "signature": "(output: pathlib._local.Path = <typer.models.ArgumentInfo object at 0x14b95f750>, format: str = <typer.models.OptionInfo object at 0x14b95f890>, insights_only: bool = <typer.models.OptionInfo object at 0x14b95f9d0>, verbose: bool = <typer.models.OptionInfo object at 0x14b95fb10>)",
+      "docstring": "Generate interactive visualization of the knowledge graph",
+      "full_name": "insightspike.cli.commands.graph.visualize_command",
+      "tags": []
+    },
+    {
+      "name": "visualize_graph_metrics",
+      "module": "insightspike.cli.commands.graph",
+      "type": "function",
+      "signature": "(analysis: Dict[str, Any]) -> None",
+      "docstring": "Display graph metrics in a beautiful format",
+      "full_name": "insightspike.cli.commands.graph.visualize_graph_metrics",
+      "tags": []
+    },
+    {
+      "name": "InsightFactRegistry",
+      "module": "insightspike.cli.legacy",
+      "type": "class",
+      "signature": "(db_path: Optional[pathlib._local.Path] = None)",
+      "docstring": "Manages registration, evaluation, and utilization of discovered insights.",
+      "full_name": "insightspike.cli.legacy.InsightFactRegistry",
+      "tags": []
+    },
+    {
+      "name": "MainAgent",
+      "module": "insightspike.cli.legacy",
+      "type": "class",
+      "signature": "(config=None, datastore: Optional[insightspike.core.base.datastore.DataStore] = None)",
+      "docstring": "Main orchestrating agent that coordinates all layers.",
+      "full_name": "insightspike.cli.legacy.MainAgent",
+      "tags": []
+    },
+    {
+      "name": "ask",
+      "module": "insightspike.cli.legacy",
+      "type": "function",
+      "signature": "(question: str = <typer.models.ArgumentInfo object at 0x14bb11590>)",
+      "docstring": "[DEPRECATED] Use 'spike ask' instead. Legacy ask command.",
+      "full_name": "insightspike.cli.legacy.ask",
+      "tags": []
+    },
+    {
+      "name": "config_info",
+      "module": "insightspike.cli.legacy",
+      "type": "function",
+      "signature": "()",
+      "docstring": "Show current configuration",
+      "full_name": "insightspike.cli.legacy.config_info",
+      "tags": []
+    },
+    {
+      "name": "get_config",
+      "module": "insightspike.cli.legacy",
+      "type": "function",
+      "signature": "() -> insightspike.config.models.InsightSpikeConfig",
+      "docstring": "Get current configuration or load defaults",
+      "full_name": "insightspike.cli.legacy.get_config",
+      "tags": []
+    },
+    {
+      "name": "load_corpus",
+      "module": "insightspike.cli.legacy",
+      "type": "function",
+      "signature": "(path: pathlib._local.Path | None = None) -> List[str]",
+      "docstring": "",
+      "full_name": "insightspike.cli.legacy.load_corpus",
+      "tags": []
+    },
+    {
+      "name": "load_documents",
+      "module": "insightspike.cli.legacy",
+      "type": "function",
+      "signature": "(path: pathlib._local.Path = <typer.models.ArgumentInfo object at 0x14bb116d0>)",
+      "docstring": "Load documents into the agent's memory (without graph update)",
+      "full_name": "insightspike.cli.legacy.load_documents",
+      "tags": []
+    },
+    {
+      "name": "main",
+      "module": "insightspike.cli.legacy",
+      "type": "function",
+      "signature": "()",
+      "docstring": "Main CLI entry point for Poetry scripts",
+      "full_name": "insightspike.cli.legacy.main",
+      "tags": []
+    },
+    {
+      "name": "main_callback",
+      "module": "insightspike.cli.legacy",
+      "type": "function",
+      "signature": "()",
+      "docstring": "InsightSpike Legacy CLI",
+      "full_name": "insightspike.cli.legacy.main_callback",
+      "tags": []
+    },
+    {
+      "name": "stats",
+      "module": "insightspike.cli.legacy",
+      "type": "function",
+      "signature": "()",
+      "docstring": "[DEPRECATED] Use 'spike stats' instead. Show agent statistics",
+      "full_name": "insightspike.cli.legacy.stats",
+      "tags": []
+    },
+    {
       "name": "test",
       "module": "insightspike.cli.simple_cli",
       "type": "function",
@@ -771,7 +2598,7 @@
       "name": "analyze_command",
       "module": "insightspike.cli.spike",
       "type": "function",
-      "signature": "(export: Optional[pathlib._local.Path] = <typer.models.OptionInfo object at 0x13e96c690>, verbose: bool = <typer.models.OptionInfo object at 0x13e96c7d0>)",
+      "signature": "(export: Optional[pathlib._local.Path] = <typer.models.OptionInfo object at 0x14b95f4d0>, verbose: bool = <typer.models.OptionInfo object at 0x14b95f610>)",
       "docstring": "Analyze knowledge graph structure and metrics",
       "full_name": "insightspike.cli.spike.analyze_command",
       "tags": []
@@ -780,7 +2607,7 @@
       "name": "bridge_command",
       "module": "insightspike.cli.spike",
       "type": "function",
-      "signature": "(concept1: str = <typer.models.ArgumentInfo object at 0x13e8270e0>, concept2: str = <typer.models.ArgumentInfo object at 0x13e83fed0>, max_hops: int = <typer.models.OptionInfo object at 0x13e96c050>, top_k: int = <typer.models.OptionInfo object at 0x13e96c190>, export: Optional[pathlib._local.Path] = <typer.models.OptionInfo object at 0x13e96c2d0>, verbose: bool = <typer.models.OptionInfo object at 0x13e96c410>)",
+      "signature": "(concept1: str = <typer.models.ArgumentInfo object at 0x14badc830>, concept2: str = <typer.models.ArgumentInfo object at 0x14b95ed50>, max_hops: int = <typer.models.OptionInfo object at 0x14b95ee90>, top_k: int = <typer.models.OptionInfo object at 0x14b95efd0>, export: Optional[pathlib._local.Path] = <typer.models.OptionInfo object at 0x14b95f110>, verbose: bool = <typer.models.OptionInfo object at 0x14b95f250>)",
       "docstring": "Find conceptual bridges between two ideas",
       "full_name": "insightspike.cli.spike.bridge_command",
       "tags": []
@@ -789,7 +2616,7 @@
       "name": "config",
       "module": "insightspike.cli.spike",
       "type": "function",
-      "signature": "(ctx: typer.models.Context, action: str = <typer.models.ArgumentInfo object at 0x13e96d810>, key: Optional[str] = <typer.models.ArgumentInfo object at 0x13e96d950>, value: Optional[str] = <typer.models.ArgumentInfo object at 0x13e96da90>)",
+      "signature": "(ctx: typer.models.Context, action: str = <typer.models.ArgumentInfo object at 0x14bb10690>, key: Optional[str] = <typer.models.ArgumentInfo object at 0x14bb107d0>, value: Optional[str] = <typer.models.ArgumentInfo object at 0x14bb10910>)",
       "docstring": "Manage configuration settings",
       "full_name": "insightspike.cli.spike.config",
       "tags": []
@@ -807,7 +2634,7 @@
       "name": "discover_command",
       "module": "insightspike.cli.spike",
       "type": "function",
-      "signature": "(ctx: typer.models.Context, corpus: Optional[pathlib._local.Path] = <typer.models.OptionInfo object at 0x13e83f4d0>, min_spike: float = <typer.models.OptionInfo object at 0x13e83f610>, max_insights: int = <typer.models.OptionInfo object at 0x13e83f750>, categories: Optional[str] = <typer.models.OptionInfo object at 0x13e83f890>, export_path: Optional[pathlib._local.Path] = <typer.models.OptionInfo object at 0x13e83f9d0>, verbose: bool = <typer.models.OptionInfo object at 0x13e83fb10>)",
+      "signature": "(ctx: typer.models.Context, corpus: Optional[pathlib._local.Path] = <typer.models.OptionInfo object at 0x14b95e350>, min_spike: float = <typer.models.OptionInfo object at 0x14b95e490>, max_insights: int = <typer.models.OptionInfo object at 0x14b95e5d0>, categories: Optional[str] = <typer.models.OptionInfo object at 0x14b95e710>, export_path: Optional[pathlib._local.Path] = <typer.models.OptionInfo object at 0x14b95e850>, verbose: bool = <typer.models.OptionInfo object at 0x14b95e990>)",
       "docstring": "Discover hidden insights and unexpected connections in your knowledge base.",
       "full_name": "insightspike.cli.spike.discover_command",
       "tags": []
@@ -816,7 +2643,7 @@
       "name": "embed",
       "module": "insightspike.cli.spike",
       "type": "function",
-      "signature": "(ctx: typer.models.Context, path: pathlib._local.Path, preset: str = <typer.models.OptionInfo object at 0x13e96d6d0>)",
+      "signature": "(ctx: typer.models.Context, path: pathlib._local.Path, preset: str = <typer.models.OptionInfo object at 0x14bb10410>)",
       "docstring": "Add documents to the knowledge base (aliases: learn, l, e)",
       "full_name": "insightspike.cli.spike.embed",
       "tags": []
@@ -825,7 +2652,7 @@
       "name": "experiment",
       "module": "insightspike.cli.spike",
       "type": "function",
-      "signature": "(ctx: typer.models.Context, name: str = <typer.models.OptionInfo object at 0x13e96dbd0>, episodes: int = <typer.models.OptionInfo object at 0x13e96dd10>)",
+      "signature": "(ctx: typer.models.Context, name: str = <typer.models.OptionInfo object at 0x14bb10b90>, episodes: int = <typer.models.OptionInfo object at 0x14bb10cd0>)",
       "docstring": "Run experiments to demonstrate capabilities",
       "full_name": "insightspike.cli.spike.experiment",
       "tags": []
@@ -852,7 +2679,7 @@
       "name": "insights",
       "module": "insightspike.cli.spike",
       "type": "function",
-      "signature": "(ctx: typer.models.Context, limit: int = <typer.models.OptionInfo object at 0x13e96de50>)",
+      "signature": "(ctx: typer.models.Context, limit: int = <typer.models.OptionInfo object at 0x14bb10e10>)",
       "docstring": "Show discovered insights and statistics",
       "full_name": "insightspike.cli.spike.insights",
       "tags": []
@@ -861,7 +2688,7 @@
       "name": "insights_search",
       "module": "insightspike.cli.spike",
       "type": "function",
-      "signature": "(ctx: typer.models.Context, concept: str, limit: int = <typer.models.OptionInfo object at 0x13e96df90>)",
+      "signature": "(ctx: typer.models.Context, concept: str, limit: int = <typer.models.OptionInfo object at 0x14bb10f50>)",
       "docstring": "Search for insights related to a concept",
       "full_name": "insightspike.cli.spike.insights_search",
       "tags": []
@@ -897,7 +2724,7 @@
       "name": "query",
       "module": "insightspike.cli.spike",
       "type": "function",
-      "signature": "(ctx: typer.models.Context, question: str, preset: str = <typer.models.OptionInfo object at 0x13e96c550>, verbose: bool = <typer.models.OptionInfo object at 0x13e96d450>)",
+      "signature": "(ctx: typer.models.Context, question: str, preset: str = <typer.models.OptionInfo object at 0x14b95f390>, verbose: bool = <typer.models.OptionInfo object at 0x14bb102d0>)",
       "docstring": "Query the knowledge base and get insights",
       "full_name": "insightspike.cli.spike.query",
       "tags": []
@@ -924,7 +2751,7 @@
       "name": "sleep_gc_command",
       "module": "insightspike.cli.spike",
       "type": "function",
-      "signature": "(namespace: str = <typer.models.OptionInfo object at 0x13e96ce10>, max_degree: int = <typer.models.OptionInfo object at 0x13e96cf50>, min_weight: float = <typer.models.OptionInfo object at 0x13e96d090>, decay: float = <typer.models.OptionInfo object at 0x13e96d1d0>, keep_pinned: bool = <typer.models.OptionInfo object at 0x13e96d310>)",
+      "signature": "(namespace: str = <typer.models.OptionInfo object at 0x14b95fc50>, max_degree: int = <typer.models.OptionInfo object at 0x14b95fd90>, min_weight: float = <typer.models.OptionInfo object at 0x14b95fed0>, decay: float = <typer.models.OptionInfo object at 0x14bb10050>, keep_pinned: bool = <typer.models.OptionInfo object at 0x14bb10190>)",
       "docstring": "Run sleep/forget maintenance: edge pooling, weight decay, orphan pruning.",
       "full_name": "insightspike.cli.spike.sleep_gc_command",
       "tags": []
@@ -951,7 +2778,7 @@
       "name": "visualize_command",
       "module": "insightspike.cli.spike",
       "type": "function",
-      "signature": "(output: pathlib._local.Path = <typer.models.ArgumentInfo object at 0x13e96c910>, format: str = <typer.models.OptionInfo object at 0x13e96ca50>, insights_only: bool = <typer.models.OptionInfo object at 0x13e96cb90>, verbose: bool = <typer.models.OptionInfo object at 0x13e96ccd0>)",
+      "signature": "(output: pathlib._local.Path = <typer.models.ArgumentInfo object at 0x14b95f750>, format: str = <typer.models.OptionInfo object at 0x14b95f890>, insights_only: bool = <typer.models.OptionInfo object at 0x14b95f9d0>, verbose: bool = <typer.models.OptionInfo object at 0x14b95fb10>)",
       "docstring": "Generate interactive visualization of the knowledge graph",
       "full_name": "insightspike.cli.spike.visualize_command",
       "tags": []
@@ -1248,7 +3075,7 @@
       "name": "LLMConfig",
       "module": "insightspike.config.models",
       "type": "class",
-      "signature": "(*, provider: Literal['local', 'openai', 'anthropic', 'ollama', 'mock'] = 'local', model: str = 'distilgpt2', max_tokens: Annotated[int, Ge(ge=1), Le(le=4096)] = 256, temperature: Annotated[float, Ge(ge=0.0), Le(le=2.0)] = 0.3, top_p: Annotated[float, Ge(ge=0.0), Le(le=1.0)] = 0.9, timeout: Annotated[int, Ge(ge=1)] = 30, api_key: Optional[str] = None, api_base: Optional[str] = None, organization: Optional[str] = None, device: str = 'cpu', load_in_8bit: bool = False, system_prompt: Optional[str] = None, prompt_style: Literal['standard', 'detailed', 'minimal', 'association', 'association_extended'] = 'standard', max_context_docs: Annotated[int, Ge(ge=1), Le(le=20)] = 5, use_simple_prompt: bool = False, include_metadata: bool = False, branching_threshold: Annotated[float, Ge(ge=0.0), Le(le=1.0)] = 0.8, branching_min_branches: Annotated[int, Ge(ge=2), Le(le=10)] = 2, branching_max_gap: Annotated[float, Ge(ge=0.0), Le(le=0.5)] = 0.15) -> None",
+      "signature": "(*, provider: Literal['local', 'openai', 'anthropic', 'ollama', 'mock'] = 'ollama', model: str = 'ministral-3:3b', max_tokens: Annotated[int, Gt(gt=0)] = 512, temperature: Annotated[float, Ge(ge=0.0), Le(le=2.0)] = 0.7, top_p: Annotated[float, Ge(ge=0.0), Le(le=1.0)] = 0.9, timeout: Annotated[int, Gt(gt=0)] = 30, api_key: Optional[str] = 'ollama', api_base: Optional[str] = 'http://localhost:11434/v1', organization: Optional[str] = None, device: str = 'cpu', load_in_8bit: bool = False, system_prompt: Optional[str] = None, prompt_style: Literal['standard', 'detailed', 'minimal', 'association', 'association_extended'] = 'standard', max_context_docs: Annotated[int, Ge(ge=1), Le(le=20)] = 5, use_simple_prompt: bool = False, include_metadata: bool = False, branching_threshold: Annotated[float, Ge(ge=0.0), Le(le=1.0)] = 0.8, branching_min_branches: Annotated[int, Ge(ge=2), Le(le=10)] = 2, branching_max_gap: Annotated[float, Ge(ge=0.0), Le(le=0.5)] = 0.15) -> None",
       "docstring": "Language Model configuration",
       "full_name": "insightspike.config.models.LLMConfig",
       "tags": []
@@ -1464,7 +3291,7 @@
       "name": "LLMConfig",
       "module": "insightspike.config.normalizer",
       "type": "class",
-      "signature": "(*, provider: Literal['local', 'openai', 'anthropic', 'ollama', 'mock'] = 'local', model: str = 'distilgpt2', max_tokens: Annotated[int, Ge(ge=1), Le(le=4096)] = 256, temperature: Annotated[float, Ge(ge=0.0), Le(le=2.0)] = 0.3, top_p: Annotated[float, Ge(ge=0.0), Le(le=1.0)] = 0.9, timeout: Annotated[int, Ge(ge=1)] = 30, api_key: Optional[str] = None, api_base: Optional[str] = None, organization: Optional[str] = None, device: str = 'cpu', load_in_8bit: bool = False, system_prompt: Optional[str] = None, prompt_style: Literal['standard', 'detailed', 'minimal', 'association', 'association_extended'] = 'standard', max_context_docs: Annotated[int, Ge(ge=1), Le(le=20)] = 5, use_simple_prompt: bool = False, include_metadata: bool = False, branching_threshold: Annotated[float, Ge(ge=0.0), Le(le=1.0)] = 0.8, branching_min_branches: Annotated[int, Ge(ge=2), Le(le=10)] = 2, branching_max_gap: Annotated[float, Ge(ge=0.0), Le(le=0.5)] = 0.15) -> None",
+      "signature": "(*, provider: Literal['local', 'openai', 'anthropic', 'ollama', 'mock'] = 'ollama', model: str = 'ministral-3:3b', max_tokens: Annotated[int, Gt(gt=0)] = 512, temperature: Annotated[float, Ge(ge=0.0), Le(le=2.0)] = 0.7, top_p: Annotated[float, Ge(ge=0.0), Le(le=1.0)] = 0.9, timeout: Annotated[int, Gt(gt=0)] = 30, api_key: Optional[str] = 'ollama', api_base: Optional[str] = 'http://localhost:11434/v1', organization: Optional[str] = None, device: str = 'cpu', load_in_8bit: bool = False, system_prompt: Optional[str] = None, prompt_style: Literal['standard', 'detailed', 'minimal', 'association', 'association_extended'] = 'standard', max_context_docs: Annotated[int, Ge(ge=1), Le(le=20)] = 5, use_simple_prompt: bool = False, include_metadata: bool = False, branching_threshold: Annotated[float, Ge(ge=0.0), Le(le=1.0)] = 0.8, branching_min_branches: Annotated[int, Ge(ge=2), Le(le=10)] = 2, branching_max_gap: Annotated[float, Ge(ge=0.0), Le(le=0.5)] = 0.15) -> None",
       "docstring": "Language Model configuration",
       "full_name": "insightspike.config.normalizer.LLMConfig",
       "tags": []
@@ -1527,7 +3354,7 @@
       "name": "LLMConfig",
       "module": "insightspike.config.presets",
       "type": "class",
-      "signature": "(*, provider: Literal['local', 'openai', 'anthropic', 'ollama', 'mock'] = 'local', model: str = 'distilgpt2', max_tokens: Annotated[int, Ge(ge=1), Le(le=4096)] = 256, temperature: Annotated[float, Ge(ge=0.0), Le(le=2.0)] = 0.3, top_p: Annotated[float, Ge(ge=0.0), Le(le=1.0)] = 0.9, timeout: Annotated[int, Ge(ge=1)] = 30, api_key: Optional[str] = None, api_base: Optional[str] = None, organization: Optional[str] = None, device: str = 'cpu', load_in_8bit: bool = False, system_prompt: Optional[str] = None, prompt_style: Literal['standard', 'detailed', 'minimal', 'association', 'association_extended'] = 'standard', max_context_docs: Annotated[int, Ge(ge=1), Le(le=20)] = 5, use_simple_prompt: bool = False, include_metadata: bool = False, branching_threshold: Annotated[float, Ge(ge=0.0), Le(le=1.0)] = 0.8, branching_min_branches: Annotated[int, Ge(ge=2), Le(le=10)] = 2, branching_max_gap: Annotated[float, Ge(ge=0.0), Le(le=0.5)] = 0.15) -> None",
+      "signature": "(*, provider: Literal['local', 'openai', 'anthropic', 'ollama', 'mock'] = 'ollama', model: str = 'ministral-3:3b', max_tokens: Annotated[int, Gt(gt=0)] = 512, temperature: Annotated[float, Ge(ge=0.0), Le(le=2.0)] = 0.7, top_p: Annotated[float, Ge(ge=0.0), Le(le=1.0)] = 0.9, timeout: Annotated[int, Gt(gt=0)] = 30, api_key: Optional[str] = 'ollama', api_base: Optional[str] = 'http://localhost:11434/v1', organization: Optional[str] = None, device: str = 'cpu', load_in_8bit: bool = False, system_prompt: Optional[str] = None, prompt_style: Literal['standard', 'detailed', 'minimal', 'association', 'association_extended'] = 'standard', max_context_docs: Annotated[int, Ge(ge=1), Le(le=20)] = 5, use_simple_prompt: bool = False, include_metadata: bool = False, branching_threshold: Annotated[float, Ge(ge=0.0), Le(le=1.0)] = 0.8, branching_min_branches: Annotated[int, Ge(ge=2), Le(le=10)] = 2, branching_max_gap: Annotated[float, Ge(ge=0.0), Le(le=0.5)] = 0.15) -> None",
       "docstring": "Language Model configuration",
       "full_name": "insightspike.config.presets.LLMConfig",
       "tags": []
@@ -1647,6 +3474,24 @@
       "signature": "(ged_value: float = 0.0, ig_value: float = 0.0, entropy: float = 0.0, clustering_coefficient: float = 0.0, node_count: int = 0, edge_count: int = 0) -> None",
       "docstring": "Metrics from graph analysis.",
       "full_name": "insightspike.core.GraphMetrics",
+      "tags": []
+    },
+    {
+      "name": "MemoryController",
+      "module": "insightspike.core",
+      "type": "class",
+      "signature": "(memory_manager: insightspike.interfaces.memory.IMemoryManager, datastore: insightspike.interfaces.datastore.IDataStore, embedder: insightspike.interfaces.embedder.IEmbedder, graph_builder: insightspike.implementations.graph.pyg_graph_builder.PyGGraphBuilder)",
+      "docstring": "Manages memory operations and episode lifecycle.",
+      "full_name": "insightspike.core.MemoryController",
+      "tags": []
+    },
+    {
+      "name": "ResponseGenerator",
+      "module": "insightspike.core",
+      "type": "class",
+      "signature": "(llm_provider: insightspike.interfaces.llm.ILLMProvider, response_style: str = 'concise')",
+      "docstring": "Generates and formats responses for user queries.",
+      "full_name": "insightspike.core.ResponseGenerator",
       "tags": []
     },
     {
@@ -2469,6 +4314,150 @@
       "tags": []
     },
     {
+      "name": "Episode",
+      "module": "insightspike.core.memory_controller",
+      "type": "class",
+      "signature": "(text: str, vec: numpy.ndarray, c: float = 0.5, timestamp: float = <factory>, metadata: Dict[str, Any] = <factory>, episode_type: str = 'experience', selection_count: int = 0, creation_time: float = <factory>, confidence: Optional[float] = None) -> None",
+      "docstring": "Single memory entry with vector embedding, text, and C-value.",
+      "full_name": "insightspike.core.memory_controller.Episode",
+      "tags": []
+    },
+    {
+      "name": "IDataStore",
+      "module": "insightspike.core.memory_controller",
+      "type": "class",
+      "signature": "(*args, **kwargs)",
+      "docstring": "Full datastore interface with search capabilities.",
+      "full_name": "insightspike.core.memory_controller.IDataStore",
+      "tags": []
+    },
+    {
+      "name": "IEmbedder",
+      "module": "insightspike.core.memory_controller",
+      "type": "class",
+      "signature": "(*args, **kwargs)",
+      "docstring": "Interface for text embedders.",
+      "full_name": "insightspike.core.memory_controller.IEmbedder",
+      "tags": []
+    },
+    {
+      "name": "IMemoryManager",
+      "module": "insightspike.core.memory_controller",
+      "type": "class",
+      "signature": "(*args, **kwargs)",
+      "docstring": "Interface for memory management.",
+      "full_name": "insightspike.core.memory_controller.IMemoryManager",
+      "tags": []
+    },
+    {
+      "name": "MemoryController",
+      "module": "insightspike.core.memory_controller",
+      "type": "class",
+      "signature": "(memory_manager: insightspike.interfaces.memory.IMemoryManager, datastore: insightspike.interfaces.datastore.IDataStore, embedder: insightspike.interfaces.embedder.IEmbedder, graph_builder: insightspike.implementations.graph.pyg_graph_builder.PyGGraphBuilder)",
+      "docstring": "Manages memory operations and episode lifecycle.",
+      "full_name": "insightspike.core.memory_controller.MemoryController",
+      "tags": []
+    },
+    {
+      "name": "PyGGraphBuilder",
+      "module": "insightspike.core.memory_controller",
+      "type": "class",
+      "signature": "(config=None)",
+      "docstring": "Graph builder using PyTorch Geometric for advanced graph operations.",
+      "full_name": "insightspike.core.memory_controller.PyGGraphBuilder",
+      "tags": []
+    },
+    {
+      "name": "CycleResult",
+      "module": "insightspike.core.reasoning_engine",
+      "type": "class",
+      "signature": "(response: str, reasoning_trace: str, memory_used: List[Dict[str, Any]], spike_detected: bool, graph_metrics: Dict[str, float], reasoning_quality: float, convergence_score: float, has_spike: bool) -> None",
+      "docstring": "Result from a single reasoning cycle.",
+      "full_name": "insightspike.core.reasoning_engine.CycleResult",
+      "tags": []
+    },
+    {
+      "name": "ILLMProvider",
+      "module": "insightspike.core.reasoning_engine",
+      "type": "class",
+      "signature": "(*args, **kwargs)",
+      "docstring": "Interface for LLM providers.",
+      "full_name": "insightspike.core.reasoning_engine.ILLMProvider",
+      "tags": []
+    },
+    {
+      "name": "IMemorySearch",
+      "module": "insightspike.core.reasoning_engine",
+      "type": "class",
+      "signature": "(*args, **kwargs)",
+      "docstring": "Interface for advanced memory search with graph support.",
+      "full_name": "insightspike.core.reasoning_engine.IMemorySearch",
+      "tags": []
+    },
+    {
+      "name": "L3GraphReasoner",
+      "module": "insightspike.core.reasoning_engine",
+      "type": "class",
+      "signature": "(config=None)",
+      "docstring": "Enhanced graph reasoning layer with GNN processing and spike detection.",
+      "full_name": "insightspike.core.reasoning_engine.L3GraphReasoner",
+      "tags": []
+    },
+    {
+      "name": "L4LLMInterface",
+      "module": "insightspike.core.reasoning_engine",
+      "type": "class",
+      "signature": "(config: Union[insightspike.implementations.layers.layer4_llm_interface.LLMConfig, ForwardRef('InsightSpikeConfig'), Dict[str, Any], NoneType] = None)",
+      "docstring": "Layer 4 Language Interface - Natural language synthesis.",
+      "full_name": "insightspike.core.reasoning_engine.L4LLMInterface",
+      "tags": []
+    },
+    {
+      "name": "ReasoningEngine",
+      "module": "insightspike.core.reasoning_engine",
+      "type": "class",
+      "signature": "(llm_provider: insightspike.interfaces.llm.ILLMProvider, memory_search: insightspike.interfaces.memory.IMemorySearch, graph_reasoner: insightspike.implementations.layers.layer3_graph_reasoner.L3GraphReasoner, llm_interface: insightspike.implementations.layers.layer4_llm_interface.L4LLMInterface)",
+      "docstring": "Handles the core reasoning cycle logic.",
+      "full_name": "insightspike.core.reasoning_engine.ReasoningEngine",
+      "tags": []
+    },
+    {
+      "name": "CycleResult",
+      "module": "insightspike.core.response_generator",
+      "type": "class",
+      "signature": "(response: str, reasoning_trace: str, memory_used: List[Dict[str, Any]], spike_detected: bool, graph_metrics: Dict[str, float], reasoning_quality: float, convergence_score: float, has_spike: bool) -> None",
+      "docstring": "Result from a single reasoning cycle.",
+      "full_name": "insightspike.core.response_generator.CycleResult",
+      "tags": []
+    },
+    {
+      "name": "ILLMProvider",
+      "module": "insightspike.core.response_generator",
+      "type": "class",
+      "signature": "(*args, **kwargs)",
+      "docstring": "Interface for LLM providers.",
+      "full_name": "insightspike.core.response_generator.ILLMProvider",
+      "tags": []
+    },
+    {
+      "name": "ResponseGenerator",
+      "module": "insightspike.core.response_generator",
+      "type": "class",
+      "signature": "(llm_provider: insightspike.interfaces.llm.ILLMProvider, response_style: str = 'concise')",
+      "docstring": "Generates and formats responses for user queries.",
+      "full_name": "insightspike.core.response_generator.ResponseGenerator",
+      "tags": []
+    },
+    {
+      "name": "ResponseTemplate",
+      "module": "insightspike.core.response_generator",
+      "type": "class",
+      "signature": "(question: str, answer: str, reasoning: Optional[str] = None, confidence: float = 0.0, sources: Optional[List[str]] = None, metadata: Optional[Dict[str, Any]] = None) -> None",
+      "docstring": "Template for response formatting.",
+      "full_name": "insightspike.core.response_generator.ResponseTemplate",
+      "tags": []
+    },
+    {
       "name": "CycleResult",
       "module": "insightspike.core.structures",
       "type": "class",
@@ -2631,6 +4620,249 @@
       "tags": []
     },
     {
+      "name": "DIContainer",
+      "module": "insightspike.di",
+      "type": "class",
+      "signature": "()",
+      "docstring": "Simple dependency injection container.",
+      "full_name": "insightspike.di.DIContainer",
+      "tags": []
+    },
+    {
+      "name": "DataStoreProvider",
+      "module": "insightspike.di",
+      "type": "class",
+      "signature": "()",
+      "docstring": "Provider for IDataStore implementations.",
+      "full_name": "insightspike.di.DataStoreProvider",
+      "tags": []
+    },
+    {
+      "name": "EmbedderProvider",
+      "module": "insightspike.di",
+      "type": "class",
+      "signature": "()",
+      "docstring": "Provider for IEmbedder implementations.",
+      "full_name": "insightspike.di.EmbedderProvider",
+      "tags": []
+    },
+    {
+      "name": "GraphBuilderProvider",
+      "module": "insightspike.di",
+      "type": "class",
+      "signature": "()",
+      "docstring": "Provider for IGraphBuilder implementations.",
+      "full_name": "insightspike.di.GraphBuilderProvider",
+      "tags": []
+    },
+    {
+      "name": "LLMProviderFactory",
+      "module": "insightspike.di",
+      "type": "class",
+      "signature": "()",
+      "docstring": "Factory for ILLMProvider implementations.",
+      "full_name": "insightspike.di.LLMProviderFactory",
+      "tags": []
+    },
+    {
+      "name": "MemoryManagerProvider",
+      "module": "insightspike.di",
+      "type": "class",
+      "signature": "()",
+      "docstring": "Provider for IMemoryManager implementations.",
+      "full_name": "insightspike.di.MemoryManagerProvider",
+      "tags": []
+    },
+    {
+      "name": "ServiceProvider",
+      "module": "insightspike.di",
+      "type": "class",
+      "signature": "()",
+      "docstring": "Abstract base for service providers.",
+      "full_name": "insightspike.di.ServiceProvider",
+      "tags": []
+    },
+    {
+      "name": "DIContainer",
+      "module": "insightspike.di.container",
+      "type": "class",
+      "signature": "()",
+      "docstring": "Simple dependency injection container.",
+      "full_name": "insightspike.di.container.DIContainer",
+      "tags": []
+    },
+    {
+      "name": "FactoryProvider",
+      "module": "insightspike.di.container",
+      "type": "class",
+      "signature": "(factory: Callable[[ForwardRef('DIContainer')], Any])",
+      "docstring": "Provider that creates a new instance every time.",
+      "full_name": "insightspike.di.container.FactoryProvider",
+      "tags": []
+    },
+    {
+      "name": "ServiceProvider",
+      "module": "insightspike.di.container",
+      "type": "class",
+      "signature": "()",
+      "docstring": "Abstract base for service providers.",
+      "full_name": "insightspike.di.container.ServiceProvider",
+      "tags": []
+    },
+    {
+      "name": "SingletonProvider",
+      "module": "insightspike.di.container",
+      "type": "class",
+      "signature": "(factory: Callable[[ForwardRef('DIContainer')], Any])",
+      "docstring": "Provider that returns the same instance every time.",
+      "full_name": "insightspike.di.container.SingletonProvider",
+      "tags": []
+    },
+    {
+      "name": "DataStoreFactory",
+      "module": "insightspike.di.providers",
+      "type": "class",
+      "signature": "()",
+      "docstring": "Factory for creating DataStore instances",
+      "full_name": "insightspike.di.providers.DataStoreFactory",
+      "tags": []
+    },
+    {
+      "name": "DataStoreProvider",
+      "module": "insightspike.di.providers",
+      "type": "class",
+      "signature": "()",
+      "docstring": "Provider for IDataStore implementations.",
+      "full_name": "insightspike.di.providers.DataStoreProvider",
+      "tags": []
+    },
+    {
+      "name": "EmbedderProvider",
+      "module": "insightspike.di.providers",
+      "type": "class",
+      "signature": "()",
+      "docstring": "Provider for IEmbedder implementations.",
+      "full_name": "insightspike.di.providers.EmbedderProvider",
+      "tags": []
+    },
+    {
+      "name": "EmbeddingManager",
+      "module": "insightspike.di.providers",
+      "type": "class",
+      "signature": "(model_name: str = None, config=None, weight_manager=None)",
+      "docstring": "Manages text embedding models with caching and fallback support.",
+      "full_name": "insightspike.di.providers.EmbeddingManager",
+      "tags": []
+    },
+    {
+      "name": "GraphBuilderProvider",
+      "module": "insightspike.di.providers",
+      "type": "class",
+      "signature": "()",
+      "docstring": "Provider for IGraphBuilder implementations.",
+      "full_name": "insightspike.di.providers.GraphBuilderProvider",
+      "tags": []
+    },
+    {
+      "name": "IDataStore",
+      "module": "insightspike.di.providers",
+      "type": "class",
+      "signature": "(*args, **kwargs)",
+      "docstring": "Full datastore interface with search capabilities.",
+      "full_name": "insightspike.di.providers.IDataStore",
+      "tags": []
+    },
+    {
+      "name": "IEmbedder",
+      "module": "insightspike.di.providers",
+      "type": "class",
+      "signature": "(*args, **kwargs)",
+      "docstring": "Interface for text embedders.",
+      "full_name": "insightspike.di.providers.IEmbedder",
+      "tags": []
+    },
+    {
+      "name": "IGraphBuilder",
+      "module": "insightspike.di.providers",
+      "type": "class",
+      "signature": "(*args, **kwargs)",
+      "docstring": "Interface for building PyTorch Geometric graphs.",
+      "full_name": "insightspike.di.providers.IGraphBuilder",
+      "tags": []
+    },
+    {
+      "name": "ILLMProvider",
+      "module": "insightspike.di.providers",
+      "type": "class",
+      "signature": "(*args, **kwargs)",
+      "docstring": "Interface for LLM providers.",
+      "full_name": "insightspike.di.providers.ILLMProvider",
+      "tags": []
+    },
+    {
+      "name": "IMemoryManager",
+      "module": "insightspike.di.providers",
+      "type": "class",
+      "signature": "(*args, **kwargs)",
+      "docstring": "Interface for memory management.",
+      "full_name": "insightspike.di.providers.IMemoryManager",
+      "tags": []
+    },
+    {
+      "name": "InsightSpikeConfig",
+      "module": "insightspike.di.providers",
+      "type": "class",
+      "signature": "(*, environment: Literal['development', 'experiment', 'production', 'research', 'test', 'testing', 'custom'] = 'development', pre_warm_models: bool = True, llm: insightspike.config.models.LLMConfig = <factory>, embedding: insightspike.config.models.EmbeddingConfig = <factory>, memory: insightspike.config.models.MemoryConfig = <factory>, graph: insightspike.config.models.GraphConfig = <factory>, monitoring: insightspike.config.models.MonitoringConfig = <factory>, logging: insightspike.config.models.LoggingConfig = <factory>, paths: insightspike.config.models.PathsConfig = <factory>, processing: insightspike.config.models.ProcessingConfig = <factory>, output: insightspike.config.models.OutputConfig = <factory>, datastore: insightspike.config.models.DataStoreConfig = <factory>, metrics: insightspike.config.models.MetricsConfig = <factory>, reasoning: insightspike.config.models.ReasoningConfig = <factory>, performance: insightspike.config.models.PerformanceConfig = <factory>, vector_search: insightspike.config.models.VectorSearchConfig = <factory>, wake_sleep: insightspike.config.wake_sleep_config.WakeSleepConfig = <factory>) -> None",
+      "docstring": "Complete InsightSpike configuration - clean structure without backward compatibility",
+      "full_name": "insightspike.di.providers.InsightSpikeConfig",
+      "tags": []
+    },
+    {
+      "name": "L2MemoryManager",
+      "module": "insightspike.di.providers",
+      "type": "class",
+      "signature": "(config: Union[insightspike.implementations.layers.layer2_memory_manager.MemoryConfig, Dict[str, Any], Any, NoneType] = None)",
+      "docstring": "Layer 2 Memory Manager - Graph-centric episodic memory.",
+      "full_name": "insightspike.di.providers.L2MemoryManager",
+      "tags": []
+    },
+    {
+      "name": "LLMProviderFactory",
+      "module": "insightspike.di.providers",
+      "type": "class",
+      "signature": "()",
+      "docstring": "Factory for ILLMProvider implementations.",
+      "full_name": "insightspike.di.providers.LLMProviderFactory",
+      "tags": []
+    },
+    {
+      "name": "LLMProviderRegistry",
+      "module": "insightspike.di.providers",
+      "type": "class",
+      "signature": "()",
+      "docstring": "Registry for caching and reusing LLM provider instances.",
+      "full_name": "insightspike.di.providers.LLMProviderRegistry",
+      "tags": []
+    },
+    {
+      "name": "MemoryManagerProvider",
+      "module": "insightspike.di.providers",
+      "type": "class",
+      "signature": "()",
+      "docstring": "Provider for IMemoryManager implementations.",
+      "full_name": "insightspike.di.providers.MemoryManagerProvider",
+      "tags": []
+    },
+    {
+      "name": "PyGGraphBuilder",
+      "module": "insightspike.di.providers",
+      "type": "class",
+      "signature": "(config=None)",
+      "docstring": "Graph builder using PyTorch Geometric for advanced graph operations.",
+      "full_name": "insightspike.di.providers.PyGGraphBuilder",
+      "tags": []
+    },
+    {
       "name": "ComplexMazeGenerator",
       "module": "insightspike.environments.complex_maze",
       "type": "class",
@@ -2730,12 +4962,336 @@
       "tags": []
     },
     {
+      "name": "AdaptiveExplorer",
+      "module": "insightspike.features.query_transformation",
+      "type": "class",
+      "signature": "(exploration_temperature: float = 1.0)",
+      "docstring": "Adaptive exploration strategy for query transformation",
+      "full_name": "insightspike.features.query_transformation.AdaptiveExplorer",
+      "tags": []
+    },
+    {
+      "name": "EnhancedQueryTransformer",
+      "module": "insightspike.features.query_transformation",
+      "type": "class",
+      "signature": "(embedding_model_name: str = 'all-MiniLM-L6-v2', use_multi_hop: bool = True, enable_branching: bool = True, max_branches: int = 3)",
+      "docstring": "Enhanced query transformer with advanced features",
+      "full_name": "insightspike.features.query_transformation.EnhancedQueryTransformer",
+      "tags": []
+    },
+    {
+      "name": "EvolutionPattern",
+      "module": "insightspike.features.query_transformation",
+      "type": "class",
+      "signature": "(pattern_id: str, initial_query_type: str, transformation_path: List[str], absorbed_concepts: List[str], final_insights: List[str], success_score: float, avg_confidence_gain: float, num_hops: int, branches_used: List[str], timestamp: str = '') -> None",
+      "docstring": "Represents a successful query evolution pattern",
+      "full_name": "insightspike.features.query_transformation.EvolutionPattern",
+      "tags": []
+    },
+    {
+      "name": "EvolutionTracker",
+      "module": "insightspike.features.query_transformation",
+      "type": "class",
+      "signature": "(db_path: Optional[pathlib._local.Path] = None, enable_learning: bool = True)",
+      "docstring": "Track and learn from query evolution patterns",
+      "full_name": "insightspike.features.query_transformation.EvolutionTracker",
+      "tags": []
+    },
+    {
+      "name": "MultiHopGNN",
+      "module": "insightspike.features.query_transformation",
+      "type": "class",
+      "signature": "(feature_dim: int = 384, hidden_dim: int = 256, num_hops: int = 3)",
+      "docstring": "GNN with multi-hop message passing and attention",
+      "full_name": "insightspike.features.query_transformation.MultiHopGNN",
+      "tags": []
+    },
+    {
+      "name": "PatternDatabase",
+      "module": "insightspike.features.query_transformation",
+      "type": "class",
+      "signature": "(db_path: pathlib._local.Path)",
+      "docstring": "SQLite database for storing evolution patterns",
+      "full_name": "insightspike.features.query_transformation.PatternDatabase",
+      "tags": []
+    },
+    {
+      "name": "QueryBranch",
+      "module": "insightspike.features.query_transformation",
+      "type": "class",
+      "signature": "(branch_id: str, parent_state: insightspike.features.query_transformation.query_state.QueryState, current_state: insightspike.features.query_transformation.query_state.QueryState, exploration_direction: str, priority: float = 0.5, discovered_paths: List[List[str]] = <factory>) -> None",
+      "docstring": "Represents a branch in query exploration",
+      "full_name": "insightspike.features.query_transformation.QueryBranch",
+      "tags": []
+    },
+    {
+      "name": "QueryState",
+      "module": "insightspike.features.query_transformation",
+      "type": "class",
+      "signature": "(text: str, embedding: Optional[torch.Tensor] = None, timestamp: datetime.datetime = <factory>, stage: str = 'initial', confidence: float = 0.0, color: str = 'yellow', absorbed_concepts: List[str] = <factory>, discovered_connections: List[tuple] = <factory>, insights: List[str] = <factory>, graph_position: Optional[Dict[str, Any]] = None, connected_nodes: List[str] = <factory>, edge_weights: Dict[str, float] = <factory>, transformation_magnitude: float = 0.0, information_gain: float = 0.0, structural_change: float = 0.0) -> None",
+      "docstring": "Represents the state of a query at a point in time",
+      "full_name": "insightspike.features.query_transformation.QueryState",
+      "tags": []
+    },
+    {
+      "name": "QueryTransformationHistory",
+      "module": "insightspike.features.query_transformation",
+      "type": "class",
+      "signature": "(initial_query: str, states: List[insightspike.features.query_transformation.query_state.QueryState] = <factory>) -> None",
+      "docstring": "Tracks the complete transformation journey of a query",
+      "full_name": "insightspike.features.query_transformation.QueryTransformationHistory",
+      "tags": []
+    },
+    {
+      "name": "QueryTransformer",
+      "module": "insightspike.features.query_transformation",
+      "type": "class",
+      "signature": "(embedding_model_name: str = 'all-MiniLM-L6-v2', use_gnn: bool = True)",
+      "docstring": "Transforms queries through graph exploration",
+      "full_name": "insightspike.features.query_transformation.QueryTransformer",
+      "tags": []
+    },
+    {
+      "name": "QueryTypeClassifier",
+      "module": "insightspike.features.query_transformation",
+      "type": "class",
+      "signature": "()",
+      "docstring": "Classify queries into types for pattern matching",
+      "full_name": "insightspike.features.query_transformation.QueryTypeClassifier",
+      "tags": []
+    },
+    {
+      "name": "TrajectoryAnalyzer",
+      "module": "insightspike.features.query_transformation",
+      "type": "class",
+      "signature": "(pattern_db: insightspike.features.query_transformation.evolution_tracker.PatternDatabase)",
+      "docstring": "Analyze query evolution trajectories for insights",
+      "full_name": "insightspike.features.query_transformation.TrajectoryAnalyzer",
+      "tags": []
+    },
+    {
+      "name": "AdaptiveExplorer",
+      "module": "insightspike.features.query_transformation.enhanced_query_transformer",
+      "type": "class",
+      "signature": "(exploration_temperature: float = 1.0)",
+      "docstring": "Adaptive exploration strategy for query transformation",
+      "full_name": "insightspike.features.query_transformation.enhanced_query_transformer.AdaptiveExplorer",
+      "tags": []
+    },
+    {
+      "name": "EnhancedQueryTransformer",
+      "module": "insightspike.features.query_transformation.enhanced_query_transformer",
+      "type": "class",
+      "signature": "(embedding_model_name: str = 'all-MiniLM-L6-v2', use_multi_hop: bool = True, enable_branching: bool = True, max_branches: int = 3)",
+      "docstring": "Enhanced query transformer with advanced features",
+      "full_name": "insightspike.features.query_transformation.enhanced_query_transformer.EnhancedQueryTransformer",
+      "tags": []
+    },
+    {
+      "name": "MultiHopGNN",
+      "module": "insightspike.features.query_transformation.enhanced_query_transformer",
+      "type": "class",
+      "signature": "(feature_dim: int = 384, hidden_dim: int = 256, num_hops: int = 3)",
+      "docstring": "GNN with multi-hop message passing and attention",
+      "full_name": "insightspike.features.query_transformation.enhanced_query_transformer.MultiHopGNN",
+      "tags": []
+    },
+    {
+      "name": "QueryBranch",
+      "module": "insightspike.features.query_transformation.enhanced_query_transformer",
+      "type": "class",
+      "signature": "(branch_id: str, parent_state: insightspike.features.query_transformation.query_state.QueryState, current_state: insightspike.features.query_transformation.query_state.QueryState, exploration_direction: str, priority: float = 0.5, discovered_paths: List[List[str]] = <factory>) -> None",
+      "docstring": "Represents a branch in query exploration",
+      "full_name": "insightspike.features.query_transformation.enhanced_query_transformer.QueryBranch",
+      "tags": []
+    },
+    {
+      "name": "QueryGraphGNN",
+      "module": "insightspike.features.query_transformation.enhanced_query_transformer",
+      "type": "class",
+      "signature": "(feature_dim: int = 384, hidden_dim: int = 256)",
+      "docstring": "GNN that includes query as a special node",
+      "full_name": "insightspike.features.query_transformation.enhanced_query_transformer.QueryGraphGNN",
+      "tags": []
+    },
+    {
+      "name": "QueryState",
+      "module": "insightspike.features.query_transformation.enhanced_query_transformer",
+      "type": "class",
+      "signature": "(text: str, embedding: Optional[torch.Tensor] = None, timestamp: datetime.datetime = <factory>, stage: str = 'initial', confidence: float = 0.0, color: str = 'yellow', absorbed_concepts: List[str] = <factory>, discovered_connections: List[tuple] = <factory>, insights: List[str] = <factory>, graph_position: Optional[Dict[str, Any]] = None, connected_nodes: List[str] = <factory>, edge_weights: Dict[str, float] = <factory>, transformation_magnitude: float = 0.0, information_gain: float = 0.0, structural_change: float = 0.0) -> None",
+      "docstring": "Represents the state of a query at a point in time",
+      "full_name": "insightspike.features.query_transformation.enhanced_query_transformer.QueryState",
+      "tags": []
+    },
+    {
+      "name": "QueryTransformer",
+      "module": "insightspike.features.query_transformation.enhanced_query_transformer",
+      "type": "class",
+      "signature": "(embedding_model_name: str = 'all-MiniLM-L6-v2', use_gnn: bool = True)",
+      "docstring": "Transforms queries through graph exploration",
+      "full_name": "insightspike.features.query_transformation.enhanced_query_transformer.QueryTransformer",
+      "tags": []
+    },
+    {
+      "name": "EvolutionPattern",
+      "module": "insightspike.features.query_transformation.evolution_tracker",
+      "type": "class",
+      "signature": "(pattern_id: str, initial_query_type: str, transformation_path: List[str], absorbed_concepts: List[str], final_insights: List[str], success_score: float, avg_confidence_gain: float, num_hops: int, branches_used: List[str], timestamp: str = '') -> None",
+      "docstring": "Represents a successful query evolution pattern",
+      "full_name": "insightspike.features.query_transformation.evolution_tracker.EvolutionPattern",
+      "tags": []
+    },
+    {
+      "name": "EvolutionTracker",
+      "module": "insightspike.features.query_transformation.evolution_tracker",
+      "type": "class",
+      "signature": "(db_path: Optional[pathlib._local.Path] = None, enable_learning: bool = True)",
+      "docstring": "Track and learn from query evolution patterns",
+      "full_name": "insightspike.features.query_transformation.evolution_tracker.EvolutionTracker",
+      "tags": []
+    },
+    {
+      "name": "PatternDatabase",
+      "module": "insightspike.features.query_transformation.evolution_tracker",
+      "type": "class",
+      "signature": "(db_path: pathlib._local.Path)",
+      "docstring": "SQLite database for storing evolution patterns",
+      "full_name": "insightspike.features.query_transformation.evolution_tracker.PatternDatabase",
+      "tags": []
+    },
+    {
+      "name": "QueryState",
+      "module": "insightspike.features.query_transformation.evolution_tracker",
+      "type": "class",
+      "signature": "(text: str, embedding: Optional[torch.Tensor] = None, timestamp: datetime.datetime = <factory>, stage: str = 'initial', confidence: float = 0.0, color: str = 'yellow', absorbed_concepts: List[str] = <factory>, discovered_connections: List[tuple] = <factory>, insights: List[str] = <factory>, graph_position: Optional[Dict[str, Any]] = None, connected_nodes: List[str] = <factory>, edge_weights: Dict[str, float] = <factory>, transformation_magnitude: float = 0.0, information_gain: float = 0.0, structural_change: float = 0.0) -> None",
+      "docstring": "Represents the state of a query at a point in time",
+      "full_name": "insightspike.features.query_transformation.evolution_tracker.QueryState",
+      "tags": []
+    },
+    {
+      "name": "QueryTransformationHistory",
+      "module": "insightspike.features.query_transformation.evolution_tracker",
+      "type": "class",
+      "signature": "(initial_query: str, states: List[insightspike.features.query_transformation.query_state.QueryState] = <factory>) -> None",
+      "docstring": "Tracks the complete transformation journey of a query",
+      "full_name": "insightspike.features.query_transformation.evolution_tracker.QueryTransformationHistory",
+      "tags": []
+    },
+    {
+      "name": "QueryTypeClassifier",
+      "module": "insightspike.features.query_transformation.evolution_tracker",
+      "type": "class",
+      "signature": "()",
+      "docstring": "Classify queries into types for pattern matching",
+      "full_name": "insightspike.features.query_transformation.evolution_tracker.QueryTypeClassifier",
+      "tags": []
+    },
+    {
+      "name": "TrajectoryAnalyzer",
+      "module": "insightspike.features.query_transformation.evolution_tracker",
+      "type": "class",
+      "signature": "(pattern_db: insightspike.features.query_transformation.evolution_tracker.PatternDatabase)",
+      "docstring": "Analyze query evolution trajectories for insights",
+      "full_name": "insightspike.features.query_transformation.evolution_tracker.TrajectoryAnalyzer",
+      "tags": []
+    },
+    {
+      "name": "QueryState",
+      "module": "insightspike.features.query_transformation.query_state",
+      "type": "class",
+      "signature": "(text: str, embedding: Optional[torch.Tensor] = None, timestamp: datetime.datetime = <factory>, stage: str = 'initial', confidence: float = 0.0, color: str = 'yellow', absorbed_concepts: List[str] = <factory>, discovered_connections: List[tuple] = <factory>, insights: List[str] = <factory>, graph_position: Optional[Dict[str, Any]] = None, connected_nodes: List[str] = <factory>, edge_weights: Dict[str, float] = <factory>, transformation_magnitude: float = 0.0, information_gain: float = 0.0, structural_change: float = 0.0) -> None",
+      "docstring": "Represents the state of a query at a point in time",
+      "full_name": "insightspike.features.query_transformation.query_state.QueryState",
+      "tags": []
+    },
+    {
+      "name": "QueryTransformationHistory",
+      "module": "insightspike.features.query_transformation.query_state",
+      "type": "class",
+      "signature": "(initial_query: str, states: List[insightspike.features.query_transformation.query_state.QueryState] = <factory>) -> None",
+      "docstring": "Tracks the complete transformation journey of a query",
+      "full_name": "insightspike.features.query_transformation.query_state.QueryTransformationHistory",
+      "tags": []
+    },
+    {
+      "name": "GraphEditDistance",
+      "module": "insightspike.features.query_transformation.query_transformer",
+      "type": "class",
+      "signature": "(node_cost: float = 1.0, edge_cost: float = 1.0, optimization_level: Union[str, insightspike.algorithms.graph_edit_distance.OptimizationLevel] = <OptimizationLevel.STANDARD: 'standard'>, timeout_seconds: float = 5.0, max_graph_size_exact: int = 50)",
+      "docstring": "Graph Edit Distance calculator for PyTorch Geometric graphs.",
+      "full_name": "insightspike.features.query_transformation.query_transformer.GraphEditDistance",
+      "tags": []
+    },
+    {
+      "name": "QueryGraphGNN",
+      "module": "insightspike.features.query_transformation.query_transformer",
+      "type": "class",
+      "signature": "(feature_dim: int = 384, hidden_dim: int = 256)",
+      "docstring": "GNN that includes query as a special node",
+      "full_name": "insightspike.features.query_transformation.query_transformer.QueryGraphGNN",
+      "tags": []
+    },
+    {
+      "name": "QueryState",
+      "module": "insightspike.features.query_transformation.query_transformer",
+      "type": "class",
+      "signature": "(text: str, embedding: Optional[torch.Tensor] = None, timestamp: datetime.datetime = <factory>, stage: str = 'initial', confidence: float = 0.0, color: str = 'yellow', absorbed_concepts: List[str] = <factory>, discovered_connections: List[tuple] = <factory>, insights: List[str] = <factory>, graph_position: Optional[Dict[str, Any]] = None, connected_nodes: List[str] = <factory>, edge_weights: Dict[str, float] = <factory>, transformation_magnitude: float = 0.0, information_gain: float = 0.0, structural_change: float = 0.0) -> None",
+      "docstring": "Represents the state of a query at a point in time",
+      "full_name": "insightspike.features.query_transformation.query_transformer.QueryState",
+      "tags": []
+    },
+    {
+      "name": "QueryTransformationHistory",
+      "module": "insightspike.features.query_transformation.query_transformer",
+      "type": "class",
+      "signature": "(initial_query: str, states: List[insightspike.features.query_transformation.query_state.QueryState] = <factory>) -> None",
+      "docstring": "Tracks the complete transformation journey of a query",
+      "full_name": "insightspike.features.query_transformation.query_transformer.QueryTransformationHistory",
+      "tags": []
+    },
+    {
+      "name": "QueryTransformer",
+      "module": "insightspike.features.query_transformation.query_transformer",
+      "type": "class",
+      "signature": "(embedding_model_name: str = 'all-MiniLM-L6-v2', use_gnn: bool = True)",
+      "docstring": "Transforms queries through graph exploration",
+      "full_name": "insightspike.features.query_transformation.query_transformer.QueryTransformer",
+      "tags": []
+    },
+    {
       "name": "GraphBuilder",
       "module": "insightspike.graph.construction",
       "type": "class",
       "signature": "(embedding_model_name: str = 'all-MiniLM-L6-v2')",
       "docstring": "Build knowledge graphs from documents",
       "full_name": "insightspike.graph.construction.GraphBuilder",
+      "tags": []
+    },
+    {
+      "name": "EdgeReevaluator",
+      "module": "insightspike.graph.edge_reevaluator",
+      "type": "class",
+      "signature": "(similarity_threshold: float = 0.7, new_edge_threshold: float = 0.8, max_new_edges_per_node: int = 5, edge_decay_factor: float = 0.9)",
+      "docstring": "Re-evaluates edges after message passing to discover new connections",
+      "full_name": "insightspike.graph.edge_reevaluator.EdgeReevaluator",
+      "tags": []
+    },
+    {
+      "name": "MessagePassing",
+      "module": "insightspike.graph.message_passing",
+      "type": "class",
+      "signature": "(alpha: float = 0.3, iterations: int = 3, aggregation: str = 'weighted_mean', self_loop_weight: float = 0.5, decay_factor: float = 0.8)",
+      "docstring": "Question-aware message passing for knowledge graphs.",
+      "full_name": "insightspike.graph.message_passing.MessagePassing",
+      "tags": []
+    },
+    {
+      "name": "OptimizedMessagePassing",
+      "module": "insightspike.graph.message_passing_optimized",
+      "type": "class",
+      "signature": "(alpha: float = 0.3, iterations: int = 3, max_hops: int = 1, aggregation: str = 'weighted_mean', self_loop_weight: float = 0.5, decay_factor: float = 0.8, convergence_threshold: float = 0.0001, similarity_threshold: float = 0.3)",
+      "docstring": "Optimized question-aware message passing with hop limitation.",
+      "full_name": "insightspike.graph.message_passing_optimized.OptimizedMessagePassing",
       "tags": []
     },
     {
@@ -3936,6 +6492,33 @@
       "tags": []
     },
     {
+      "name": "L4LLMInterface",
+      "module": "insightspike.implementations.layers",
+      "type": "class",
+      "signature": "(config: Union[insightspike.implementations.layers.layer4_llm_interface.LLMConfig, ForwardRef('InsightSpikeConfig'), Dict[str, Any], NoneType] = None)",
+      "docstring": "Layer 4 Language Interface - Natural language synthesis.",
+      "full_name": "insightspike.implementations.layers.L4LLMInterface",
+      "tags": []
+    },
+    {
+      "name": "LLMConfig",
+      "module": "insightspike.implementations.layers",
+      "type": "class",
+      "signature": "(provider: insightspike.implementations.layers.layer4_llm_interface.LLMProviderType = <LLMProviderType.CLEAN: 'clean'>, model_name: str = 'gpt-3.5-turbo', temperature: float = 0.7, max_tokens: int = 500, top_p: float = 0.9, api_key: Optional[str] = None, api_base: Optional[str] = None, timeout: int = 30, add_special_tokens: bool = True, use_system_prompt: bool = True, enable_caching: bool = False, enable_retry: bool = True, system_prompt: Optional[str] = None, prompt_template: Optional[str] = None, device: str = 'cpu', load_in_8bit: bool = False) -> None",
+      "docstring": "Unified configuration for LLM providers",
+      "full_name": "insightspike.implementations.layers.LLMConfig",
+      "tags": []
+    },
+    {
+      "name": "LLMProviderType",
+      "module": "insightspike.implementations.layers",
+      "type": "class",
+      "signature": "(*values)",
+      "docstring": "Available LLM provider types",
+      "full_name": "insightspike.implementations.layers.LLMProviderType",
+      "tags": []
+    },
+    {
       "name": "MemoryConfig",
       "module": "insightspike.implementations.layers",
       "type": "class",
@@ -3960,6 +6543,15 @@
       "signature": "(config=None, monitor: Optional[insightspike.monitoring.graph_monitor.GraphOperationMonitor] = None)",
       "docstring": "Build graphs efficiently using FAISS for nearest neighbor search.",
       "full_name": "insightspike.implementations.layers.ScalableGraphBuilder",
+      "tags": []
+    },
+    {
+      "name": "get_llm_provider",
+      "module": "insightspike.implementations.layers",
+      "type": "function",
+      "signature": "(config=None, safe_mode: bool = False, use_cache: bool = True) -> insightspike.implementations.layers.layer4_llm_interface.L4LLMInterface",
+      "docstring": "Get LLM provider instance.",
+      "full_name": "insightspike.implementations.layers.get_llm_provider",
       "tags": []
     },
     {
@@ -4362,8 +6954,8 @@
       "name": "EdgeReevaluator",
       "module": "insightspike.implementations.layers.layer3",
       "type": "class",
-      "signature": "(*args, **kwargs) -> 'None'",
-      "docstring": "No-op stub for edge reevaluation.",
+      "signature": "(similarity_threshold: float = 0.7, new_edge_threshold: float = 0.8, max_new_edges_per_node: int = 5, edge_decay_factor: float = 0.9)",
+      "docstring": "Re-evaluates edges after message passing to discover new connections",
       "full_name": "insightspike.implementations.layers.layer3.EdgeReevaluator",
       "tags": []
     },
@@ -4398,8 +6990,8 @@
       "name": "MessagePassing",
       "module": "insightspike.implementations.layers.layer3",
       "type": "class",
-      "signature": "(*args, **kwargs) -> 'None'",
-      "docstring": "No-op stub for environments without graph message passing.",
+      "signature": "(alpha: float = 0.3, iterations: int = 3, aggregation: str = 'weighted_mean', self_loop_weight: float = 0.5, decay_factor: float = 0.8)",
+      "docstring": "Question-aware message passing for knowledge graphs.",
       "full_name": "insightspike.implementations.layers.layer3.MessagePassing",
       "tags": []
     },
@@ -4446,15 +7038,6 @@
       "signature": "(*args, **kwargs)",
       "docstring": "Lazy proxy that instantiates the existing Layer3GraphReasoner.",
       "full_name": "insightspike.implementations.layers.layer3.__main__.L3GraphReasoner",
-      "tags": []
-    },
-    {
-      "name": "Data",
-      "module": "insightspike.implementations.layers.layer3.analysis",
-      "type": "class",
-      "signature": "(x=None, edge_index=None)",
-      "docstring": "",
-      "full_name": "insightspike.implementations.layers.layer3.analysis.Data",
       "tags": []
     },
     {
@@ -4530,15 +7113,6 @@
       "tags": []
     },
     {
-      "name": "Data",
-      "module": "insightspike.implementations.layers.layer3.conflict",
-      "type": "class",
-      "signature": "(x=None, edge_index=None, **kwargs)",
-      "docstring": "",
-      "full_name": "insightspike.implementations.layers.layer3.conflict.Data",
-      "tags": []
-    },
-    {
       "name": "LegacyConfigAdapter",
       "module": "insightspike.implementations.layers.layer3.conflict",
       "type": "class",
@@ -4563,15 +7137,6 @@
       "signature": "(input_dim: 'int', hidden_dim: 'int')",
       "docstring": "Return a simple 3-layer GCN or None if torch/PyG missing.",
       "full_name": "insightspike.implementations.layers.layer3.gnn.build_simple_gnn",
-      "tags": []
-    },
-    {
-      "name": "Data",
-      "module": "insightspike.implementations.layers.layer3.graph_builder",
-      "type": "class",
-      "signature": "(x=None, edge_index=None, **kwargs)",
-      "docstring": "",
-      "full_name": "insightspike.implementations.layers.layer3.graph_builder.Data",
       "tags": []
     },
     {
@@ -4614,8 +7179,8 @@
       "name": "EdgeReevaluator",
       "module": "insightspike.implementations.layers.layer3.message_passing",
       "type": "class",
-      "signature": "(*args, **kwargs) -> 'None'",
-      "docstring": "No-op stub for edge reevaluation.",
+      "signature": "(similarity_threshold: float = 0.7, new_edge_threshold: float = 0.8, max_new_edges_per_node: int = 5, edge_decay_factor: float = 0.9)",
+      "docstring": "Re-evaluates edges after message passing to discover new connections",
       "full_name": "insightspike.implementations.layers.layer3.message_passing.EdgeReevaluator",
       "tags": []
     },
@@ -4623,8 +7188,8 @@
       "name": "MessagePassing",
       "module": "insightspike.implementations.layers.layer3.message_passing",
       "type": "class",
-      "signature": "(*args, **kwargs) -> 'None'",
-      "docstring": "No-op stub for environments without graph message passing.",
+      "signature": "(alpha: float = 0.3, iterations: int = 3, aggregation: str = 'weighted_mean', self_loop_weight: float = 0.5, decay_factor: float = 0.8)",
+      "docstring": "Question-aware message passing for knowledge graphs.",
       "full_name": "insightspike.implementations.layers.layer3.message_passing.MessagePassing",
       "tags": []
     },
@@ -4632,8 +7197,8 @@
       "name": "EdgeReevaluator",
       "module": "insightspike.implementations.layers.layer3.message_passing_controller",
       "type": "class",
-      "signature": "(*args, **kwargs) -> 'None'",
-      "docstring": "No-op stub for edge reevaluation.",
+      "signature": "(similarity_threshold: float = 0.7, new_edge_threshold: float = 0.8, max_new_edges_per_node: int = 5, edge_decay_factor: float = 0.9)",
+      "docstring": "Re-evaluates edges after message passing to discover new connections",
       "full_name": "insightspike.implementations.layers.layer3.message_passing_controller.EdgeReevaluator",
       "tags": []
     },
@@ -4650,8 +7215,8 @@
       "name": "MessagePassing",
       "module": "insightspike.implementations.layers.layer3.message_passing_controller",
       "type": "class",
-      "signature": "(*args, **kwargs) -> 'None'",
-      "docstring": "No-op stub for environments without graph message passing.",
+      "signature": "(alpha: float = 0.3, iterations: int = 3, aggregation: str = 'weighted_mean', self_loop_weight: float = 0.5, decay_factor: float = 0.8)",
+      "docstring": "Question-aware message passing for knowledge graphs.",
       "full_name": "insightspike.implementations.layers.layer3.message_passing_controller.MessagePassing",
       "tags": []
     },
@@ -4692,30 +7257,12 @@
       "tags": []
     },
     {
-      "name": "Data",
-      "module": "insightspike.implementations.layers.layer3_graph_reasoner",
-      "type": "class",
-      "signature": "(x=None, edge_index=None, **kw)",
-      "docstring": "",
-      "full_name": "insightspike.implementations.layers.layer3_graph_reasoner.Data",
-      "tags": []
-    },
-    {
       "name": "Episode",
       "module": "insightspike.implementations.layers.layer3_graph_reasoner",
       "type": "class",
       "signature": "(text: str, vec: numpy.ndarray, c: float = 0.5, timestamp: float = <factory>, metadata: Dict[str, Any] = <factory>, episode_type: str = 'experience', selection_count: int = 0, creation_time: float = <factory>, confidence: Optional[float] = None) -> None",
       "docstring": "Single memory entry with vector embedding, text, and C-value.",
       "full_name": "insightspike.implementations.layers.layer3_graph_reasoner.Episode",
-      "tags": []
-    },
-    {
-      "name": "GCNConv",
-      "module": "insightspike.implementations.layers.layer3_graph_reasoner",
-      "type": "class",
-      "signature": "(*a, **k)",
-      "docstring": "",
-      "full_name": "insightspike.implementations.layers.layer3_graph_reasoner.GCNConv",
       "tags": []
     },
     {
@@ -4815,15 +7362,6 @@
       "signature": "() -> insightspike.config.models.InsightSpikeConfig",
       "docstring": "Get current configuration or load defaults",
       "full_name": "insightspike.implementations.layers.layer3_graph_reasoner.get_config",
-      "tags": []
-    },
-    {
-      "name": "global_mean_pool",
-      "module": "insightspike.implementations.layers.layer3_graph_reasoner",
-      "type": "function",
-      "signature": "(x, batch)",
-      "docstring": "",
-      "full_name": "insightspike.implementations.layers.layer3_graph_reasoner.global_mean_pool",
       "tags": []
     },
     {
@@ -4953,15 +7491,6 @@
       "tags": []
     },
     {
-      "name": "Data",
-      "module": "insightspike.implementations.layers.scalable_graph_builder",
-      "type": "class",
-      "signature": "(x, edge_index)",
-      "docstring": "",
-      "full_name": "insightspike.implementations.layers.scalable_graph_builder.Data",
-      "tags": []
-    },
-    {
       "name": "GraphOperationMonitor",
       "module": "insightspike.implementations.layers.scalable_graph_builder",
       "type": "class",
@@ -5052,15 +7581,6 @@
       "tags": []
     },
     {
-      "name": "Data",
-      "module": "insightspike.implementations.memory.knowledge_graph_memory",
-      "type": "class",
-      "signature": "(x=None, edge_index=None)",
-      "docstring": "Fallback Data class for basic graph functionality without torch-geometric.",
-      "full_name": "insightspike.implementations.memory.knowledge_graph_memory.Data",
-      "tags": []
-    },
-    {
       "name": "KnowledgeGraphMemory",
       "module": "insightspike.implementations.memory.knowledge_graph_memory",
       "type": "class",
@@ -5070,12 +7590,21 @@
       "tags": []
     },
     {
-      "name": "subgraph",
-      "module": "insightspike.implementations.memory.knowledge_graph_memory",
-      "type": "function",
-      "signature": "(node_tensor, edge_index, relabel_nodes=True, num_nodes=None)",
-      "docstring": "Fallback subgraph function for basic functionality without torch-geometric.",
-      "full_name": "insightspike.implementations.memory.knowledge_graph_memory.subgraph",
+      "name": "ScalableGraphManager",
+      "module": "insightspike.implementations.memory.scalable_graph_manager",
+      "type": "class",
+      "signature": "(embedding_dim: int = 384, similarity_threshold: float = 0.3, top_k: int = 50, conflict_threshold: float = 0.8)",
+      "docstring": "Scalable graph management with FAISS-based similarity search.",
+      "full_name": "insightspike.implementations.memory.scalable_graph_manager.ScalableGraphManager",
+      "tags": []
+    },
+    {
+      "name": "VectorIndexFactory",
+      "module": "insightspike.implementations.memory.scalable_graph_manager",
+      "type": "class",
+      "signature": "()",
+      "docstring": "Factory for creating vector indices.",
+      "full_name": "insightspike.implementations.memory.scalable_graph_manager.VectorIndexFactory",
       "tags": []
     },
     {
@@ -5223,6 +7752,222 @@
       "tags": []
     },
     {
+      "name": "IAgent",
+      "module": "insightspike.interfaces",
+      "type": "class",
+      "signature": "(*args, **kwargs)",
+      "docstring": "Base agent interface for question-answering systems.",
+      "full_name": "insightspike.interfaces.IAgent",
+      "tags": []
+    },
+    {
+      "name": "IDataStore",
+      "module": "insightspike.interfaces",
+      "type": "class",
+      "signature": "(*args, **kwargs)",
+      "docstring": "Full datastore interface with search capabilities.",
+      "full_name": "insightspike.interfaces.IDataStore",
+      "tags": []
+    },
+    {
+      "name": "IEmbedder",
+      "module": "insightspike.interfaces",
+      "type": "class",
+      "signature": "(*args, **kwargs)",
+      "docstring": "Interface for text embedders.",
+      "full_name": "insightspike.interfaces.IEmbedder",
+      "tags": []
+    },
+    {
+      "name": "IEpisodeStore",
+      "module": "insightspike.interfaces",
+      "type": "class",
+      "signature": "(*args, **kwargs)",
+      "docstring": "Interface for episode storage.",
+      "full_name": "insightspike.interfaces.IEpisodeStore",
+      "tags": []
+    },
+    {
+      "name": "IGraphAnalyzer",
+      "module": "insightspike.interfaces",
+      "type": "class",
+      "signature": "(*args, **kwargs)",
+      "docstring": "Interface for graph analysis and metrics.",
+      "full_name": "insightspike.interfaces.IGraphAnalyzer",
+      "tags": []
+    },
+    {
+      "name": "IGraphBuilder",
+      "module": "insightspike.interfaces",
+      "type": "class",
+      "signature": "(*args, **kwargs)",
+      "docstring": "Interface for building PyTorch Geometric graphs.",
+      "full_name": "insightspike.interfaces.IGraphBuilder",
+      "tags": []
+    },
+    {
+      "name": "ILLMProvider",
+      "module": "insightspike.interfaces",
+      "type": "class",
+      "signature": "(*args, **kwargs)",
+      "docstring": "Interface for LLM providers.",
+      "full_name": "insightspike.interfaces.ILLMProvider",
+      "tags": []
+    },
+    {
+      "name": "IMemoryAgent",
+      "module": "insightspike.interfaces",
+      "type": "class",
+      "signature": "(*args, **kwargs)",
+      "docstring": "Agent with memory management capabilities.",
+      "full_name": "insightspike.interfaces.IMemoryAgent",
+      "tags": []
+    },
+    {
+      "name": "IMemoryManager",
+      "module": "insightspike.interfaces",
+      "type": "class",
+      "signature": "(*args, **kwargs)",
+      "docstring": "Interface for memory management.",
+      "full_name": "insightspike.interfaces.IMemoryManager",
+      "tags": []
+    },
+    {
+      "name": "IMemorySearch",
+      "module": "insightspike.interfaces",
+      "type": "class",
+      "signature": "(*args, **kwargs)",
+      "docstring": "Interface for advanced memory search with graph support.",
+      "full_name": "insightspike.interfaces.IMemorySearch",
+      "tags": []
+    },
+    {
+      "name": "CycleResult",
+      "module": "insightspike.interfaces.agent",
+      "type": "class",
+      "signature": "(response: str, reasoning_trace: str, memory_used: List[Dict[str, Any]], spike_detected: bool, graph_metrics: Dict[str, float], reasoning_quality: float, convergence_score: float, has_spike: bool) -> None",
+      "docstring": "Result from a single reasoning cycle.",
+      "full_name": "insightspike.interfaces.agent.CycleResult",
+      "tags": []
+    },
+    {
+      "name": "IAgent",
+      "module": "insightspike.interfaces.agent",
+      "type": "class",
+      "signature": "(*args, **kwargs)",
+      "docstring": "Base agent interface for question-answering systems.",
+      "full_name": "insightspike.interfaces.agent.IAgent",
+      "tags": []
+    },
+    {
+      "name": "IMemoryAgent",
+      "module": "insightspike.interfaces.agent",
+      "type": "class",
+      "signature": "(*args, **kwargs)",
+      "docstring": "Agent with memory management capabilities.",
+      "full_name": "insightspike.interfaces.agent.IMemoryAgent",
+      "tags": []
+    },
+    {
+      "name": "Episode",
+      "module": "insightspike.interfaces.datastore",
+      "type": "class",
+      "signature": "(text: str, vec: numpy.ndarray, c: float = 0.5, timestamp: float = <factory>, metadata: Dict[str, Any] = <factory>, episode_type: str = 'experience', selection_count: int = 0, creation_time: float = <factory>, confidence: Optional[float] = None) -> None",
+      "docstring": "Single memory entry with vector embedding, text, and C-value.",
+      "full_name": "insightspike.interfaces.datastore.Episode",
+      "tags": []
+    },
+    {
+      "name": "IDataStore",
+      "module": "insightspike.interfaces.datastore",
+      "type": "class",
+      "signature": "(*args, **kwargs)",
+      "docstring": "Full datastore interface with search capabilities.",
+      "full_name": "insightspike.interfaces.datastore.IDataStore",
+      "tags": []
+    },
+    {
+      "name": "IEpisodeStore",
+      "module": "insightspike.interfaces.datastore",
+      "type": "class",
+      "signature": "(*args, **kwargs)",
+      "docstring": "Interface for episode storage.",
+      "full_name": "insightspike.interfaces.datastore.IEpisodeStore",
+      "tags": []
+    },
+    {
+      "name": "IEmbedder",
+      "module": "insightspike.interfaces.embedder",
+      "type": "class",
+      "signature": "(*args, **kwargs)",
+      "docstring": "Interface for text embedders.",
+      "full_name": "insightspike.interfaces.embedder.IEmbedder",
+      "tags": []
+    },
+    {
+      "name": "Episode",
+      "module": "insightspike.interfaces.graph",
+      "type": "class",
+      "signature": "(text: str, vec: numpy.ndarray, c: float = 0.5, timestamp: float = <factory>, metadata: Dict[str, Any] = <factory>, episode_type: str = 'experience', selection_count: int = 0, creation_time: float = <factory>, confidence: Optional[float] = None) -> None",
+      "docstring": "Single memory entry with vector embedding, text, and C-value.",
+      "full_name": "insightspike.interfaces.graph.Episode",
+      "tags": []
+    },
+    {
+      "name": "IGraphAnalyzer",
+      "module": "insightspike.interfaces.graph",
+      "type": "class",
+      "signature": "(*args, **kwargs)",
+      "docstring": "Interface for graph analysis and metrics.",
+      "full_name": "insightspike.interfaces.graph.IGraphAnalyzer",
+      "tags": []
+    },
+    {
+      "name": "IGraphBuilder",
+      "module": "insightspike.interfaces.graph",
+      "type": "class",
+      "signature": "(*args, **kwargs)",
+      "docstring": "Interface for building PyTorch Geometric graphs.",
+      "full_name": "insightspike.interfaces.graph.IGraphBuilder",
+      "tags": []
+    },
+    {
+      "name": "ILLMProvider",
+      "module": "insightspike.interfaces.llm",
+      "type": "class",
+      "signature": "(*args, **kwargs)",
+      "docstring": "Interface for LLM providers.",
+      "full_name": "insightspike.interfaces.llm.ILLMProvider",
+      "tags": []
+    },
+    {
+      "name": "Episode",
+      "module": "insightspike.interfaces.memory",
+      "type": "class",
+      "signature": "(text: str, vec: numpy.ndarray, c: float = 0.5, timestamp: float = <factory>, metadata: Dict[str, Any] = <factory>, episode_type: str = 'experience', selection_count: int = 0, creation_time: float = <factory>, confidence: Optional[float] = None) -> None",
+      "docstring": "Single memory entry with vector embedding, text, and C-value.",
+      "full_name": "insightspike.interfaces.memory.Episode",
+      "tags": []
+    },
+    {
+      "name": "IMemoryManager",
+      "module": "insightspike.interfaces.memory",
+      "type": "class",
+      "signature": "(*args, **kwargs)",
+      "docstring": "Interface for memory management.",
+      "full_name": "insightspike.interfaces.memory.IMemoryManager",
+      "tags": []
+    },
+    {
+      "name": "IMemorySearch",
+      "module": "insightspike.interfaces.memory",
+      "type": "class",
+      "signature": "(*args, **kwargs)",
+      "docstring": "Interface for advanced memory search with graph support.",
+      "full_name": "insightspike.interfaces.memory.IMemorySearch",
+      "tags": []
+    },
+    {
       "name": "PatternLogger",
       "module": "insightspike.learning",
       "type": "class",
@@ -5292,6 +8037,42 @@
       "signature": "(config=None, pattern_logger: Optional[insightspike.learning.pattern_logger.PatternLogger] = None)",
       "docstring": "Optimizes system strategies based on learning from past patterns.",
       "full_name": "insightspike.learning.strategy_optimizer.StrategyOptimizer",
+      "tags": []
+    },
+    {
+      "name": "GraphEditDistance",
+      "module": "insightspike.metrics",
+      "type": "class",
+      "signature": "(node_cost: float = 1.0, edge_cost: float = 1.0, optimization_level: Union[str, insightspike.algorithms.graph_edit_distance.OptimizationLevel] = <OptimizationLevel.STANDARD: 'standard'>, timeout_seconds: float = 5.0, max_graph_size_exact: int = 50)",
+      "docstring": "Graph Edit Distance calculator for PyTorch Geometric graphs.",
+      "full_name": "insightspike.metrics.GraphEditDistance",
+      "tags": []
+    },
+    {
+      "name": "InformationGain",
+      "module": "insightspike.metrics",
+      "type": "class",
+      "signature": "(method: Union[str, insightspike.algorithms.information_gain.EntropyMethod] = <EntropyMethod.CLUSTERING: 'clustering'>, k_clusters: int = 8, min_samples: int = 2, random_state: int = 42)",
+      "docstring": "Information Gain calculator for measuring learning progress.",
+      "full_name": "insightspike.metrics.InformationGain",
+      "tags": []
+    },
+    {
+      "name": "algo_delta_ged",
+      "module": "insightspike.metrics",
+      "type": "function",
+      "signature": "(graph_before: torch_geometric.data.data.Data, graph_after: torch_geometric.data.data.Data, reference_graph: Optional[torch_geometric.data.data.Data] = None, **kwargs) -> float",
+      "docstring": "Compute \u0394GED for insight detection.",
+      "full_name": "insightspike.metrics.algo_delta_ged",
+      "tags": []
+    },
+    {
+      "name": "algo_delta_ig",
+      "module": "insightspike.metrics",
+      "type": "function",
+      "signature": "(state_before: Any, state_after: Any, method: str = 'clustering', **kwargs) -> float",
+      "docstring": "Compute \u0394IG for insight detection.",
+      "full_name": "insightspike.metrics.algo_delta_ig",
       "tags": []
     },
     {
@@ -5367,6 +8148,15 @@
       "tags": []
     },
     {
+      "name": "get_algorithm_info",
+      "module": "insightspike.metrics",
+      "type": "function",
+      "signature": "() -> 'dict'",
+      "docstring": "Get comprehensive information about available algorithms.",
+      "full_name": "insightspike.metrics.get_algorithm_info",
+      "tags": []
+    },
+    {
       "name": "get_algorithm_metadata",
       "module": "insightspike.metrics",
       "type": "function",
@@ -5385,6 +8175,24 @@
       "tags": []
     },
     {
+      "name": "GraphEditDistance",
+      "module": "insightspike.metrics.graph_metrics",
+      "type": "class",
+      "signature": "(node_cost: float = 1.0, edge_cost: float = 1.0, optimization_level: Union[str, insightspike.algorithms.graph_edit_distance.OptimizationLevel] = <OptimizationLevel.STANDARD: 'standard'>, timeout_seconds: float = 5.0, max_graph_size_exact: int = 50)",
+      "docstring": "Graph Edit Distance calculator for PyTorch Geometric graphs.",
+      "full_name": "insightspike.metrics.graph_metrics.GraphEditDistance",
+      "tags": []
+    },
+    {
+      "name": "InformationGain",
+      "module": "insightspike.metrics.graph_metrics",
+      "type": "class",
+      "signature": "(method: Union[str, insightspike.algorithms.information_gain.EntropyMethod] = <EntropyMethod.CLUSTERING: 'clustering'>, k_clusters: int = 8, min_samples: int = 2, random_state: int = 42)",
+      "docstring": "Information Gain calculator for measuring learning progress.",
+      "full_name": "insightspike.metrics.graph_metrics.InformationGain",
+      "tags": []
+    },
+    {
       "name": "delta_ged",
       "module": "insightspike.metrics.graph_metrics",
       "type": "function",
@@ -5400,6 +8208,15 @@
       "signature": "(vecs_old: numpy.ndarray, vecs_new: numpy.ndarray, k: int = 8) -> float",
       "docstring": "Calculate information gain delta between two vector sets.",
       "full_name": "insightspike.metrics.graph_metrics.delta_ig",
+      "tags": []
+    },
+    {
+      "name": "get_global_ged_calculator",
+      "module": "insightspike.metrics.graph_metrics",
+      "type": "function",
+      "signature": "() -> insightspike.algorithms.graph_edit_distance.GraphEditDistance",
+      "docstring": "Get or create global GED calculator instance.",
+      "full_name": "insightspike.metrics.graph_metrics.get_global_ged_calculator",
       "tags": []
     },
     {
@@ -5910,7 +8727,7 @@
       "name": "LLMConfig",
       "module": "insightspike.providers.anthropic_provider",
       "type": "class",
-      "signature": "(*, provider: Literal['local', 'openai', 'anthropic', 'ollama', 'mock'] = 'local', model: str = 'distilgpt2', max_tokens: Annotated[int, Ge(ge=1), Le(le=4096)] = 256, temperature: Annotated[float, Ge(ge=0.0), Le(le=2.0)] = 0.3, top_p: Annotated[float, Ge(ge=0.0), Le(le=1.0)] = 0.9, timeout: Annotated[int, Ge(ge=1)] = 30, api_key: Optional[str] = None, api_base: Optional[str] = None, organization: Optional[str] = None, device: str = 'cpu', load_in_8bit: bool = False, system_prompt: Optional[str] = None, prompt_style: Literal['standard', 'detailed', 'minimal', 'association', 'association_extended'] = 'standard', max_context_docs: Annotated[int, Ge(ge=1), Le(le=20)] = 5, use_simple_prompt: bool = False, include_metadata: bool = False, branching_threshold: Annotated[float, Ge(ge=0.0), Le(le=1.0)] = 0.8, branching_min_branches: Annotated[int, Ge(ge=2), Le(le=10)] = 2, branching_max_gap: Annotated[float, Ge(ge=0.0), Le(le=0.5)] = 0.15) -> None",
+      "signature": "(*, provider: Literal['local', 'openai', 'anthropic', 'ollama', 'mock'] = 'ollama', model: str = 'ministral-3:3b', max_tokens: Annotated[int, Gt(gt=0)] = 512, temperature: Annotated[float, Ge(ge=0.0), Le(le=2.0)] = 0.7, top_p: Annotated[float, Ge(ge=0.0), Le(le=1.0)] = 0.9, timeout: Annotated[int, Gt(gt=0)] = 30, api_key: Optional[str] = 'ollama', api_base: Optional[str] = 'http://localhost:11434/v1', organization: Optional[str] = None, device: str = 'cpu', load_in_8bit: bool = False, system_prompt: Optional[str] = None, prompt_style: Literal['standard', 'detailed', 'minimal', 'association', 'association_extended'] = 'standard', max_context_docs: Annotated[int, Ge(ge=1), Le(le=20)] = 5, use_simple_prompt: bool = False, include_metadata: bool = False, branching_threshold: Annotated[float, Ge(ge=0.0), Le(le=1.0)] = 0.8, branching_min_branches: Annotated[int, Ge(ge=2), Le(le=10)] = 2, branching_max_gap: Annotated[float, Ge(ge=0.0), Le(le=0.5)] = 0.15) -> None",
       "docstring": "Language Model configuration",
       "full_name": "insightspike.providers.anthropic_provider.LLMConfig",
       "tags": []
@@ -5928,7 +8745,7 @@
       "name": "LLMConfig",
       "module": "insightspike.providers.distilgpt2_provider",
       "type": "class",
-      "signature": "(*, provider: Literal['local', 'openai', 'anthropic', 'ollama', 'mock'] = 'local', model: str = 'distilgpt2', max_tokens: Annotated[int, Ge(ge=1), Le(le=4096)] = 256, temperature: Annotated[float, Ge(ge=0.0), Le(le=2.0)] = 0.3, top_p: Annotated[float, Ge(ge=0.0), Le(le=1.0)] = 0.9, timeout: Annotated[int, Ge(ge=1)] = 30, api_key: Optional[str] = None, api_base: Optional[str] = None, organization: Optional[str] = None, device: str = 'cpu', load_in_8bit: bool = False, system_prompt: Optional[str] = None, prompt_style: Literal['standard', 'detailed', 'minimal', 'association', 'association_extended'] = 'standard', max_context_docs: Annotated[int, Ge(ge=1), Le(le=20)] = 5, use_simple_prompt: bool = False, include_metadata: bool = False, branching_threshold: Annotated[float, Ge(ge=0.0), Le(le=1.0)] = 0.8, branching_min_branches: Annotated[int, Ge(ge=2), Le(le=10)] = 2, branching_max_gap: Annotated[float, Ge(ge=0.0), Le(le=0.5)] = 0.15) -> None",
+      "signature": "(*, provider: Literal['local', 'openai', 'anthropic', 'ollama', 'mock'] = 'ollama', model: str = 'ministral-3:3b', max_tokens: Annotated[int, Gt(gt=0)] = 512, temperature: Annotated[float, Ge(ge=0.0), Le(le=2.0)] = 0.7, top_p: Annotated[float, Ge(ge=0.0), Le(le=1.0)] = 0.9, timeout: Annotated[int, Gt(gt=0)] = 30, api_key: Optional[str] = 'ollama', api_base: Optional[str] = 'http://localhost:11434/v1', organization: Optional[str] = None, device: str = 'cpu', load_in_8bit: bool = False, system_prompt: Optional[str] = None, prompt_style: Literal['standard', 'detailed', 'minimal', 'association', 'association_extended'] = 'standard', max_context_docs: Annotated[int, Ge(ge=1), Le(le=20)] = 5, use_simple_prompt: bool = False, include_metadata: bool = False, branching_threshold: Annotated[float, Ge(ge=0.0), Le(le=1.0)] = 0.8, branching_min_branches: Annotated[int, Ge(ge=2), Le(le=10)] = 2, branching_max_gap: Annotated[float, Ge(ge=0.0), Le(le=0.5)] = 0.15) -> None",
       "docstring": "Language Model configuration",
       "full_name": "insightspike.providers.distilgpt2_provider.LLMConfig",
       "tags": []
@@ -5937,7 +8754,7 @@
       "name": "LLMConfig",
       "module": "insightspike.providers.local",
       "type": "class",
-      "signature": "(*, provider: Literal['local', 'openai', 'anthropic', 'ollama', 'mock'] = 'local', model: str = 'distilgpt2', max_tokens: Annotated[int, Ge(ge=1), Le(le=4096)] = 256, temperature: Annotated[float, Ge(ge=0.0), Le(le=2.0)] = 0.3, top_p: Annotated[float, Ge(ge=0.0), Le(le=1.0)] = 0.9, timeout: Annotated[int, Ge(ge=1)] = 30, api_key: Optional[str] = None, api_base: Optional[str] = None, organization: Optional[str] = None, device: str = 'cpu', load_in_8bit: bool = False, system_prompt: Optional[str] = None, prompt_style: Literal['standard', 'detailed', 'minimal', 'association', 'association_extended'] = 'standard', max_context_docs: Annotated[int, Ge(ge=1), Le(le=20)] = 5, use_simple_prompt: bool = False, include_metadata: bool = False, branching_threshold: Annotated[float, Ge(ge=0.0), Le(le=1.0)] = 0.8, branching_min_branches: Annotated[int, Ge(ge=2), Le(le=10)] = 2, branching_max_gap: Annotated[float, Ge(ge=0.0), Le(le=0.5)] = 0.15) -> None",
+      "signature": "(*, provider: Literal['local', 'openai', 'anthropic', 'ollama', 'mock'] = 'ollama', model: str = 'ministral-3:3b', max_tokens: Annotated[int, Gt(gt=0)] = 512, temperature: Annotated[float, Ge(ge=0.0), Le(le=2.0)] = 0.7, top_p: Annotated[float, Ge(ge=0.0), Le(le=1.0)] = 0.9, timeout: Annotated[int, Gt(gt=0)] = 30, api_key: Optional[str] = 'ollama', api_base: Optional[str] = 'http://localhost:11434/v1', organization: Optional[str] = None, device: str = 'cpu', load_in_8bit: bool = False, system_prompt: Optional[str] = None, prompt_style: Literal['standard', 'detailed', 'minimal', 'association', 'association_extended'] = 'standard', max_context_docs: Annotated[int, Ge(ge=1), Le(le=20)] = 5, use_simple_prompt: bool = False, include_metadata: bool = False, branching_threshold: Annotated[float, Ge(ge=0.0), Le(le=1.0)] = 0.8, branching_min_branches: Annotated[int, Ge(ge=2), Le(le=10)] = 2, branching_max_gap: Annotated[float, Ge(ge=0.0), Le(le=0.5)] = 0.15) -> None",
       "docstring": "Language Model configuration",
       "full_name": "insightspike.providers.local.LLMConfig",
       "tags": []
@@ -5955,7 +8772,7 @@
       "name": "LLMConfig",
       "module": "insightspike.providers.mock_provider",
       "type": "class",
-      "signature": "(*, provider: Literal['local', 'openai', 'anthropic', 'ollama', 'mock'] = 'local', model: str = 'distilgpt2', max_tokens: Annotated[int, Ge(ge=1), Le(le=4096)] = 256, temperature: Annotated[float, Ge(ge=0.0), Le(le=2.0)] = 0.3, top_p: Annotated[float, Ge(ge=0.0), Le(le=1.0)] = 0.9, timeout: Annotated[int, Ge(ge=1)] = 30, api_key: Optional[str] = None, api_base: Optional[str] = None, organization: Optional[str] = None, device: str = 'cpu', load_in_8bit: bool = False, system_prompt: Optional[str] = None, prompt_style: Literal['standard', 'detailed', 'minimal', 'association', 'association_extended'] = 'standard', max_context_docs: Annotated[int, Ge(ge=1), Le(le=20)] = 5, use_simple_prompt: bool = False, include_metadata: bool = False, branching_threshold: Annotated[float, Ge(ge=0.0), Le(le=1.0)] = 0.8, branching_min_branches: Annotated[int, Ge(ge=2), Le(le=10)] = 2, branching_max_gap: Annotated[float, Ge(ge=0.0), Le(le=0.5)] = 0.15) -> None",
+      "signature": "(*, provider: Literal['local', 'openai', 'anthropic', 'ollama', 'mock'] = 'ollama', model: str = 'ministral-3:3b', max_tokens: Annotated[int, Gt(gt=0)] = 512, temperature: Annotated[float, Ge(ge=0.0), Le(le=2.0)] = 0.7, top_p: Annotated[float, Ge(ge=0.0), Le(le=1.0)] = 0.9, timeout: Annotated[int, Gt(gt=0)] = 30, api_key: Optional[str] = 'ollama', api_base: Optional[str] = 'http://localhost:11434/v1', organization: Optional[str] = None, device: str = 'cpu', load_in_8bit: bool = False, system_prompt: Optional[str] = None, prompt_style: Literal['standard', 'detailed', 'minimal', 'association', 'association_extended'] = 'standard', max_context_docs: Annotated[int, Ge(ge=1), Le(le=20)] = 5, use_simple_prompt: bool = False, include_metadata: bool = False, branching_threshold: Annotated[float, Ge(ge=0.0), Le(le=1.0)] = 0.8, branching_min_branches: Annotated[int, Ge(ge=2), Le(le=10)] = 2, branching_max_gap: Annotated[float, Ge(ge=0.0), Le(le=0.5)] = 0.15) -> None",
       "docstring": "Language Model configuration",
       "full_name": "insightspike.providers.mock_provider.LLMConfig",
       "tags": []
@@ -5973,7 +8790,7 @@
       "name": "LLMConfig",
       "module": "insightspike.providers.openai_provider",
       "type": "class",
-      "signature": "(*, provider: Literal['local', 'openai', 'anthropic', 'ollama', 'mock'] = 'local', model: str = 'distilgpt2', max_tokens: Annotated[int, Ge(ge=1), Le(le=4096)] = 256, temperature: Annotated[float, Ge(ge=0.0), Le(le=2.0)] = 0.3, top_p: Annotated[float, Ge(ge=0.0), Le(le=1.0)] = 0.9, timeout: Annotated[int, Ge(ge=1)] = 30, api_key: Optional[str] = None, api_base: Optional[str] = None, organization: Optional[str] = None, device: str = 'cpu', load_in_8bit: bool = False, system_prompt: Optional[str] = None, prompt_style: Literal['standard', 'detailed', 'minimal', 'association', 'association_extended'] = 'standard', max_context_docs: Annotated[int, Ge(ge=1), Le(le=20)] = 5, use_simple_prompt: bool = False, include_metadata: bool = False, branching_threshold: Annotated[float, Ge(ge=0.0), Le(le=1.0)] = 0.8, branching_min_branches: Annotated[int, Ge(ge=2), Le(le=10)] = 2, branching_max_gap: Annotated[float, Ge(ge=0.0), Le(le=0.5)] = 0.15) -> None",
+      "signature": "(*, provider: Literal['local', 'openai', 'anthropic', 'ollama', 'mock'] = 'ollama', model: str = 'ministral-3:3b', max_tokens: Annotated[int, Gt(gt=0)] = 512, temperature: Annotated[float, Ge(ge=0.0), Le(le=2.0)] = 0.7, top_p: Annotated[float, Ge(ge=0.0), Le(le=1.0)] = 0.9, timeout: Annotated[int, Gt(gt=0)] = 30, api_key: Optional[str] = 'ollama', api_base: Optional[str] = 'http://localhost:11434/v1', organization: Optional[str] = None, device: str = 'cpu', load_in_8bit: bool = False, system_prompt: Optional[str] = None, prompt_style: Literal['standard', 'detailed', 'minimal', 'association', 'association_extended'] = 'standard', max_context_docs: Annotated[int, Ge(ge=1), Le(le=20)] = 5, use_simple_prompt: bool = False, include_metadata: bool = False, branching_threshold: Annotated[float, Ge(ge=0.0), Le(le=1.0)] = 0.8, branching_min_branches: Annotated[int, Ge(ge=2), Le(le=10)] = 2, branching_max_gap: Annotated[float, Ge(ge=0.0), Le(le=0.5)] = 0.15) -> None",
       "docstring": "Language Model configuration",
       "full_name": "insightspike.providers.openai_provider.LLMConfig",
       "tags": []
@@ -6009,7 +8826,7 @@
       "name": "LLMConfig",
       "module": "insightspike.providers.provider_factory",
       "type": "class",
-      "signature": "(*, provider: Literal['local', 'openai', 'anthropic', 'ollama', 'mock'] = 'local', model: str = 'distilgpt2', max_tokens: Annotated[int, Ge(ge=1), Le(le=4096)] = 256, temperature: Annotated[float, Ge(ge=0.0), Le(le=2.0)] = 0.3, top_p: Annotated[float, Ge(ge=0.0), Le(le=1.0)] = 0.9, timeout: Annotated[int, Ge(ge=1)] = 30, api_key: Optional[str] = None, api_base: Optional[str] = None, organization: Optional[str] = None, device: str = 'cpu', load_in_8bit: bool = False, system_prompt: Optional[str] = None, prompt_style: Literal['standard', 'detailed', 'minimal', 'association', 'association_extended'] = 'standard', max_context_docs: Annotated[int, Ge(ge=1), Le(le=20)] = 5, use_simple_prompt: bool = False, include_metadata: bool = False, branching_threshold: Annotated[float, Ge(ge=0.0), Le(le=1.0)] = 0.8, branching_min_branches: Annotated[int, Ge(ge=2), Le(le=10)] = 2, branching_max_gap: Annotated[float, Ge(ge=0.0), Le(le=0.5)] = 0.15) -> None",
+      "signature": "(*, provider: Literal['local', 'openai', 'anthropic', 'ollama', 'mock'] = 'ollama', model: str = 'ministral-3:3b', max_tokens: Annotated[int, Gt(gt=0)] = 512, temperature: Annotated[float, Ge(ge=0.0), Le(le=2.0)] = 0.7, top_p: Annotated[float, Ge(ge=0.0), Le(le=1.0)] = 0.9, timeout: Annotated[int, Gt(gt=0)] = 30, api_key: Optional[str] = 'ollama', api_base: Optional[str] = 'http://localhost:11434/v1', organization: Optional[str] = None, device: str = 'cpu', load_in_8bit: bool = False, system_prompt: Optional[str] = None, prompt_style: Literal['standard', 'detailed', 'minimal', 'association', 'association_extended'] = 'standard', max_context_docs: Annotated[int, Ge(ge=1), Le(le=20)] = 5, use_simple_prompt: bool = False, include_metadata: bool = False, branching_threshold: Annotated[float, Ge(ge=0.0), Le(le=1.0)] = 0.8, branching_min_branches: Annotated[int, Ge(ge=2), Le(le=10)] = 2, branching_max_gap: Annotated[float, Ge(ge=0.0), Le(le=0.5)] = 0.15) -> None",
       "docstring": "Language Model configuration",
       "full_name": "insightspike.providers.provider_factory.LLMConfig",
       "tags": []
@@ -6063,7 +8880,7 @@
       "name": "LLMConfig",
       "module": "insightspike.providers.simple_local",
       "type": "class",
-      "signature": "(*, provider: Literal['local', 'openai', 'anthropic', 'ollama', 'mock'] = 'local', model: str = 'distilgpt2', max_tokens: Annotated[int, Ge(ge=1), Le(le=4096)] = 256, temperature: Annotated[float, Ge(ge=0.0), Le(le=2.0)] = 0.3, top_p: Annotated[float, Ge(ge=0.0), Le(le=1.0)] = 0.9, timeout: Annotated[int, Ge(ge=1)] = 30, api_key: Optional[str] = None, api_base: Optional[str] = None, organization: Optional[str] = None, device: str = 'cpu', load_in_8bit: bool = False, system_prompt: Optional[str] = None, prompt_style: Literal['standard', 'detailed', 'minimal', 'association', 'association_extended'] = 'standard', max_context_docs: Annotated[int, Ge(ge=1), Le(le=20)] = 5, use_simple_prompt: bool = False, include_metadata: bool = False, branching_threshold: Annotated[float, Ge(ge=0.0), Le(le=1.0)] = 0.8, branching_min_branches: Annotated[int, Ge(ge=2), Le(le=10)] = 2, branching_max_gap: Annotated[float, Ge(ge=0.0), Le(le=0.5)] = 0.15) -> None",
+      "signature": "(*, provider: Literal['local', 'openai', 'anthropic', 'ollama', 'mock'] = 'ollama', model: str = 'ministral-3:3b', max_tokens: Annotated[int, Gt(gt=0)] = 512, temperature: Annotated[float, Ge(ge=0.0), Le(le=2.0)] = 0.7, top_p: Annotated[float, Ge(ge=0.0), Le(le=1.0)] = 0.9, timeout: Annotated[int, Gt(gt=0)] = 30, api_key: Optional[str] = 'ollama', api_base: Optional[str] = 'http://localhost:11434/v1', organization: Optional[str] = None, device: str = 'cpu', load_in_8bit: bool = False, system_prompt: Optional[str] = None, prompt_style: Literal['standard', 'detailed', 'minimal', 'association', 'association_extended'] = 'standard', max_context_docs: Annotated[int, Ge(ge=1), Le(le=20)] = 5, use_simple_prompt: bool = False, include_metadata: bool = False, branching_threshold: Annotated[float, Ge(ge=0.0), Le(le=1.0)] = 0.8, branching_min_branches: Annotated[int, Ge(ge=2), Le(le=10)] = 2, branching_max_gap: Annotated[float, Ge(ge=0.0), Le(le=0.5)] = 0.15) -> None",
       "docstring": "Language Model configuration",
       "full_name": "insightspike.providers.simple_local.LLMConfig",
       "tags": []
@@ -6144,7 +8961,7 @@
       "name": "LLMConfig",
       "module": "insightspike.public.wrapper",
       "type": "class",
-      "signature": "(*, provider: Literal['local', 'openai', 'anthropic', 'ollama', 'mock'] = 'local', model: str = 'distilgpt2', max_tokens: Annotated[int, Ge(ge=1), Le(le=4096)] = 256, temperature: Annotated[float, Ge(ge=0.0), Le(le=2.0)] = 0.3, top_p: Annotated[float, Ge(ge=0.0), Le(le=1.0)] = 0.9, timeout: Annotated[int, Ge(ge=1)] = 30, api_key: Optional[str] = None, api_base: Optional[str] = None, organization: Optional[str] = None, device: str = 'cpu', load_in_8bit: bool = False, system_prompt: Optional[str] = None, prompt_style: Literal['standard', 'detailed', 'minimal', 'association', 'association_extended'] = 'standard', max_context_docs: Annotated[int, Ge(ge=1), Le(le=20)] = 5, use_simple_prompt: bool = False, include_metadata: bool = False, branching_threshold: Annotated[float, Ge(ge=0.0), Le(le=1.0)] = 0.8, branching_min_branches: Annotated[int, Ge(ge=2), Le(le=10)] = 2, branching_max_gap: Annotated[float, Ge(ge=0.0), Le(le=0.5)] = 0.15) -> None",
+      "signature": "(*, provider: Literal['local', 'openai', 'anthropic', 'ollama', 'mock'] = 'ollama', model: str = 'ministral-3:3b', max_tokens: Annotated[int, Gt(gt=0)] = 512, temperature: Annotated[float, Ge(ge=0.0), Le(le=2.0)] = 0.7, top_p: Annotated[float, Ge(ge=0.0), Le(le=1.0)] = 0.9, timeout: Annotated[int, Gt(gt=0)] = 30, api_key: Optional[str] = 'ollama', api_base: Optional[str] = 'http://localhost:11434/v1', organization: Optional[str] = None, device: str = 'cpu', load_in_8bit: bool = False, system_prompt: Optional[str] = None, prompt_style: Literal['standard', 'detailed', 'minimal', 'association', 'association_extended'] = 'standard', max_context_docs: Annotated[int, Ge(ge=1), Le(le=20)] = 5, use_simple_prompt: bool = False, include_metadata: bool = False, branching_threshold: Annotated[float, Ge(ge=0.0), Le(le=1.0)] = 0.8, branching_min_branches: Annotated[int, Ge(ge=2), Le(le=10)] = 2, branching_max_gap: Annotated[float, Ge(ge=0.0), Le(le=0.5)] = 0.15) -> None",
       "docstring": "Language Model configuration",
       "full_name": "insightspike.public.wrapper.LLMConfig",
       "tags": []
@@ -6744,6 +9561,24 @@
       "tags": []
     },
     {
+      "name": "DynamicImportanceTracker",
+      "module": "insightspike.utils",
+      "type": "class",
+      "signature": "(calculator: Optional[insightspike.algorithms.graph_importance.GraphImportanceCalculator] = None)",
+      "docstring": "Track and update importance scores dynamically as the graph evolves.",
+      "full_name": "insightspike.utils.DynamicImportanceTracker",
+      "tags": []
+    },
+    {
+      "name": "GraphImportanceCalculator",
+      "module": "insightspike.utils",
+      "type": "class",
+      "signature": "(decay_factor: float = 0.1, alpha: float = 0.85, epsilon: float = 1e-06, max_iterations: int = 100)",
+      "docstring": "Calculate node importance using various graph centrality measures.",
+      "full_name": "insightspike.utils.GraphImportanceCalculator",
+      "tags": []
+    },
+    {
       "name": "InsightSpikeVisualizer",
       "module": "insightspike.utils",
       "type": "class",
@@ -7115,7 +9950,7 @@
   ],
   "_export_metadata": {
     "format": "json",
-    "timestamp": "2026-01-19T10:41:32.932164",
+    "timestamp": "2026-01-19T20:49:40.834375",
     "version": "1.0"
   }
 }

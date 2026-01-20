@@ -48,9 +48,13 @@ def scripts_stage(ctx: dict) -> dict:
     runner = ScriptRunner()
     scripts = runner.list_scripts()
     
+    examples_runner = ScriptRunner(scripts_dir=DOCXOLOGY_ROOT.parent / "examples")
+    examples = examples_runner.list_scripts()
+    scripts.extend(examples)
+    
     script_info = []
     for script in scripts[:10]:
-        info = runner.get_script_info(script.name)
+        info = runner.get_script_info(str(script))
         script_info.append(info)
     
     return {

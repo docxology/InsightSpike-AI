@@ -397,17 +397,27 @@ class LLMConfig(BaseModel):
     """Language Model configuration"""
 
     provider: Literal["local", "openai", "anthropic", "ollama", "mock"] = Field(
-        default="local", description="LLM provider to use"
+        default="ollama", description="LLM provider to use"
     )
     model: str = Field(
-        default="distilgpt2", description="Model name (provider-specific)"
+        default="ministral-3:3b", description="Model name (provider-specific)"
     )
-    max_tokens: int = Field(default=256, ge=1, le=4096)
-    temperature: float = Field(default=0.3, ge=0.0, le=2.0)
-    top_p: float = Field(default=0.9, ge=0.0, le=1.0)
-    timeout: int = Field(default=30, ge=1, description="Request timeout in seconds")
-    api_key: Optional[str] = Field(default=None, exclude=True)
-    api_base: Optional[str] = Field(default=None)
+    max_tokens: int = Field(
+        default=512, gt=0, description="Maximum number of tokens to generate"
+    )
+    temperature: float = Field(
+        default=0.7, ge=0.0, le=2.0, description="Sampling temperature"
+    )
+    top_p: float = Field(
+        default=0.9, ge=0.0, le=1.0, description="Nucleus sampling parameter"
+    )
+    timeout: int = Field(default=30, gt=0, description="Request timeout in seconds")
+    api_key: Optional[str] = Field(
+        default="ollama", description="API key (provider-specific)"
+    )
+    api_base: Optional[str] = Field(
+        default="http://localhost:11434/v1", description="API base URL (optional)", exclude=True
+    )
     organization: Optional[str] = Field(default=None, exclude=True)
     device: str = Field(default="cpu", description="Device for local models")
     load_in_8bit: bool = Field(default=False, description="8-bit quantization")

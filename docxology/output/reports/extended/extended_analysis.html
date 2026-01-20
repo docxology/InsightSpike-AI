@@ -17,34 +17,36 @@
 </head>
 <body>
     <h1>InsightSpike Extended Analysis</h1>
-    <p class="timestamp">Generated: 2026-01-19 10:41:32</p>
+    <p class="timestamp">Generated: 2026-01-19 20:49:40</p>
 <h2>Raw Data</h2>
 <pre>{
-  "timestamp": "2026-01-19T10:41:32.384182",
-  "total_methods": 790,
+  "timestamp": "2026-01-19T20:49:40.303025",
+  "total_methods": 1105,
   "stats": {
-    "total": 790,
+    "total": 1105,
     "by_type": {
-      "class": 607,
-      "function": 183
+      "class": 814,
+      "function": 291
     },
-    "modules": 162
+    "modules": 224
   },
   "module_structure": {
-    "module_count": 162,
+    "module_count": 224,
     "modules": {
       "insightspike": {
-        "total": 17,
-        "classes": 11,
-        "functions": 6,
+        "total": 22,
+        "classes": 13,
+        "functions": 9,
         "class_names": [
           "About",
           "AgentConfigBuilder",
           "CycleResult",
           "EnvironmentInterface",
+          "ErrorMonitor",
           "GenericInsightSpikeAgent",
           "InsightMoment",
           "InsightSpikeAgentFactory",
+          "L2MemoryManager",
           "L3GraphReasoner",
           "MainAgent",
           "StandaloneL3GraphReasoner",
@@ -53,10 +55,13 @@
         "function_names": [
           "about",
           "analyze_documents_simple",
+          "create_agent",
           "create_configured_maze_agent",
           "create_maze_agent",
           "create_standalone_reasoner",
-          "get_config"
+          "get_config",
+          "get_llm_provider",
+          "quick_demo"
         ]
       },
       "insightspike.__main__": {
@@ -232,6 +237,547 @@
           "NarrowingStrategy"
         ],
         "function_names": []
+      },
+      "insightspike.algorithms": {
+        "total": 22,
+        "classes": 9,
+        "functions": 13,
+        "class_names": [
+          "ContentStructureSeparation",
+          "EntropyCalculator",
+          "EntropyMethod",
+          "EntropyResult",
+          "GEDResult",
+          "GraphEditDistance",
+          "IGResult",
+          "InformationGain",
+          "OptimizationLevel"
+        ],
+        "function_names": [
+          "clustering_coefficient_entropy",
+          "compute_delta_ged",
+          "compute_delta_ig",
+          "compute_graph_edit_distance",
+          "compute_information_gain",
+          "compute_shannon_entropy",
+          "create_default_ged_calculator",
+          "create_default_ig_calculator",
+          "degree_distribution_entropy",
+          "get_algorithm_info",
+          "path_length_entropy",
+          "structural_entropy",
+          "von_neumann_entropy"
+        ]
+      },
+      "insightspike.algorithms.core": {
+        "total": 5,
+        "classes": 0,
+        "functions": 5,
+        "class_names": [],
+        "function_names": [
+          "entropy_ig",
+          "graph_efficiency",
+          "local_entropies",
+          "normalized_ged",
+          "spectral_score"
+        ]
+      },
+      "insightspike.algorithms.core.metrics": {
+        "total": 5,
+        "classes": 0,
+        "functions": 5,
+        "class_names": [],
+        "function_names": [
+          "entropy_ig",
+          "graph_efficiency",
+          "local_entropies",
+          "normalized_ged",
+          "spectral_score"
+        ]
+      },
+      "insightspike.algorithms.entropy_calculator": {
+        "total": 9,
+        "classes": 5,
+        "functions": 4,
+        "class_names": [
+          "ContentStructureSeparation",
+          "EntropyCalculator",
+          "EntropyMethod",
+          "EntropyResult",
+          "InformationGain"
+        ],
+        "function_names": [
+          "calc_structural_entropy",
+          "clustering_coefficient_entropy",
+          "degree_distribution_entropy",
+          "von_neumann_entropy"
+        ]
+      },
+      "insightspike.algorithms.gating": {
+        "total": 2,
+        "classes": 1,
+        "functions": 1,
+        "class_names": [
+          "GateDecision"
+        ],
+        "function_names": [
+          "decide_gates"
+        ]
+      },
+      "insightspike.algorithms.gedig.ab_writer_helper": {
+        "total": 1,
+        "classes": 0,
+        "functions": 1,
+        "class_names": [],
+        "function_names": [
+          "create_csv_writer"
+        ]
+      },
+      "insightspike.algorithms.gedig.selector": {
+        "total": 3,
+        "classes": 2,
+        "functions": 1,
+        "class_names": [
+          "TwoThresholdCandidateSelector",
+          "TwoThresholdSelection"
+        ],
+        "function_names": [
+          "compute_gedig"
+        ]
+      },
+      "insightspike.algorithms.gedig_ab_logger": {
+        "total": 2,
+        "classes": 2,
+        "functions": 0,
+        "class_names": [
+          "GeDIGABLogger",
+          "GeDIGResult"
+        ],
+        "function_names": []
+      },
+      "insightspike.algorithms.gedig_analysis": {
+        "total": 2,
+        "classes": 1,
+        "functions": 1,
+        "class_names": [
+          "DivergenceStats"
+        ],
+        "function_names": [
+          "analyze_divergence"
+        ]
+      },
+      "insightspike.algorithms.gedig_calculator": {
+        "total": 4,
+        "classes": 3,
+        "functions": 1,
+        "class_names": [
+          "GeDIGCalculator",
+          "GeDIGCore",
+          "GeDIGResult"
+        ],
+        "function_names": [
+          "calculate_gedig"
+        ]
+      },
+      "insightspike.algorithms.gedig_core": {
+        "total": 13,
+        "classes": 9,
+        "functions": 4,
+        "class_names": [
+          "GeDIGCore",
+          "GeDIGLogger",
+          "GeDIGMonitor",
+          "GeDIGPresets",
+          "GeDIGResult",
+          "HopResult",
+          "LinksetMetrics",
+          "ProcessingMode",
+          "SpikeDetectionMode"
+        ],
+        "function_names": [
+          "calculate_gedig",
+          "delta_ged",
+          "delta_ig",
+          "detect_insight_spike"
+        ]
+      },
+      "insightspike.algorithms.gedig_factory": {
+        "total": 3,
+        "classes": 2,
+        "functions": 1,
+        "class_names": [
+          "GeDIGCore",
+          "GeDIGFactory"
+        ],
+        "function_names": [
+          "dual_evaluate"
+        ]
+      },
+      "insightspike.algorithms.gedig_pure": {
+        "total": 2,
+        "classes": 2,
+        "functions": 0,
+        "class_names": [
+          "PureGeDIGCalculator",
+          "PureGeDIGResult"
+        ],
+        "function_names": []
+      },
+      "insightspike.algorithms.gedig_utils": {
+        "total": 4,
+        "classes": 4,
+        "functions": 0,
+        "class_names": [
+          "GEDCalculationUtils",
+          "GeDIGComputationUtils",
+          "GraphValidationUtils",
+          "IGCalculationUtils"
+        ],
+        "function_names": []
+      },
+      "insightspike.algorithms.gedig_wake_mode": {
+        "total": 6,
+        "classes": 5,
+        "functions": 1,
+        "class_names": [
+          "GeDIGCore",
+          "GeDIGResult",
+          "ProcessingMode",
+          "WakeModeGeDIG",
+          "WakeModeResult"
+        ],
+        "function_names": [
+          "calculate_wake_mode_gedig"
+        ]
+      },
+      "insightspike.algorithms.geometric_probabilistic_graph": {
+        "total": 5,
+        "classes": 3,
+        "functions": 2,
+        "class_names": [
+          "GeometricProbabilisticGraph",
+          "GraphAttentionProbability",
+          "ThreeSpaceMetrics"
+        ],
+        "function_names": [
+          "calculate_three_space_entropy",
+          "calculate_three_space_information_gain"
+        ]
+      },
+      "insightspike.algorithms.graph_edit_distance": {
+        "total": 7,
+        "classes": 3,
+        "functions": 4,
+        "class_names": [
+          "GEDResult",
+          "GraphEditDistance",
+          "OptimizationLevel"
+        ],
+        "function_names": [
+          "compute_delta_ged",
+          "compute_graph_edit_distance",
+          "get_global_ged_calculator",
+          "reset_ged_state"
+        ]
+      },
+      "insightspike.algorithms.graph_importance": {
+        "total": 2,
+        "classes": 2,
+        "functions": 0,
+        "class_names": [
+          "DynamicImportanceTracker",
+          "GraphImportanceCalculator"
+        ],
+        "function_names": []
+      },
+      "insightspike.algorithms.graph_structure_analyzer": {
+        "total": 2,
+        "classes": 1,
+        "functions": 1,
+        "class_names": [
+          "GraphStructureAnalyzer"
+        ],
+        "function_names": [
+          "analyze_graph_structure"
+        ]
+      },
+      "insightspike.algorithms.improved_similarity_entropy": {
+        "total": 8,
+        "classes": 1,
+        "functions": 7,
+        "class_names": [
+          "NormalizationMethod"
+        ],
+        "function_names": [
+          "calculate_entropy_change",
+          "calculate_information_gain",
+          "calculate_similarity_entropy",
+          "exponential_normalization",
+          "linear_normalization",
+          "piecewise_normalization",
+          "sigmoid_normalization"
+        ]
+      },
+      "insightspike.algorithms.information_gain": {
+        "total": 10,
+        "classes": 4,
+        "functions": 6,
+        "class_names": [
+          "EntropyMethod",
+          "IGResult",
+          "ImprovedEntropyMethods",
+          "InformationGain"
+        ],
+        "function_names": [
+          "calc_structural_entropy",
+          "compute_delta_ig",
+          "compute_information_gain",
+          "compute_shannon_entropy",
+          "degree_distribution_entropy",
+          "von_neumann_entropy"
+        ]
+      },
+      "insightspike.algorithms.isomorphism_discovery": {
+        "total": 7,
+        "classes": 5,
+        "functions": 2,
+        "class_names": [
+          "EditOperation",
+          "EditType",
+          "IsomorphismDiscovery",
+          "PartialMapping",
+          "Transform"
+        ],
+        "function_names": [
+          "create_test_graphs",
+          "discover_insight"
+        ]
+      },
+      "insightspike.algorithms.linkset_adapter": {
+        "total": 1,
+        "classes": 0,
+        "functions": 1,
+        "class_names": [],
+        "function_names": [
+          "build_linkset_info"
+        ]
+      },
+      "insightspike.algorithms.local_information_gain_v2": {
+        "total": 3,
+        "classes": 2,
+        "functions": 1,
+        "class_names": [
+          "LocalIGResult",
+          "LocalInformationGainV2"
+        ],
+        "function_names": [
+          "compute_local_ig"
+        ]
+      },
+      "insightspike.algorithms.metrics_selector": {
+        "total": 12,
+        "classes": 3,
+        "functions": 9,
+        "class_names": [
+          "GraphEditDistance",
+          "InformationGain",
+          "MetricsSelector"
+        ],
+        "function_names": [
+          "advanced_delta_ged",
+          "advanced_delta_ig",
+          "delta_ged",
+          "delta_ged_pyg",
+          "delta_ig",
+          "delta_ig_pyg",
+          "get_metrics_selector",
+          "simple_delta_ged",
+          "simple_delta_ig"
+        ]
+      },
+      "insightspike.algorithms.proper_delta_ged": {
+        "total": 3,
+        "classes": 1,
+        "functions": 2,
+        "class_names": [
+          "ProperDeltaGED"
+        ],
+        "function_names": [
+          "proper_delta_ged",
+          "reset_ged_state"
+        ]
+      },
+      "insightspike.algorithms.proper_entropy": {
+        "total": 2,
+        "classes": 0,
+        "functions": 2,
+        "class_names": [],
+        "function_names": [
+          "calculate_information_gain",
+          "calculate_vector_entropy"
+        ]
+      },
+      "insightspike.algorithms.pyg_adapter": {
+        "total": 2,
+        "classes": 2,
+        "functions": 0,
+        "class_names": [
+          "PyGAdapter",
+          "PyGGraphEditDistance"
+        ],
+        "function_names": []
+      },
+      "insightspike.algorithms.query_type_processor": {
+        "total": 5,
+        "classes": 5,
+        "functions": 0,
+        "class_names": [
+          "QueryContext",
+          "QueryType",
+          "QueryTypeProcessor",
+          "WakeModeGeDIG",
+          "WakeModeResult"
+        ],
+        "function_names": []
+      },
+      "insightspike.algorithms.rehydration": {
+        "total": 2,
+        "classes": 2,
+        "functions": 0,
+        "class_names": [
+          "RehydrationStats",
+          "Rehydrator"
+        ],
+        "function_names": []
+      },
+      "insightspike.algorithms.similarity_entropy": {
+        "total": 1,
+        "classes": 0,
+        "functions": 1,
+        "class_names": [],
+        "function_names": [
+          "calculate_similarity_entropy"
+        ]
+      },
+      "insightspike.algorithms.sp_distcache": {
+        "total": 2,
+        "classes": 2,
+        "functions": 0,
+        "class_names": [
+          "DistanceCache",
+          "PairSet"
+        ],
+        "function_names": []
+      },
+      "insightspike.algorithms.structural_entropy": {
+        "total": 5,
+        "classes": 0,
+        "functions": 5,
+        "class_names": [],
+        "function_names": [
+          "clustering_coefficient_entropy",
+          "degree_distribution_entropy",
+          "path_length_entropy",
+          "structural_entropy",
+          "von_neumann_entropy"
+        ]
+      },
+      "insightspike.algorithms.structural_similarity": {
+        "total": 3,
+        "classes": 2,
+        "functions": 1,
+        "class_names": [
+          "SimilarityResult",
+          "StructuralSimilarityEvaluator"
+        ],
+        "function_names": [
+          "compute_structural_similarity"
+        ]
+      },
+      "insightspike.algorithms.structure_enricher": {
+        "total": 3,
+        "classes": 3,
+        "functions": 0,
+        "class_names": [
+          "StructuralSimilarityConfig",
+          "StructuralSimilarityEvaluator",
+          "StructureEnricher"
+        ],
+        "function_names": []
+      },
+      "insightspike.cli.commands": {
+        "total": 1,
+        "classes": 0,
+        "functions": 1,
+        "class_names": [],
+        "function_names": [
+          "discover_command"
+        ]
+      },
+      "insightspike.cli.commands.bridge": {
+        "total": 4,
+        "classes": 2,
+        "functions": 2,
+        "class_names": [
+          "ConceptBridge",
+          "SimpleRAGGraph"
+        ],
+        "function_names": [
+          "bridge_command",
+          "visualize_bridge_path"
+        ]
+      },
+      "insightspike.cli.commands.discover": {
+        "total": 4,
+        "classes": 2,
+        "functions": 2,
+        "class_names": [
+          "InsightDiscovery",
+          "MainAgent"
+        ],
+        "function_names": [
+          "discover_command",
+          "get_logger"
+        ]
+      },
+      "insightspike.cli.commands.graph": {
+        "total": 11,
+        "classes": 4,
+        "functions": 7,
+        "class_names": [
+          "DataStoreConfig",
+          "DataStoreFactory",
+          "GraphAnalyzer",
+          "SimpleRAGGraph"
+        ],
+        "function_names": [
+          "analyze_command",
+          "graph_command",
+          "load_config",
+          "resolve_project_relative",
+          "sleep_gc_command",
+          "visualize_command",
+          "visualize_graph_metrics"
+        ]
+      },
+      "insightspike.cli.legacy": {
+        "total": 10,
+        "classes": 2,
+        "functions": 8,
+        "class_names": [
+          "InsightFactRegistry",
+          "MainAgent"
+        ],
+        "function_names": [
+          "ask",
+          "config_info",
+          "get_config",
+          "load_corpus",
+          "load_documents",
+          "main",
+          "main_callback",
+          "stats"
+        ]
       },
       "insightspike.cli.simple_cli": {
         "total": 2,
@@ -471,13 +1017,15 @@
         "function_names": []
       },
       "insightspike.core": {
-        "total": 3,
-        "classes": 3,
+        "total": 5,
+        "classes": 5,
         "functions": 0,
         "class_names": [
           "CycleResult",
           "Episode",
-          "GraphMetrics"
+          "GraphMetrics",
+          "MemoryController",
+          "ResponseGenerator"
         ],
         "function_names": []
       },
@@ -654,6 +1202,46 @@
         ],
         "function_names": []
       },
+      "insightspike.core.memory_controller": {
+        "total": 6,
+        "classes": 6,
+        "functions": 0,
+        "class_names": [
+          "Episode",
+          "IDataStore",
+          "IEmbedder",
+          "IMemoryManager",
+          "MemoryController",
+          "PyGGraphBuilder"
+        ],
+        "function_names": []
+      },
+      "insightspike.core.reasoning_engine": {
+        "total": 6,
+        "classes": 6,
+        "functions": 0,
+        "class_names": [
+          "CycleResult",
+          "ILLMProvider",
+          "IMemorySearch",
+          "L3GraphReasoner",
+          "L4LLMInterface",
+          "ReasoningEngine"
+        ],
+        "function_names": []
+      },
+      "insightspike.core.response_generator": {
+        "total": 4,
+        "classes": 4,
+        "functions": 0,
+        "class_names": [
+          "CycleResult",
+          "ILLMProvider",
+          "ResponseGenerator",
+          "ResponseTemplate"
+        ],
+        "function_names": []
+      },
       "insightspike.core.structures": {
         "total": 2,
         "classes": 2,
@@ -739,6 +1327,57 @@
           "shutdown_insight_registry"
         ]
       },
+      "insightspike.di": {
+        "total": 7,
+        "classes": 7,
+        "functions": 0,
+        "class_names": [
+          "DIContainer",
+          "DataStoreProvider",
+          "EmbedderProvider",
+          "GraphBuilderProvider",
+          "LLMProviderFactory",
+          "MemoryManagerProvider",
+          "ServiceProvider"
+        ],
+        "function_names": []
+      },
+      "insightspike.di.container": {
+        "total": 4,
+        "classes": 4,
+        "functions": 0,
+        "class_names": [
+          "DIContainer",
+          "FactoryProvider",
+          "ServiceProvider",
+          "SingletonProvider"
+        ],
+        "function_names": []
+      },
+      "insightspike.di.providers": {
+        "total": 16,
+        "classes": 16,
+        "functions": 0,
+        "class_names": [
+          "DataStoreFactory",
+          "DataStoreProvider",
+          "EmbedderProvider",
+          "EmbeddingManager",
+          "GraphBuilderProvider",
+          "IDataStore",
+          "IEmbedder",
+          "IGraphBuilder",
+          "ILLMProvider",
+          "IMemoryManager",
+          "InsightSpikeConfig",
+          "L2MemoryManager",
+          "LLMProviderFactory",
+          "LLMProviderRegistry",
+          "MemoryManagerProvider",
+          "PyGGraphBuilder"
+        ],
+        "function_names": []
+      },
       "insightspike.environments.complex_maze": {
         "total": 1,
         "classes": 1,
@@ -798,12 +1437,112 @@
         ],
         "function_names": []
       },
+      "insightspike.features.query_transformation": {
+        "total": 12,
+        "classes": 12,
+        "functions": 0,
+        "class_names": [
+          "AdaptiveExplorer",
+          "EnhancedQueryTransformer",
+          "EvolutionPattern",
+          "EvolutionTracker",
+          "MultiHopGNN",
+          "PatternDatabase",
+          "QueryBranch",
+          "QueryState",
+          "QueryTransformationHistory",
+          "QueryTransformer",
+          "QueryTypeClassifier",
+          "TrajectoryAnalyzer"
+        ],
+        "function_names": []
+      },
+      "insightspike.features.query_transformation.enhanced_query_transformer": {
+        "total": 7,
+        "classes": 7,
+        "functions": 0,
+        "class_names": [
+          "AdaptiveExplorer",
+          "EnhancedQueryTransformer",
+          "MultiHopGNN",
+          "QueryBranch",
+          "QueryGraphGNN",
+          "QueryState",
+          "QueryTransformer"
+        ],
+        "function_names": []
+      },
+      "insightspike.features.query_transformation.evolution_tracker": {
+        "total": 7,
+        "classes": 7,
+        "functions": 0,
+        "class_names": [
+          "EvolutionPattern",
+          "EvolutionTracker",
+          "PatternDatabase",
+          "QueryState",
+          "QueryTransformationHistory",
+          "QueryTypeClassifier",
+          "TrajectoryAnalyzer"
+        ],
+        "function_names": []
+      },
+      "insightspike.features.query_transformation.query_state": {
+        "total": 2,
+        "classes": 2,
+        "functions": 0,
+        "class_names": [
+          "QueryState",
+          "QueryTransformationHistory"
+        ],
+        "function_names": []
+      },
+      "insightspike.features.query_transformation.query_transformer": {
+        "total": 5,
+        "classes": 5,
+        "functions": 0,
+        "class_names": [
+          "GraphEditDistance",
+          "QueryGraphGNN",
+          "QueryState",
+          "QueryTransformationHistory",
+          "QueryTransformer"
+        ],
+        "function_names": []
+      },
       "insightspike.graph.construction": {
         "total": 1,
         "classes": 1,
         "functions": 0,
         "class_names": [
           "GraphBuilder"
+        ],
+        "function_names": []
+      },
+      "insightspike.graph.edge_reevaluator": {
+        "total": 1,
+        "classes": 1,
+        "functions": 0,
+        "class_names": [
+          "EdgeReevaluator"
+        ],
+        "function_names": []
+      },
+      "insightspike.graph.message_passing": {
+        "total": 1,
+        "classes": 1,
+        "functions": 0,
+        "class_names": [
+          "MessagePassing"
+        ],
+        "function_names": []
+      },
+      "insightspike.graph.message_passing_optimized": {
+        "total": 1,
+        "classes": 1,
+        "functions": 0,
+        "class_names": [
+          "OptimizedMessagePassing"
         ],
         "function_names": []
       },
@@ -1087,19 +1826,24 @@
         "function_names": []
       },
       "insightspike.implementations.layers": {
-        "total": 7,
-        "classes": 7,
-        "functions": 0,
+        "total": 11,
+        "classes": 10,
+        "functions": 1,
         "class_names": [
           "CompatibleL2MemoryManager",
           "ErrorMonitor",
           "L2MemoryManager",
           "L3GraphReasoner",
+          "L4LLMInterface",
+          "LLMConfig",
+          "LLMProviderType",
           "MemoryConfig",
           "MemoryMode",
           "ScalableGraphBuilder"
         ],
-        "function_names": []
+        "function_names": [
+          "get_llm_provider"
+        ]
       },
       "insightspike.implementations.layers.cached_memory_manager": {
         "total": 5,
@@ -1233,11 +1977,10 @@
         "function_names": []
       },
       "insightspike.implementations.layers.layer3.analysis": {
-        "total": 3,
-        "classes": 3,
+        "total": 2,
+        "classes": 2,
         "functions": 0,
         "class_names": [
-          "Data",
           "GraphAnalyzer",
           "RewardCalculator"
         ],
@@ -1258,12 +2001,11 @@
         ]
       },
       "insightspike.implementations.layers.layer3.conflict": {
-        "total": 4,
-        "classes": 3,
+        "total": 3,
+        "classes": 2,
         "functions": 1,
         "class_names": [
           "ConflictScore",
-          "Data",
           "LegacyConfigAdapter"
         ],
         "function_names": [
@@ -1280,11 +2022,10 @@
         ]
       },
       "insightspike.implementations.layers.layer3.graph_builder": {
-        "total": 4,
-        "classes": 3,
+        "total": 3,
+        "classes": 2,
         "functions": 1,
         "class_names": [
-          "Data",
           "GraphBuilder",
           "LegacyConfigAdapter"
         ],
@@ -1335,14 +2076,12 @@
         "function_names": []
       },
       "insightspike.implementations.layers.layer3_graph_reasoner": {
-        "total": 18,
-        "classes": 11,
-        "functions": 7,
+        "total": 15,
+        "classes": 9,
+        "functions": 6,
         "class_names": [
           "ConflictScore",
-          "Data",
           "Episode",
-          "GCNConv",
           "GraphBuilder",
           "L3GraphReasoner",
           "L3GraphReasonerInterface",
@@ -1356,7 +2095,6 @@
           "advanced_delta_ig",
           "cosine_similarity",
           "get_config",
-          "global_mean_pool",
           "simple_delta_ged",
           "simple_delta_ig"
         ]
@@ -1391,11 +2129,10 @@
         "function_names": []
       },
       "insightspike.implementations.layers.scalable_graph_builder": {
-        "total": 6,
-        "classes": 6,
+        "total": 5,
+        "classes": 5,
         "functions": 0,
         "class_names": [
-          "Data",
           "GraphOperationMonitor",
           "LegacyConfigAdapter",
           "MonitoredOperation",
@@ -1426,16 +2163,23 @@
         "function_names": []
       },
       "insightspike.implementations.memory.knowledge_graph_memory": {
-        "total": 3,
-        "classes": 2,
-        "functions": 1,
+        "total": 1,
+        "classes": 1,
+        "functions": 0,
         "class_names": [
-          "Data",
           "KnowledgeGraphMemory"
         ],
-        "function_names": [
-          "subgraph"
-        ]
+        "function_names": []
+      },
+      "insightspike.implementations.memory.scalable_graph_manager": {
+        "total": 2,
+        "classes": 2,
+        "functions": 0,
+        "class_names": [
+          "ScalableGraphManager",
+          "VectorIndexFactory"
+        ],
+        "function_names": []
       },
       "insightspike.index": {
         "total": 3,
@@ -1501,6 +2245,86 @@
         ],
         "function_names": []
       },
+      "insightspike.interfaces": {
+        "total": 10,
+        "classes": 10,
+        "functions": 0,
+        "class_names": [
+          "IAgent",
+          "IDataStore",
+          "IEmbedder",
+          "IEpisodeStore",
+          "IGraphAnalyzer",
+          "IGraphBuilder",
+          "ILLMProvider",
+          "IMemoryAgent",
+          "IMemoryManager",
+          "IMemorySearch"
+        ],
+        "function_names": []
+      },
+      "insightspike.interfaces.agent": {
+        "total": 3,
+        "classes": 3,
+        "functions": 0,
+        "class_names": [
+          "CycleResult",
+          "IAgent",
+          "IMemoryAgent"
+        ],
+        "function_names": []
+      },
+      "insightspike.interfaces.datastore": {
+        "total": 3,
+        "classes": 3,
+        "functions": 0,
+        "class_names": [
+          "Episode",
+          "IDataStore",
+          "IEpisodeStore"
+        ],
+        "function_names": []
+      },
+      "insightspike.interfaces.embedder": {
+        "total": 1,
+        "classes": 1,
+        "functions": 0,
+        "class_names": [
+          "IEmbedder"
+        ],
+        "function_names": []
+      },
+      "insightspike.interfaces.graph": {
+        "total": 3,
+        "classes": 3,
+        "functions": 0,
+        "class_names": [
+          "Episode",
+          "IGraphAnalyzer",
+          "IGraphBuilder"
+        ],
+        "function_names": []
+      },
+      "insightspike.interfaces.llm": {
+        "total": 1,
+        "classes": 1,
+        "functions": 0,
+        "class_names": [
+          "ILLMProvider"
+        ],
+        "function_names": []
+      },
+      "insightspike.interfaces.memory": {
+        "total": 3,
+        "classes": 3,
+        "functions": 0,
+        "class_names": [
+          "Episode",
+          "IMemoryManager",
+          "IMemorySearch"
+        ],
+        "function_names": []
+      },
       "insightspike.learning": {
         "total": 3,
         "classes": 3,
@@ -1534,11 +2358,16 @@
         "function_names": []
       },
       "insightspike.metrics": {
-        "total": 10,
-        "classes": 0,
-        "functions": 10,
-        "class_names": [],
+        "total": 15,
+        "classes": 2,
+        "functions": 13,
+        "class_names": [
+          "GraphEditDistance",
+          "InformationGain"
+        ],
         "function_names": [
+          "algo_delta_ged",
+          "algo_delta_ig",
           "analyze_insight",
           "apply_preset_configuration",
           "compute_delta_ged",
@@ -1547,18 +2376,23 @@
           "configure_default_weights",
           "delta_ged",
           "delta_ig",
+          "get_algorithm_info",
           "get_algorithm_metadata",
           "get_preset_configurations"
         ]
       },
       "insightspike.metrics.graph_metrics": {
-        "total": 2,
-        "classes": 0,
-        "functions": 2,
-        "class_names": [],
+        "total": 5,
+        "classes": 2,
+        "functions": 3,
+        "class_names": [
+          "GraphEditDistance",
+          "InformationGain"
+        ],
         "function_names": [
           "delta_ged",
-          "delta_ig"
+          "delta_ig",
+          "get_global_ged_calculator"
         ]
       },
       "insightspike.metrics.improved_gedig_metrics": {
@@ -2029,10 +2863,12 @@
         ]
       },
       "insightspike.utils": {
-        "total": 9,
-        "classes": 1,
+        "total": 11,
+        "classes": 3,
         "functions": 8,
         "class_names": [
+          "DynamicImportanceTracker",
+          "GraphImportanceCalculator",
           "InsightSpikeVisualizer"
         ],
         "function_names": [
@@ -2278,6 +3114,74 @@
         }
       ],
       [
+        "insightspike",
+        {
+          "total": 22,
+          "classes": 13,
+          "functions": 9,
+          "class_names": [
+            "About",
+            "AgentConfigBuilder",
+            "CycleResult",
+            "EnvironmentInterface",
+            "ErrorMonitor",
+            "GenericInsightSpikeAgent",
+            "InsightMoment",
+            "InsightSpikeAgentFactory",
+            "L2MemoryManager",
+            "L3GraphReasoner",
+            "MainAgent",
+            "StandaloneL3GraphReasoner",
+            "TaskType"
+          ],
+          "function_names": [
+            "about",
+            "analyze_documents_simple",
+            "create_agent",
+            "create_configured_maze_agent",
+            "create_maze_agent",
+            "create_standalone_reasoner",
+            "get_config",
+            "get_llm_provider",
+            "quick_demo"
+          ]
+        }
+      ],
+      [
+        "insightspike.algorithms",
+        {
+          "total": 22,
+          "classes": 9,
+          "functions": 13,
+          "class_names": [
+            "ContentStructureSeparation",
+            "EntropyCalculator",
+            "EntropyMethod",
+            "EntropyResult",
+            "GEDResult",
+            "GraphEditDistance",
+            "IGResult",
+            "InformationGain",
+            "OptimizationLevel"
+          ],
+          "function_names": [
+            "clustering_coefficient_entropy",
+            "compute_delta_ged",
+            "compute_delta_ig",
+            "compute_graph_edit_distance",
+            "compute_information_gain",
+            "compute_shannon_entropy",
+            "create_default_ged_calculator",
+            "create_default_ig_calculator",
+            "degree_distribution_entropy",
+            "get_algorithm_info",
+            "path_length_entropy",
+            "structural_entropy",
+            "von_neumann_entropy"
+          ]
+        }
+      ],
+      [
         "insightspike.core.exceptions",
         {
           "total": 22,
@@ -2343,62 +3247,30 @@
         }
       ],
       [
-        "insightspike.implementations.layers.layer3_graph_reasoner",
+        "insightspike.di.providers",
         {
-          "total": 18,
-          "classes": 11,
-          "functions": 7,
+          "total": 16,
+          "classes": 16,
+          "functions": 0,
           "class_names": [
-            "ConflictScore",
-            "Data",
-            "Episode",
-            "GCNConv",
-            "GraphBuilder",
-            "L3GraphReasoner",
-            "L3GraphReasonerInterface",
-            "LayerInput",
-            "LayerOutput",
-            "LegacyConfigAdapter",
-            "ScalableGraphBuilder"
+            "DataStoreFactory",
+            "DataStoreProvider",
+            "EmbedderProvider",
+            "EmbeddingManager",
+            "GraphBuilderProvider",
+            "IDataStore",
+            "IEmbedder",
+            "IGraphBuilder",
+            "ILLMProvider",
+            "IMemoryManager",
+            "InsightSpikeConfig",
+            "L2MemoryManager",
+            "LLMProviderFactory",
+            "LLMProviderRegistry",
+            "MemoryManagerProvider",
+            "PyGGraphBuilder"
           ],
-          "function_names": [
-            "advanced_delta_ged",
-            "advanced_delta_ig",
-            "cosine_similarity",
-            "get_config",
-            "global_mean_pool",
-            "simple_delta_ged",
-            "simple_delta_ig"
-          ]
-        }
-      ],
-      [
-        "insightspike",
-        {
-          "total": 17,
-          "classes": 11,
-          "functions": 6,
-          "class_names": [
-            "About",
-            "AgentConfigBuilder",
-            "CycleResult",
-            "EnvironmentInterface",
-            "GenericInsightSpikeAgent",
-            "InsightMoment",
-            "InsightSpikeAgentFactory",
-            "L3GraphReasoner",
-            "MainAgent",
-            "StandaloneL3GraphReasoner",
-            "TaskType"
-          ],
-          "function_names": [
-            "about",
-            "analyze_documents_simple",
-            "create_configured_maze_agent",
-            "create_maze_agent",
-            "create_standalone_reasoner",
-            "get_config"
-          ]
+          "function_names": []
         }
       ],
       [
@@ -2425,6 +3297,85 @@
             "execute_fallback",
             "get_fallback_registry",
             "get_insight_registry"
+          ]
+        }
+      ],
+      [
+        "insightspike.implementations.layers.layer3_graph_reasoner",
+        {
+          "total": 15,
+          "classes": 9,
+          "functions": 6,
+          "class_names": [
+            "ConflictScore",
+            "Episode",
+            "GraphBuilder",
+            "L3GraphReasoner",
+            "L3GraphReasonerInterface",
+            "LayerInput",
+            "LayerOutput",
+            "LegacyConfigAdapter",
+            "ScalableGraphBuilder"
+          ],
+          "function_names": [
+            "advanced_delta_ged",
+            "advanced_delta_ig",
+            "cosine_similarity",
+            "get_config",
+            "simple_delta_ged",
+            "simple_delta_ig"
+          ]
+        }
+      ],
+      [
+        "insightspike.metrics",
+        {
+          "total": 15,
+          "classes": 2,
+          "functions": 13,
+          "class_names": [
+            "GraphEditDistance",
+            "InformationGain"
+          ],
+          "function_names": [
+            "algo_delta_ged",
+            "algo_delta_ig",
+            "analyze_insight",
+            "apply_preset_configuration",
+            "compute_delta_ged",
+            "compute_delta_ig",
+            "compute_fusion_reward",
+            "configure_default_weights",
+            "delta_ged",
+            "delta_ig",
+            "get_algorithm_info",
+            "get_algorithm_metadata",
+            "get_preset_configurations"
+          ]
+        }
+      ],
+      [
+        "insightspike.algorithms.gedig_core",
+        {
+          "total": 13,
+          "classes": 9,
+          "functions": 4,
+          "class_names": [
+            "GeDIGCore",
+            "GeDIGLogger",
+            "GeDIGMonitor",
+            "GeDIGPresets",
+            "GeDIGResult",
+            "HopResult",
+            "LinksetMetrics",
+            "ProcessingMode",
+            "SpikeDetectionMode"
+          ],
+          "function_names": [
+            "calculate_gedig",
+            "delta_ged",
+            "delta_ig",
+            "detect_insight_spike"
           ]
         }
       ],
@@ -2503,6 +3454,30 @@
         }
       ],
       [
+        "insightspike.algorithms.metrics_selector",
+        {
+          "total": 12,
+          "classes": 3,
+          "functions": 9,
+          "class_names": [
+            "GraphEditDistance",
+            "InformationGain",
+            "MetricsSelector"
+          ],
+          "function_names": [
+            "advanced_delta_ged",
+            "advanced_delta_ig",
+            "delta_ged",
+            "delta_ged_pyg",
+            "delta_ig",
+            "delta_ig_pyg",
+            "get_metrics_selector",
+            "simple_delta_ged",
+            "simple_delta_ig"
+          ]
+        }
+      ],
+      [
         "insightspike.core.base.maze_implementation",
         {
           "total": 12,
@@ -2526,6 +3501,52 @@
         }
       ],
       [
+        "insightspike.features.query_transformation",
+        {
+          "total": 12,
+          "classes": 12,
+          "functions": 0,
+          "class_names": [
+            "AdaptiveExplorer",
+            "EnhancedQueryTransformer",
+            "EvolutionPattern",
+            "EvolutionTracker",
+            "MultiHopGNN",
+            "PatternDatabase",
+            "QueryBranch",
+            "QueryState",
+            "QueryTransformationHistory",
+            "QueryTransformer",
+            "QueryTypeClassifier",
+            "TrajectoryAnalyzer"
+          ],
+          "function_names": []
+        }
+      ],
+      [
+        "insightspike.cli.commands.graph",
+        {
+          "total": 11,
+          "classes": 4,
+          "functions": 7,
+          "class_names": [
+            "DataStoreConfig",
+            "DataStoreFactory",
+            "GraphAnalyzer",
+            "SimpleRAGGraph"
+          ],
+          "function_names": [
+            "analyze_command",
+            "graph_command",
+            "load_config",
+            "resolve_project_relative",
+            "sleep_gc_command",
+            "visualize_command",
+            "visualize_graph_metrics"
+          ]
+        }
+      ],
+      [
         "insightspike.core.base.generic_interfaces",
         {
           "total": 11,
@@ -2546,228 +3567,70 @@
           ],
           "function_names": []
         }
-      ],
-      [
-        "insightspike.core.error_handler",
-        {
-          "total": 11,
-          "classes": 6,
-          "functions": 5,
-          "class_names": [
-            "ConfigurationError",
-            "InitializationError",
-            "InsightSpikeError",
-            "InsightSpikeLogger",
-            "ModelNotFoundError",
-            "ProcessingError"
-          ],
-          "function_names": [
-            "get_logger",
-            "handle_error",
-            "setup_debug_mode",
-            "validate_config",
-            "with_error_handling"
-          ]
-        }
-      ],
-      [
-        "insightspike.implementations.agents.agent_factory",
-        {
-          "total": 11,
-          "classes": 8,
-          "functions": 3,
-          "class_names": [
-            "AgentConfigBuilder",
-            "GenericInsightSpikeAgent",
-            "InsightSpikeAgentFactory",
-            "MazeEnvironmentAdapter",
-            "MazeInsightDetector",
-            "MazeRewardNormalizer",
-            "MazeStateEncoder",
-            "TaskType"
-          ],
-          "function_names": [
-            "create_configured_maze_agent",
-            "create_maze_agent",
-            "create_qa_agent"
-          ]
-        }
-      ],
-      [
-        "insightspike.implementations.datastore.filesystem_store",
-        {
-          "total": 11,
-          "classes": 10,
-          "functions": 1,
-          "class_names": [
-            "DataStore",
-            "DataStoreLoadError",
-            "DataStoreNotFoundError",
-            "DataStorePermissionError",
-            "DataStoreSaveError",
-            "DataType",
-            "FAISSVectorIndex",
-            "FileFormat",
-            "FileSystemDataStore",
-            "VectorIndex"
-          ],
-          "function_names": [
-            "resolve_project_relative"
-          ]
-        }
-      ],
-      [
-        "insightspike.query_adaptation",
-        {
-          "total": 11,
-          "classes": 6,
-          "functions": 5,
-          "class_names": [
-            "AdaptiveTopKConfig",
-            "Layer1AutoLearningSystem",
-            "LearningSession",
-            "UnknownConcept",
-            "UnknownLearner",
-            "WeakRelationship"
-          ],
-          "function_names": [
-            "calculate_adaptive_topk",
-            "estimate_chain_reaction_potential",
-            "get_unknown_learner",
-            "shutdown_unknown_learner",
-            "test_adaptive_topk"
-          ]
-        }
-      ],
-      [
-        "insightspike.implementations.agents",
-        {
-          "total": 10,
-          "classes": 8,
-          "functions": 2,
-          "class_names": [
-            "AgentConfig",
-            "AgentConfigBuilder",
-            "AgentMode",
-            "ConfigurableAgent",
-            "CycleResult",
-            "GenericInsightSpikeAgent",
-            "InsightSpikeAgentFactory",
-            "MainAgent"
-          ],
-          "function_names": [
-            "create_maze_agent",
-            "create_qa_agent"
-          ]
-        }
-      ],
-      [
-        "insightspike.implementations.layers.layer3",
-        {
-          "total": 10,
-          "classes": 9,
-          "functions": 1,
-          "class_names": [
-            "ConflictScore",
-            "EdgeReevaluator",
-            "GraphAnalyzer",
-            "GraphBuilder",
-            "L3GraphReasoner",
-            "MessagePassing",
-            "MessagePassingController",
-            "MetricsController",
-            "RewardCalculator"
-          ],
-          "function_names": [
-            "build_simple_gnn"
-          ]
-        }
-      ],
-      [
-        "insightspike.implementations.layers.layer4_llm_interface",
-        {
-          "total": 10,
-          "classes": 9,
-          "functions": 1,
-          "class_names": [
-            "CleanLLMProvider",
-            "L4LLMInterface",
-            "LLMConfig",
-            "LLMProvider",
-            "LLMProviderRegistry",
-            "LLMProviderType",
-            "MockLLMProvider",
-            "UnifiedLLMProvider",
-            "VectorIntegrator"
-          ],
-          "function_names": [
-            "get_llm_provider"
-          ]
-        }
       ]
     ]
   },
   "naming_patterns": {
     "prefix_distribution": {
-      "get_": 36,
-      "create_": 22,
-      "compute_": 4,
+      "get_": 45,
+      "create_": 27,
+      "compute_": 17,
+      "calculate_": 14,
+      "build_": 3,
       "is_": 3,
-      "calculate_": 3,
       "validate_": 2,
-      "build_": 2,
       "set_": 1
     },
     "suffix_distribution": {
-      "_config": 28,
+      "_config": 30,
       "_error": 1,
       "_manager": 1
     },
     "name_length_stats": {
-      "mean": 15.60759493670886,
-      "std": 5.323027884694968,
-      "min": 4,
-      "max": 34,
+      "mean": 15.830769230769231,
+      "std": 5.361616039740751,
+      "min": 3,
+      "max": 38,
       "median": 16.0
     }
   },
   "documentation": {
-    "documented_count": 759,
-    "undocumented_count": 31,
-    "coverage_percentage": 96.07594936708861,
+    "documented_count": 1064,
+    "undocumented_count": 41,
+    "coverage_percentage": 96.289592760181,
     "doc_length_stats": {
-      "mean": 51.357048748353094,
+      "mean": 53.94642857142857,
       "max": 1242
     }
   },
   "signature_complexity": {
     "param_count_stats": {
-      "mean": 5.018987341772152,
-      "std": 8.563147060638293,
+      "mean": 4.885067873303168,
+      "std": 8.071199208890917,
       "max": 74
     },
-    "simple_signatures": 515,
-    "complex_signatures": 275,
-    "complexity_ratio": 0.34810126582278483
+    "simple_signatures": 700,
+    "complex_signatures": 405,
+    "complexity_ratio": 0.3665158371040724
   },
   "type_hierarchy": {
     "pattern_distribution": {
-      "Config": 104,
-      "Error": 37,
-      "Agent": 35,
-      "Interface": 35,
-      "Provider": 26,
-      "Result": 22,
-      "Manager": 22,
-      "Builder": 12,
-      "Processor": 6
+      "Config": 108,
+      "Provider": 47,
+      "Agent": 41,
+      "Result": 41,
+      "Error": 38,
+      "Interface": 37,
+      "Manager": 32,
+      "Builder": 19,
+      "Processor": 7
     },
     "mixin_count": 2,
     "abstract_count": 5,
-    "factory_count": 14
+    "factory_count": 21
   },
   "scripts": {
-    "count": 23,
+    "count": 32,
     "scripts": [
       {
         "exists": true,
@@ -2929,9 +3792,72 @@
         "name": "visualize_maze_gif.py",
         "size": 8968,
         "docstring": "Generate an animated GIF of a maze run from a step log.  Inputs - steps: JSON list where each element is a step record containing at least { \"position\": [row, col], ... } - layout (optional): JSON with key \"layout\" holding a 2D int grid (0=open, 1=wall, 2=start, 3=goal) - If layout is omitted, grid size is inferred from the first step using ring_Rr/ring_Rc or from the maximum position seen.  Example python scripts/visualize_maze_gif.py \\ --steps experiments/maze-query-hub-prototype/results/batch_25x25/paper25_25x25_s500_seed0_steps.json \\ --layout docs/paper/data/maze_25x25.json \\ --out docs/images/maze_demo.gif --cell 16 --fps 10  Notes - Requires Pillow (PIL). This script is for documentation/social assets and is not used in CI."
+      },
+      {
+        "exists": true,
+        "path": "/Users/4d/Documents/GitHub/InsightSpike-AI/examples/config_examples.py",
+        "name": "config_examples.py",
+        "size": 8901,
+        "docstring": "Configuration Examples for InsightSpike ======================================  Shows how to use the new Pydantic-based configuration system."
+      },
+      {
+        "exists": true,
+        "path": "/Users/4d/Documents/GitHub/InsightSpike-AI/examples/hello_gating.py",
+        "name": "hello_gating.py",
+        "size": 1323,
+        "docstring": "Minimal example: compute g0/gmin and AG/DG. from __future__ import annotations  import networkx as nx  from insightspike.algorithms.gedig_core import GeDIGCore from insightspike.algorithms.linkset_adapter import build_linkset_info from insightspike.algorithms.gating import decide_gates   def tiny_graphs(): g_before = nx.Graph() g_before.add_edges_from([(\"A\", \"B\"), (\"B\", \"C\")]) g_after = nx.Graph() g_after.add_edges_from([(\"A\", \"B\"), (\"B\", \"C\"), (\"A\", \"C\")]) return g_before, g_after   def main() -> None: g1, g2 = tiny_graphs() core = GeDIGCore(enable_multihop=True, max_hops=2, lambda_weight=1.0, ig_mode=\"norm\") ls = build_linkset_info( s_link=[{\"index\": 1, \"similarity\": 1.0}], candidate_pool=[], decision={\"index\": 1, \"similarity\": 1.0}, query_vector=[1.0], base_mode=\"link\", ) res = core.calculate(g_prev=g1, g_now=g2, linkset_info=ls)  if res.hop_results and 0 in res.hop_results: g0 = float(res.hop_results[0].gedig) else: g0 = float(res.gedig_value) gmin = float(res.gedig_value)  gate = decide_gates(g0=g0, gmin=gmin, theta_ag=0.5, theta_dg=0.0) print(f\"g0={gate.g0:.3f}, gmin={gate.gmin:.3f}, AG={gate.ag}, DG={gate.dg}, b(t)={gate.b_value:.3f}\")   if __name__ == \"__main__\": main()"
+      },
+      {
+        "exists": true,
+        "path": "/Users/4d/Documents/GitHub/InsightSpike-AI/examples/hello_insight.py",
+        "name": "hello_insight.py",
+        "size": 1412,
+        "docstring": "Minimal geDIG gauge demo.  Builds two tiny graphs and computes F = \u0394EPC_norm \u2212 \u03bb\u00b7\u0394IG. Prints F, \u0394EPC_norm, \u0394IG, and spike flag."
+      },
+      {
+        "exists": true,
+        "path": "/Users/4d/Documents/GitHub/InsightSpike-AI/examples/playground.py",
+        "name": "playground.py",
+        "size": 4521,
+        "docstring": ")  # --- Sidebar Controls --- st.sidebar.header(\"\ud83c\udf9b\ufe0f Parameters\")  lambda_val = st.sidebar.slider( \"Lambda (\u03bb) - The 'Skepticism' Factor\", min_value=0.0, max_value=2.0, value=1.0, step=0.1, help=\"High Lambda = Conservative (Hard to impress).\\nLow Lambda = Open-minded (Easily accepts updates).\" )  st.sidebar.markdown(\"---\") st.sidebar.header(\"Scenario\") scenario = st.sidebar.radio( \"Choose a topology:\", [\"The Shortcut (Classic)\", \"The Noise (Bad Edge)\", \"The Bridge (Community Merge)\"] )  # --- Graph Logic ---  def get_graphs(scenario_name): G_before = nx.Graph() G_after = nx.Graph()  if scenario_name == \"The Shortcut (Classic)\": # A long chain vs a direct shortcut # Before: A-B-C-D-E edges_b = [(\"A\", \"B\"), (\"B\", \"C\"), (\"C\", \"D\"), (\"D\", \"E\")] G_before.add_edges_from(edges_b)  # After: Add A-E directly G_after.add_edges_from(edges_b) G_after.add_edge(\"A\", \"E\")  desc = \"We found a direct path (A-E) that skips 3 hops.\" delta_epc = 0.2  # Mock cost delta_ig = 0.8   # High value (shortcut)  elif scenario_name == \"The Noise (Bad Edge)\": # A triangle edges_b = [(\"A\", \"B\"), (\"B\", \"C\"), (\"C\", \"A\")] G_before.add_edges_from(edges_b)  # Add a random leaf G_after.add_edges_from(edges_b) G_after.add_edge(\"C\", \"D\")  desc = \"Adding a leaf node (D). Does not improve overall connectivity much.\" delta_epc = 0.1  # Low cost delta_ig = 0.05  # Very low value  else: # The Bridge # Two clusters edges_b = [(\"A\",\"B\"), (\"B\",\"C\"), (\"C\",\"A\"), (\"D\",\"E\"), (\"E\",\"F\"), (\"F\",\"D\")] G_before.add_edges_from(edges_b)  # Connect them G_after.add_edges_from(edges_b) G_after.add_edge(\"C\", \"D\")  desc = \"Connecting two separate islands of knowledge.\" delta_epc = 0.3  # Moderate cost delta_ig = 0.9   # Huge value (global connectivity)  return G_before, G_after, desc, delta_epc, delta_ig  G_b, G_a, description, d_epc, d_ig = get_graphs(scenario)  # --- Calculation --- F = d_epc - (lambda_val * d_ig) is_spike = F < 0  # --- Visualization ---  col1, col2, col3 = st.columns([1, 2, 1])  with col1: st.subheader(\"Current Graph\") fig1, ax1 = plt.subplots(figsize=(4, 4)) pos1 = nx.spring_layout(G_b, seed=42) nx.draw(G_b, pos1, with_labels=True, node_color='lightblue', ax=ax1) st.pyplot(fig1)  with col2: st.subheader(\"The Decision Gauge (F)\")  # Gauge Metrics m1, m2, m3 = st.columns(3) m1.metric(\"Cost (\u0394EPC)\", f\"{d_epc:.2f}\") m2.metric(\"Gain (\u0394IG)\", f\"{d_ig:.2f}\") m3.metric(\"Result (F)\", f\"{F:.2f}\", delta=\"-Spike!\" if is_spike else \"Reject\", delta_color=\"inverse\")  st.info(description)  # Progress bar visualization of the equation st.markdown(\"### Balance\") cost_pct = min(1.0, d_epc) gain_scaled = min(1.0, lambda_val * d_ig)  st.text(f\"Structure Cost: {'\u2588' * int(cost_pct * 20)} ({d_epc:.2f})\") st.text(f\"Info Gain     : {'\u2592' * int(gain_scaled * 20)} ({lambda_val * d_ig:.2f})\")  if is_spike: st.success(f\"**ACCEPTED!** The gain outweighs the cost (F < 0).\") else: st.error(f\"**REJECTED.** Not enough value to justify the cost (F >= 0).\")  with col3: st.subheader(\"Proposed Update\") fig2, ax2 = plt.subplots(figsize=(4, 4)) # Use consistent layout if nodes overlap pos2 = nx.spring_layout(G_a, seed=42) # Highlight new edges new_edges = [e for e in G_a.edges() if e not in G_b.edges()]  nx.draw(G_a, pos2, with_labels=True, node_color='lightgreen', ax=ax2) nx.draw_networkx_edges(G_a, pos2, edgelist=new_edges, edge_color='r', width=2, ax=ax2) st.pyplot(fig2)  st.markdown(\"---\") st.markdown(\"*To run this locally: `pip install streamlit matplotlib networkx && streamlit run examples/playground.py`*\")"
+      },
+      {
+        "exists": true,
+        "path": "/Users/4d/Documents/GitHub/InsightSpike-AI/examples/public_quick_start.py",
+        "name": "public_quick_start.py",
+        "size": 556,
+        "docstring": "Public API Quick Start Example.  Demonstrates how to use the stable public entry points without importing internal modules at top-level."
+      },
+      {
+        "exists": true,
+        "path": "/Users/4d/Documents/GitHub/InsightSpike-AI/examples/simulate_econophysics.py",
+        "name": "simulate_econophysics.py",
+        "size": 5518,
+        "docstring": "Econophysics Eureka Simulation: Fluid Dynamics -> Financial Markets ===================================================================  This script demonstrates a more complex \"Eureka Moment\": Mapping the structural properties of \"Fluid Turbulence\" (Physics) to \"Market Panic/Crash\" (Economics).  Hypothesis: A financial crash structurally resembles fluid turbulence (vortices/loops of panic). If the AI knows about Turbulence, it should recognize a Crash as a similar phenomenon."
+      },
+      {
+        "exists": true,
+        "path": "/Users/4d/Documents/GitHub/InsightSpike-AI/examples/simulate_eureka.py",
+        "name": "simulate_eureka.py",
+        "size": 4519,
+        "docstring": "Eureka Machine Simulation: Cross-Domain Structural Analogy ==========================================================  This script simulates an AI realizing a valid structural analogy between two completely different domains: \"Astronomy\" (Solar System) and \"Quantum Physics\" (Atom Model).  Step 1: Learn \"Solar System\" structure (Hub-and-Spoke). Step 2: Enrich it to understand 'Sun' is a HUB. Step 3: Encounter \"Rutherford Atom\" structure (Nucleus + Electrons). Step 4: Enrich it to understand 'Nucleus' is a HUB. Step 5: Compare and Trigger \"Eureka!\" (High Insight Score)."
+      },
+      {
+        "exists": true,
+        "path": "/Users/4d/Documents/GitHub/InsightSpike-AI/examples/test_analogy_spike.py",
+        "name": "test_analogy_spike.py",
+        "size": 5029,
+        "docstring": "Verification Script for Structural Analogy Spike ===============================================  This script demonstrates how finding a structural analogy triggers a \"Eureka\" spike in the geDIG metrics.  Scenario: 1. We have a \"Prototype\" structure (e.g., Solar System: Sun + Planets). 2. We observe a new graph update that forms a similar structure (Atom: Nucleus + Electrons). 3. We expect: - High Structural Similarity - Positive Analogy Bonus - Spike in Insight Score (Eureka!)"
+      },
+      {
+        "exists": true,
+        "path": "/Users/4d/Documents/GitHub/InsightSpike-AI/examples/test_local_llm.py",
+        "name": "test_local_llm.py",
+        "size": 1347,
+        "docstring": ""
       }
     ],
-    "total_size": 83693
+    "total_size": 116819
   }
 }</pre>
 </body>
