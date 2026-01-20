@@ -1,0 +1,669 @@
+key,value
+discovery.timestamp,2026-01-19T10:14:40.064264
+discovery.total_methods,790
+discovery.stats.total,790
+discovery.stats.by_type.class,607
+discovery.stats.by_type.function,183
+discovery.stats.modules,162
+discovery.methods[0].name,About
+discovery.methods[0].module,insightspike
+discovery.methods[0].type,class
+discovery.methods[0].signature,()
+discovery.methods[0].docstring,
+discovery.methods[0].full_name,insightspike.About
+discovery.methods[1].name,AgentConfigBuilder
+discovery.methods[1].module,insightspike
+discovery.methods[1].type,class
+discovery.methods[1].signature,()
+discovery.methods[1].docstring,Builder pattern for agent configuration
+discovery.methods[1].full_name,insightspike.AgentConfigBuilder
+discovery.methods[2].name,CycleResult
+discovery.methods[2].module,insightspike
+discovery.methods[2].type,class
+discovery.methods[2].signature,(**kwargs)
+discovery.methods[2].docstring,
+discovery.methods[2].full_name,insightspike.CycleResult
+discovery.methods[3].name,EnvironmentInterface
+discovery.methods[3].module,insightspike
+discovery.methods[3].type,class
+discovery.methods[3].signature,()
+discovery.methods[3].docstring,Generic environment interface for any domain
+discovery.methods[3].full_name,insightspike.EnvironmentInterface
+discovery.methods[4].name,GenericInsightSpikeAgent
+discovery.methods[4].module,insightspike
+discovery.methods[4].type,class
+discovery.methods[4].signature,"(agent_id: str, environment: insightspike.core.base.generic_interfaces.EnvironmentInterface, insight_detector: insightspike.core.base.generic_interfaces.InsightDetectorInterface, state_encoder: insightspike.core.base.generic_interfaces.StateEncoder, reward_normalizer: insightspike.core.base.generic_interfaces.RewardNormalizer, config: Optional[Dict[str, Any]] = None)"
+discovery.methods[4].docstring,Generic InsightSpike agent that works with any environment
+discovery.methods[4].full_name,insightspike.GenericInsightSpikeAgent
+discovery.methods[5].name,InsightMoment
+discovery.methods[5].module,insightspike
+discovery.methods[5].type,class
+discovery.methods[5].signature,"(episode: int, step: int, insight_type: str, description: str, dged_value: float, dig_value: float, confidence: float = 0.0, performance_impact: float = 0.0, state: Optional[insightspike.core.base.generic_interfaces.EnvironmentState] = None, action: Optional[Any] = None, reward: Optional[float] = None, detection_method: str = 'default', timestamp: Optional[float] = None, metadata: Optional[Dict[str, Any]] = None) -> None"
+discovery.methods[5].docstring,Generic insight moment representation
+discovery.methods[5].full_name,insightspike.InsightMoment
+discovery.methods[6].name,InsightSpikeAgentFactory
+discovery.methods[6].module,insightspike
+discovery.methods[6].type,class
+discovery.methods[6].signature,()
+discovery.methods[6].docstring,Factory for creating InsightSpike agents for different domains
+discovery.methods[6].full_name,insightspike.InsightSpikeAgentFactory
+discovery.methods[7].name,L3GraphReasoner
+discovery.methods[7].module,insightspike
+discovery.methods[7].type,class
+discovery.methods[7].signature,(config=None)
+discovery.methods[7].docstring,Enhanced graph reasoning layer with GNN processing and spike detection.
+discovery.methods[7].full_name,insightspike.L3GraphReasoner
+discovery.methods[8].name,MainAgent
+discovery.methods[8].module,insightspike
+discovery.methods[8].type,class
+discovery.methods[8].signature,"(*_, **__)"
+discovery.methods[8].docstring,
+discovery.methods[8].full_name,insightspike.MainAgent
+discovery.methods[9].name,StandaloneL3GraphReasoner
+discovery.methods[9].module,insightspike
+discovery.methods[9].type,class
+discovery.methods[9].signature,"(config: Union[Dict[str, Any], insightspike.tools.standalone.standalone_l3.StandaloneConfig, NoneType] = None)"
+discovery.methods[9].docstring,Standalone version of L3 Graph Reasoner
+discovery.methods[9].full_name,insightspike.StandaloneL3GraphReasoner
+discovery.methods[10].name,TaskType
+discovery.methods[10].module,insightspike
+discovery.methods[10].type,class
+discovery.methods[10].signature,(*values)
+discovery.methods[10].docstring,Supported task types for insight detection
+discovery.methods[10].full_name,insightspike.TaskType
+discovery.methods[11].name,about
+discovery.methods[11].module,insightspike
+discovery.methods[11].type,function
+discovery.methods[11].signature,()
+discovery.methods[11].docstring,Return package information as a dictionary.
+discovery.methods[11].full_name,insightspike.about
+discovery.methods[12].name,analyze_documents_simple
+discovery.methods[12].module,insightspike
+discovery.methods[12].type,function
+discovery.methods[12].signature,"(documents: List[str]) -> Dict[str, Any]"
+discovery.methods[12].docstring,Simple function to analyze a list of text documents
+discovery.methods[12].full_name,insightspike.analyze_documents_simple
+discovery.methods[13].name,create_configured_maze_agent
+discovery.methods[13].module,insightspike
+discovery.methods[13].type,function
+discovery.methods[13].signature,"(maze_size: int = 10, learning_rate: float = 0.15, exploration_rate: float = 0.4, dged_threshold: float = -0.3, dig_threshold: float = 1.0) -> insightspike.implementations.agents.generic_agent.GenericInsightSpikeAgent"
+discovery.methods[13].docstring,Create maze agent with specific parameters
+discovery.methods[13].full_name,insightspike.create_configured_maze_agent
+discovery.methods[14].name,create_maze_agent
+discovery.methods[14].module,insightspike
+discovery.methods[14].type,function
+discovery.methods[14].signature,"(maze_size: int = 10, agent_config: Optional[Dict[str, Any]] = None) -> insightspike.implementations.agents.generic_agent.GenericInsightSpikeAgent"
+discovery.methods[14].docstring,Quick function to create a maze agent
+discovery.methods[14].full_name,insightspike.create_maze_agent
+discovery.methods[15].name,create_standalone_reasoner
+discovery.methods[15].module,insightspike
+discovery.methods[15].type,function
+discovery.methods[15].signature,"(config: Optional[Dict[str, Any]] = None) -> insightspike.tools.standalone.standalone_l3.StandaloneL3GraphReasoner"
+discovery.methods[15].docstring,Create a standalone graph reasoner with optional configuration
+discovery.methods[15].full_name,insightspike.create_standalone_reasoner
+discovery.methods[16].name,get_config
+discovery.methods[16].module,insightspike
+discovery.methods[16].type,function
+discovery.methods[16].signature,() -> insightspike.config.models.InsightSpikeConfig
+discovery.methods[16].docstring,Get current configuration or load defaults
+discovery.methods[16].full_name,insightspike.get_config
+discovery.methods[17].name,run_app
+discovery.methods[17].module,insightspike.__main__
+discovery.methods[17].type,function
+discovery.methods[17].signature,()
+discovery.methods[17].docstring,Composition Root - Where all dependencies are resolved and injected.
+discovery.methods[17].full_name,insightspike.__main__.run_app
+discovery.methods[18].name,AdaptiveProcessor
+discovery.methods[18].module,insightspike.adaptive
+discovery.methods[18].type,class
+discovery.methods[18].signature,"(exploration_loop: insightspike.adaptive.core.exploration_loop.ExplorationLoop, strategy: insightspike.adaptive.core.interfaces.ExplorationStrategy, topk_calculator: insightspike.adaptive.core.interfaces.TopKCalculator, l4_llm, pattern_learner: Optional[insightspike.adaptive.core.interfaces.PatternLearner] = None, max_attempts: int = 5, datastore: Optional[insightspike.core.base.datastore.DataStore] = None)"
+discovery.methods[18].docstring,Main adaptive processing coordinator.
+discovery.methods[18].full_name,insightspike.adaptive.AdaptiveProcessor
+discovery.methods[19].name,ExplorationLoop
+discovery.methods[19].module,insightspike.adaptive
+discovery.methods[19].type,class
+discovery.methods[19].signature,"(l1_monitor, l2_memory, l3_graph, spike_thresholds: Optional[Dict[str, float]] = None)"
+discovery.methods[19].docstring,Manages the L1→L2→L3 exploration loop.
+discovery.methods[19].full_name,insightspike.adaptive.ExplorationLoop
+discovery.methods[20].name,ExplorationParams
+discovery.methods[20].module,insightspike.adaptive
+discovery.methods[20].type,class
+discovery.methods[20].signature,"(radius: float, topk_l1: int, topk_l2: int, topk_l3: int, temperature: float, attempt_number: int = 0) -> None"
+discovery.methods[20].docstring,Parameters for a single exploration attempt
+discovery.methods[20].full_name,insightspike.adaptive.ExplorationParams
+discovery.methods[21].name,ExplorationResult
+discovery.methods[21].module,insightspike.adaptive
+discovery.methods[21].type,class
+discovery.methods[21].signature,"(spike_detected: bool, confidence: float, retrieved_docs: List[Dict[str, Any]], graph_analysis: Dict[str, Any], metrics: Dict[str, float], params: insightspike.adaptive.core.interfaces.ExplorationParams) -> None"
+discovery.methods[21].docstring,Result of a single exploration attempt
+discovery.methods[21].full_name,insightspike.adaptive.ExplorationResult
+discovery.methods[22].name,ExplorationStrategy
+discovery.methods[22].module,insightspike.adaptive
+discovery.methods[22].type,class
+discovery.methods[22].signature,()
+discovery.methods[22].docstring,Abstract base class for exploration strategies
+discovery.methods[22].full_name,insightspike.adaptive.ExplorationStrategy
+discovery.methods[23].name,PatternLearner
+discovery.methods[23].module,insightspike.adaptive
+discovery.methods[23].type,class
+discovery.methods[23].signature,()
+discovery.methods[23].docstring,Abstract base class for pattern learning
+discovery.methods[23].full_name,insightspike.adaptive.PatternLearner
+discovery.methods[24].name,TopKCalculator
+discovery.methods[24].module,insightspike.adaptive
+discovery.methods[24].type,class
+discovery.methods[24].signature,()
+discovery.methods[24].docstring,Abstract base class for topK calculation
+discovery.methods[24].full_name,insightspike.adaptive.TopKCalculator
+discovery.methods[25].name,AdaptiveTopKCalculator
+discovery.methods[25].module,insightspike.adaptive.calculators.adaptive_topk
+discovery.methods[25].type,class
+discovery.methods[25].signature,(config: Optional[insightspike.adaptive.calculators.adaptive_topk.AdaptiveTopKConfig] = None)
+discovery.methods[25].docstring,Calculates adaptive topK values based on Layer 1 analysis.
+discovery.methods[25].full_name,insightspike.adaptive.calculators.adaptive_topk.AdaptiveTopKCalculator
+discovery.methods[26].name,AdaptiveTopKConfig
+discovery.methods[26].module,insightspike.adaptive.calculators.adaptive_topk
+discovery.methods[26].type,class
+discovery.methods[26].signature,"(base_layer1_k: int = 20, base_layer2_k: int = 15, base_layer3_k: int = 12, synthesis_multiplier: float = 1.5, complexity_multiplier: float = 1.3, unknown_ratio_multiplier: float = 1.2, max_layer1_k: int = 50, max_layer2_k: int = 30, max_layer3_k: int = 25, min_k: int = 3, low_confidence_multiplier: float = 1.4, confidence_threshold: float = 0.6) -> None"
+discovery.methods[26].docstring,Configuration for adaptive topK algorithm
+discovery.methods[26].full_name,insightspike.adaptive.calculators.adaptive_topk.AdaptiveTopKConfig
+discovery.methods[27].name,TopKCalculator
+discovery.methods[27].module,insightspike.adaptive.calculators.adaptive_topk
+discovery.methods[27].type,class
+discovery.methods[27].signature,()
+discovery.methods[27].docstring,Abstract base class for topK calculation
+discovery.methods[27].full_name,insightspike.adaptive.calculators.adaptive_topk.TopKCalculator
+discovery.methods[28].name,estimate_chain_reaction_potential
+discovery.methods[28].module,insightspike.adaptive.calculators.adaptive_topk
+discovery.methods[28].type,function
+discovery.methods[28].signature,"(l1_analysis: Dict[str, Any], adaptive_topk: Dict[str, int]) -> float"
+discovery.methods[28].docstring,Estimate the potential for chain reaction insight improvement.
+discovery.methods[28].full_name,insightspike.adaptive.calculators.adaptive_topk.estimate_chain_reaction_potential
+discovery.methods[29].name,SimpleTopKCalculator
+discovery.methods[29].module,insightspike.adaptive.calculators.simple_topk
+discovery.methods[29].type,class
+discovery.methods[29].signature,(k: 'int' = 5)
+discovery.methods[29].docstring,
+discovery.methods[29].full_name,insightspike.adaptive.calculators.simple_topk.SimpleTopKCalculator
+discovery.methods[30].name,AdaptiveProcessor
+discovery.methods[30].module,insightspike.adaptive.core.adaptive_processor
+discovery.methods[30].type,class
+discovery.methods[30].signature,"(exploration_loop: insightspike.adaptive.core.exploration_loop.ExplorationLoop, strategy: insightspike.adaptive.core.interfaces.ExplorationStrategy, topk_calculator: insightspike.adaptive.core.interfaces.TopKCalculator, l4_llm, pattern_learner: Optional[insightspike.adaptive.core.interfaces.PatternLearner] = None, max_attempts: int = 5, datastore: Optional[insightspike.core.base.datastore.DataStore] = None)"
+discovery.methods[30].docstring,Main adaptive processing coordinator.
+discovery.methods[30].full_name,insightspike.adaptive.core.adaptive_processor.AdaptiveProcessor
+discovery.methods[31].name,DataStore
+discovery.methods[31].module,insightspike.adaptive.core.adaptive_processor
+discovery.methods[31].type,class
+discovery.methods[31].signature,()
+discovery.methods[31].docstring,Abstract interface for data persistence
+discovery.methods[31].full_name,insightspike.adaptive.core.adaptive_processor.DataStore
+discovery.methods[32].name,ExplorationLoop
+discovery.methods[32].module,insightspike.adaptive.core.adaptive_processor
+discovery.methods[32].type,class
+discovery.methods[32].signature,"(l1_monitor, l2_memory, l3_graph, spike_thresholds: Optional[Dict[str, float]] = None)"
+discovery.methods[32].docstring,Manages the L1→L2→L3 exploration loop.
+discovery.methods[32].full_name,insightspike.adaptive.core.adaptive_processor.ExplorationLoop
+discovery.methods[33].name,ExplorationParams
+discovery.methods[33].module,insightspike.adaptive.core.adaptive_processor
+discovery.methods[33].type,class
+discovery.methods[33].signature,"(radius: float, topk_l1: int, topk_l2: int, topk_l3: int, temperature: float, attempt_number: int = 0) -> None"
+discovery.methods[33].docstring,Parameters for a single exploration attempt
+discovery.methods[33].full_name,insightspike.adaptive.core.adaptive_processor.ExplorationParams
+discovery.methods[34].name,ExplorationResult
+discovery.methods[34].module,insightspike.adaptive.core.adaptive_processor
+discovery.methods[34].type,class
+discovery.methods[34].signature,"(spike_detected: bool, confidence: float, retrieved_docs: List[Dict[str, Any]], graph_analysis: Dict[str, Any], metrics: Dict[str, float], params: insightspike.adaptive.core.interfaces.ExplorationParams) -> None"
+discovery.methods[34].docstring,Result of a single exploration attempt
+discovery.methods[34].full_name,insightspike.adaptive.core.adaptive_processor.ExplorationResult
+discovery.methods[35].name,ExplorationStrategy
+discovery.methods[35].module,insightspike.adaptive.core.adaptive_processor
+discovery.methods[35].type,class
+discovery.methods[35].signature,()
+discovery.methods[35].docstring,Abstract base class for exploration strategies
+discovery.methods[35].full_name,insightspike.adaptive.core.adaptive_processor.ExplorationStrategy
+discovery.methods[36].name,PatternLearner
+discovery.methods[36].module,insightspike.adaptive.core.adaptive_processor
+discovery.methods[36].type,class
+discovery.methods[36].signature,()
+discovery.methods[36].docstring,Abstract base class for pattern learning
+discovery.methods[36].full_name,insightspike.adaptive.core.adaptive_processor.PatternLearner
+discovery.methods[37].name,TopKCalculator
+discovery.methods[37].module,insightspike.adaptive.core.adaptive_processor
+discovery.methods[37].type,class
+discovery.methods[37].signature,()
+discovery.methods[37].docstring,Abstract base class for topK calculation
+discovery.methods[37].full_name,insightspike.adaptive.core.adaptive_processor.TopKCalculator
+discovery.methods[38].name,ExplorationLoop
+discovery.methods[38].module,insightspike.adaptive.core.exploration_loop
+discovery.methods[38].type,class
+discovery.methods[38].signature,"(l1_monitor, l2_memory, l3_graph, spike_thresholds: Optional[Dict[str, float]] = None)"
+discovery.methods[38].docstring,Manages the L1→L2→L3 exploration loop.
+discovery.methods[38].full_name,insightspike.adaptive.core.exploration_loop.ExplorationLoop
+discovery.methods[39].name,ExplorationParams
+discovery.methods[39].module,insightspike.adaptive.core.exploration_loop
+discovery.methods[39].type,class
+discovery.methods[39].signature,"(radius: float, topk_l1: int, topk_l2: int, topk_l3: int, temperature: float, attempt_number: int = 0) -> None"
+discovery.methods[39].docstring,Parameters for a single exploration attempt
+discovery.methods[39].full_name,insightspike.adaptive.core.exploration_loop.ExplorationParams
+discovery.methods[40].name,ExplorationResult
+discovery.methods[40].module,insightspike.adaptive.core.exploration_loop
+discovery.methods[40].type,class
+discovery.methods[40].signature,"(spike_detected: bool, confidence: float, retrieved_docs: List[Dict[str, Any]], graph_analysis: Dict[str, Any], metrics: Dict[str, float], params: insightspike.adaptive.core.interfaces.ExplorationParams) -> None"
+discovery.methods[40].docstring,Result of a single exploration attempt
+discovery.methods[40].full_name,insightspike.adaptive.core.exploration_loop.ExplorationResult
+discovery.methods[41].name,NormalizedConfig
+discovery.methods[41].module,insightspike.adaptive.core.exploration_loop
+discovery.methods[41].type,class
+discovery.methods[41].signature,"(embedding_model: 'str', embedding_dim: 'int', enable_layer1_bypass: 'bool', bypass_uncertainty_threshold: 'float', bypass_known_ratio_threshold: 'float', enable_learning: 'bool', graph_weight_ged: 'float', graph_weight_ig: 'float', environment: 'str', gedig_mode: 'str' = 'full', max_retrieved_docs: 'int' = 10, dynamic_doc_adjustment: 'bool' = True, max_docs_with_insights: 'int' = 5, insight_relevance_boost: 'float' = 0.2, enable_insight_search: 'bool' = True, max_insights_per_query: 'int' = 5, enable_graph_search: 'bool' = False, enable_insight_registration: 'bool' = True, similarity_threshold: 'float' = 0.3, hop_limit: 'int' = 2, path_decay: 'float' = 0.7, spike_ged_threshold: 'float' = -0.5, spike_ig_threshold: 'float' = 0.2, episode_merge_threshold: 'float' = 0.8, episode_split_threshold: 'float' = 0.3, episode_prune_threshold: 'float' = 0.1, theta_cand: 'float' = 0.45, theta_link: 'float' = 0.35, candidate_cap: 'int' = 32, top_m: 'Optional[int]' = None, ig_denominator: 'str' = 'fixed_kstar', use_local_normalization: 'bool' = False, sp_engine: 'str' = 'core', norm_spec: 'Optional[Dict[str, Any]]' = None, source_type: 'str' = 'unknown', applied_defaults: 'tuple[str, ...]' = <factory>, _raw: 'Any' = None) -> None"
+discovery.methods[41].docstring,"NormalizedConfig(embedding_model: 'str', embedding_dim: 'int', enable_layer1_bypass: 'bool', bypass_uncertainty_threshold: 'float', bypass_known_ratio_threshold: 'float', enable_learning: 'bool', graph_weight_ged: 'float', graph_weight_ig: 'float', environment: 'str', gedig_mode: 'str' = 'full', max_retrieved_docs: 'int' = 10, dynamic_doc_adjustment: 'bool' = True, max_docs_with_insights: 'int' = 5, insight_relevance_boost: 'float' = 0.2, enable_insight_search: 'bool' = True, max_insights_per_query: 'int' = 5, enable_graph_search: 'bool' = False, enable_insight_registration: 'bool' = True, similarity_threshold: 'float' = 0.3, hop_limit: 'int' = 2, path_decay: 'float' = 0.7, spike_ged_threshold: 'float' = -0.5, spike_ig_threshold: 'float' = 0.2, episode_merge_threshold: 'float' = 0.8, episode_split_threshold: 'float' = 0.3, episode_prune_threshold: 'float' = 0.1, theta_cand: 'float' = 0.45, theta_link: 'float' = 0.35, candidate_cap: 'int' = 32, top_m: 'Optional[int]' = None, ig_denominator: 'str' = 'fixed_kstar', use_local_normalization: 'bool' = False, sp_engine: 'str' = 'core', norm_spec: 'Optional[Dict[str, Any]]' = None, source_type: 'str' = 'unknown', applied_defaults: 'tuple[str, ...]' = <factory>, _raw: 'Any' = None)"
+discovery.methods[41].full_name,insightspike.adaptive.core.exploration_loop.NormalizedConfig
+discovery.methods[42].name,get_config
+discovery.methods[42].module,insightspike.adaptive.core.exploration_loop
+discovery.methods[42].type,function
+discovery.methods[42].signature,() -> insightspike.config.models.InsightSpikeConfig
+discovery.methods[42].docstring,Get current configuration or load defaults
+discovery.methods[42].full_name,insightspike.adaptive.core.exploration_loop.get_config
+discovery.methods[43].name,ExplorationLoopFixed
+discovery.methods[43].module,insightspike.adaptive.core.exploration_loop_fixed
+discovery.methods[43].type,class
+discovery.methods[43].signature,"(l1_monitor, l2_memory, l3_graph, spike_thresholds: Optional[Dict[str, float]] = None)"
+discovery.methods[43].docstring,Fixed exploration loop that properly compares graphs for spike detection.
+discovery.methods[43].full_name,insightspike.adaptive.core.exploration_loop_fixed.ExplorationLoopFixed
+discovery.methods[44].name,ExplorationParams
+discovery.methods[44].module,insightspike.adaptive.core.exploration_loop_fixed
+discovery.methods[44].type,class
+discovery.methods[44].signature,"(radius: float, topk_l1: int, topk_l2: int, topk_l3: int, temperature: float, attempt_number: int = 0) -> None"
+discovery.methods[44].docstring,Parameters for a single exploration attempt
+discovery.methods[44].full_name,insightspike.adaptive.core.exploration_loop_fixed.ExplorationParams
+discovery.methods[45].name,ExplorationResult
+discovery.methods[45].module,insightspike.adaptive.core.exploration_loop_fixed
+discovery.methods[45].type,class
+discovery.methods[45].signature,"(spike_detected: bool, confidence: float, retrieved_docs: List[Dict[str, Any]], graph_analysis: Dict[str, Any], metrics: Dict[str, float], params: insightspike.adaptive.core.interfaces.ExplorationParams) -> None"
+discovery.methods[45].docstring,Result of a single exploration attempt
+discovery.methods[45].full_name,insightspike.adaptive.core.exploration_loop_fixed.ExplorationResult
+discovery.methods[46].name,NormalizedConfig
+discovery.methods[46].module,insightspike.adaptive.core.exploration_loop_fixed
+discovery.methods[46].type,class
+discovery.methods[46].signature,"(embedding_model: 'str', embedding_dim: 'int', enable_layer1_bypass: 'bool', bypass_uncertainty_threshold: 'float', bypass_known_ratio_threshold: 'float', enable_learning: 'bool', graph_weight_ged: 'float', graph_weight_ig: 'float', environment: 'str', gedig_mode: 'str' = 'full', max_retrieved_docs: 'int' = 10, dynamic_doc_adjustment: 'bool' = True, max_docs_with_insights: 'int' = 5, insight_relevance_boost: 'float' = 0.2, enable_insight_search: 'bool' = True, max_insights_per_query: 'int' = 5, enable_graph_search: 'bool' = False, enable_insight_registration: 'bool' = True, similarity_threshold: 'float' = 0.3, hop_limit: 'int' = 2, path_decay: 'float' = 0.7, spike_ged_threshold: 'float' = -0.5, spike_ig_threshold: 'float' = 0.2, episode_merge_threshold: 'float' = 0.8, episode_split_threshold: 'float' = 0.3, episode_prune_threshold: 'float' = 0.1, theta_cand: 'float' = 0.45, theta_link: 'float' = 0.35, candidate_cap: 'int' = 32, top_m: 'Optional[int]' = None, ig_denominator: 'str' = 'fixed_kstar', use_local_normalization: 'bool' = False, sp_engine: 'str' = 'core', norm_spec: 'Optional[Dict[str, Any]]' = None, source_type: 'str' = 'unknown', applied_defaults: 'tuple[str, ...]' = <factory>, _raw: 'Any' = None) -> None"
+discovery.methods[46].docstring,"NormalizedConfig(embedding_model: 'str', embedding_dim: 'int', enable_layer1_bypass: 'bool', bypass_uncertainty_threshold: 'float', bypass_known_ratio_threshold: 'float', enable_learning: 'bool', graph_weight_ged: 'float', graph_weight_ig: 'float', environment: 'str', gedig_mode: 'str' = 'full', max_retrieved_docs: 'int' = 10, dynamic_doc_adjustment: 'bool' = True, max_docs_with_insights: 'int' = 5, insight_relevance_boost: 'float' = 0.2, enable_insight_search: 'bool' = True, max_insights_per_query: 'int' = 5, enable_graph_search: 'bool' = False, enable_insight_registration: 'bool' = True, similarity_threshold: 'float' = 0.3, hop_limit: 'int' = 2, path_decay: 'float' = 0.7, spike_ged_threshold: 'float' = -0.5, spike_ig_threshold: 'float' = 0.2, episode_merge_threshold: 'float' = 0.8, episode_split_threshold: 'float' = 0.3, episode_prune_threshold: 'float' = 0.1, theta_cand: 'float' = 0.45, theta_link: 'float' = 0.35, candidate_cap: 'int' = 32, top_m: 'Optional[int]' = None, ig_denominator: 'str' = 'fixed_kstar', use_local_normalization: 'bool' = False, sp_engine: 'str' = 'core', norm_spec: 'Optional[Dict[str, Any]]' = None, source_type: 'str' = 'unknown', applied_defaults: 'tuple[str, ...]' = <factory>, _raw: 'Any' = None)"
+discovery.methods[46].full_name,insightspike.adaptive.core.exploration_loop_fixed.NormalizedConfig
+discovery.methods[47].name,get_config
+discovery.methods[47].module,insightspike.adaptive.core.exploration_loop_fixed
+discovery.methods[47].type,function
+discovery.methods[47].signature,() -> insightspike.config.models.InsightSpikeConfig
+discovery.methods[47].docstring,Get current configuration or load defaults
+discovery.methods[47].full_name,insightspike.adaptive.core.exploration_loop_fixed.get_config
+discovery.methods[48].name,ExplorationParams
+discovery.methods[48].module,insightspike.adaptive.core.interfaces
+discovery.methods[48].type,class
+discovery.methods[48].signature,"(radius: float, topk_l1: int, topk_l2: int, topk_l3: int, temperature: float, attempt_number: int = 0) -> None"
+discovery.methods[48].docstring,Parameters for a single exploration attempt
+discovery.methods[48].full_name,insightspike.adaptive.core.interfaces.ExplorationParams
+discovery.methods[49].name,ExplorationResult
+discovery.methods[49].module,insightspike.adaptive.core.interfaces
+discovery.methods[49].type,class
+discovery.methods[49].signature,"(spike_detected: bool, confidence: float, retrieved_docs: List[Dict[str, Any]], graph_analysis: Dict[str, Any], metrics: Dict[str, float], params: insightspike.adaptive.core.interfaces.ExplorationParams) -> None"
+discovery.methods[49].docstring,Result of a single exploration attempt
+discovery.methods[49].full_name,insightspike.adaptive.core.interfaces.ExplorationResult
+discovery.methods[50].name,ExplorationStrategy
+discovery.methods[50].module,insightspike.adaptive.core.interfaces
+discovery.methods[50].type,class
+discovery.methods[50].signature,()
+discovery.methods[50].docstring,Abstract base class for exploration strategies
+discovery.methods[50].full_name,insightspike.adaptive.core.interfaces.ExplorationStrategy
+discovery.methods[51].name,PatternLearner
+discovery.methods[51].module,insightspike.adaptive.core.interfaces
+discovery.methods[51].type,class
+discovery.methods[51].signature,()
+discovery.methods[51].docstring,Abstract base class for pattern learning
+discovery.methods[51].full_name,insightspike.adaptive.core.interfaces.PatternLearner
+discovery.methods[52].name,TopKCalculator
+discovery.methods[52].module,insightspike.adaptive.core.interfaces
+discovery.methods[52].type,class
+discovery.methods[52].signature,()
+discovery.methods[52].docstring,Abstract base class for topK calculation
+discovery.methods[52].full_name,insightspike.adaptive.core.interfaces.TopKCalculator
+discovery.methods[53].name,AlternatingStrategy
+discovery.methods[53].module,insightspike.adaptive.strategies
+discovery.methods[53].type,class
+discovery.methods[53].signature,"(broad_radius: float = 0.8, narrow_radius: float = 0.3, **kwargs)"
+discovery.methods[53].docstring,Alternating exploration strategy.
+discovery.methods[53].full_name,insightspike.adaptive.strategies.AlternatingStrategy
+discovery.methods[54].name,ExpandingStrategy
+discovery.methods[54].module,insightspike.adaptive.strategies
+discovery.methods[54].type,class
+discovery.methods[54].signature,"(initial_radius: float = 0.3, radius_growth_factor: float = 1.3, **kwargs)"
+discovery.methods[54].docstring,Expanding exploration strategy.
+discovery.methods[54].full_name,insightspike.adaptive.strategies.ExpandingStrategy
+discovery.methods[55].name,ExponentialStrategy
+discovery.methods[55].module,insightspike.adaptive.strategies
+discovery.methods[55].type,class
+discovery.methods[55].signature,"(decay: float = 0.9, **kwargs)"
+discovery.methods[55].docstring,Simple exponential decay variant (delegates to BaseStrategy).
+discovery.methods[55].full_name,insightspike.adaptive.strategies.ExponentialStrategy
+discovery.methods[56].name,NarrowingStrategy
+discovery.methods[56].module,insightspike.adaptive.strategies
+discovery.methods[56].type,class
+discovery.methods[56].signature,"(initial_radius: float = 0.8, radius_decay_factor: float = 0.8, **kwargs)"
+discovery.methods[56].docstring,Narrowing exploration strategy.
+discovery.methods[56].full_name,insightspike.adaptive.strategies.NarrowingStrategy
+discovery.methods[57].name,AlternatingStrategy
+discovery.methods[57].module,insightspike.adaptive.strategies.alternating
+discovery.methods[57].type,class
+discovery.methods[57].signature,"(broad_radius: float = 0.8, narrow_radius: float = 0.3, **kwargs)"
+discovery.methods[57].docstring,Alternating exploration strategy.
+discovery.methods[57].full_name,insightspike.adaptive.strategies.alternating.AlternatingStrategy
+discovery.methods[58].name,BaseStrategy
+discovery.methods[58].module,insightspike.adaptive.strategies.alternating
+discovery.methods[58].type,class
+discovery.methods[58].signature,"(initial_radius: float = 0.7, initial_temperature: float = 1.0, min_radius: float = 0.1, max_radius: float = 1.0, temperature_decay: float = 0.95, confidence_threshold: float = 0.8)"
+discovery.methods[58].docstring,Base class with common strategy functionality
+discovery.methods[58].full_name,insightspike.adaptive.strategies.alternating.BaseStrategy
+discovery.methods[59].name,ExplorationParams
+discovery.methods[59].module,insightspike.adaptive.strategies.alternating
+discovery.methods[59].type,class
+discovery.methods[59].signature,"(radius: float, topk_l1: int, topk_l2: int, topk_l3: int, temperature: float, attempt_number: int = 0) -> None"
+discovery.methods[59].docstring,Parameters for a single exploration attempt
+discovery.methods[59].full_name,insightspike.adaptive.strategies.alternating.ExplorationParams
+discovery.methods[60].name,ExplorationResult
+discovery.methods[60].module,insightspike.adaptive.strategies.alternating
+discovery.methods[60].type,class
+discovery.methods[60].signature,"(spike_detected: bool, confidence: float, retrieved_docs: List[Dict[str, Any]], graph_analysis: Dict[str, Any], metrics: Dict[str, float], params: insightspike.adaptive.core.interfaces.ExplorationParams) -> None"
+discovery.methods[60].docstring,Result of a single exploration attempt
+discovery.methods[60].full_name,insightspike.adaptive.strategies.alternating.ExplorationResult
+discovery.methods[61].name,AdaptiveTopKCalculator
+discovery.methods[61].module,insightspike.adaptive.strategies.base
+discovery.methods[61].type,class
+discovery.methods[61].signature,(config: Optional[insightspike.adaptive.calculators.adaptive_topk.AdaptiveTopKConfig] = None)
+discovery.methods[61].docstring,Calculates adaptive topK values based on Layer 1 analysis.
+discovery.methods[61].full_name,insightspike.adaptive.strategies.base.AdaptiveTopKCalculator
+discovery.methods[62].name,BaseStrategy
+discovery.methods[62].module,insightspike.adaptive.strategies.base
+discovery.methods[62].type,class
+discovery.methods[62].signature,"(initial_radius: float = 0.7, initial_temperature: float = 1.0, min_radius: float = 0.1, max_radius: float = 1.0, temperature_decay: float = 0.95, confidence_threshold: float = 0.8)"
+discovery.methods[62].docstring,Base class with common strategy functionality
+discovery.methods[62].full_name,insightspike.adaptive.strategies.base.BaseStrategy
+discovery.methods[63].name,ExplorationParams
+discovery.methods[63].module,insightspike.adaptive.strategies.base
+discovery.methods[63].type,class
+discovery.methods[63].signature,"(radius: float, topk_l1: int, topk_l2: int, topk_l3: int, temperature: float, attempt_number: int = 0) -> None"
+discovery.methods[63].docstring,Parameters for a single exploration attempt
+discovery.methods[63].full_name,insightspike.adaptive.strategies.base.ExplorationParams
+discovery.methods[64].name,ExplorationResult
+discovery.methods[64].module,insightspike.adaptive.strategies.base
+discovery.methods[64].type,class
+discovery.methods[64].signature,"(spike_detected: bool, confidence: float, retrieved_docs: List[Dict[str, Any]], graph_analysis: Dict[str, Any], metrics: Dict[str, float], params: insightspike.adaptive.core.interfaces.ExplorationParams) -> None"
+discovery.methods[64].docstring,Result of a single exploration attempt
+discovery.methods[64].full_name,insightspike.adaptive.strategies.base.ExplorationResult
+discovery.methods[65].name,ExplorationStrategy
+discovery.methods[65].module,insightspike.adaptive.strategies.base
+discovery.methods[65].type,class
+discovery.methods[65].signature,()
+discovery.methods[65].docstring,Abstract base class for exploration strategies
+discovery.methods[65].full_name,insightspike.adaptive.strategies.base.ExplorationStrategy
+discovery.methods[66].name,BaseStrategy
+discovery.methods[66].module,insightspike.adaptive.strategies.expanding
+discovery.methods[66].type,class
+discovery.methods[66].signature,"(initial_radius: float = 0.7, initial_temperature: float = 1.0, min_radius: float = 0.1, max_radius: float = 1.0, temperature_decay: float = 0.95, confidence_threshold: float = 0.8)"
+discovery.methods[66].docstring,Base class with common strategy functionality
+discovery.methods[66].full_name,insightspike.adaptive.strategies.expanding.BaseStrategy
+discovery.methods[67].name,ExpandingStrategy
+discovery.methods[67].module,insightspike.adaptive.strategies.expanding
+discovery.methods[67].type,class
+discovery.methods[67].signature,"(initial_radius: float = 0.3, radius_growth_factor: float = 1.3, **kwargs)"
+discovery.methods[67].docstring,Expanding exploration strategy.
+discovery.methods[67].full_name,insightspike.adaptive.strategies.expanding.ExpandingStrategy
+discovery.methods[68].name,ExplorationParams
+discovery.methods[68].module,insightspike.adaptive.strategies.expanding
+discovery.methods[68].type,class
+discovery.methods[68].signature,"(radius: float, topk_l1: int, topk_l2: int, topk_l3: int, temperature: float, attempt_number: int = 0) -> None"
+discovery.methods[68].docstring,Parameters for a single exploration attempt
+discovery.methods[68].full_name,insightspike.adaptive.strategies.expanding.ExplorationParams
+discovery.methods[69].name,ExplorationResult
+discovery.methods[69].module,insightspike.adaptive.strategies.expanding
+discovery.methods[69].type,class
+discovery.methods[69].signature,"(spike_detected: bool, confidence: float, retrieved_docs: List[Dict[str, Any]], graph_analysis: Dict[str, Any], metrics: Dict[str, float], params: insightspike.adaptive.core.interfaces.ExplorationParams) -> None"
+discovery.methods[69].docstring,Result of a single exploration attempt
+discovery.methods[69].full_name,insightspike.adaptive.strategies.expanding.ExplorationResult
+discovery.methods[70].name,BaseStrategy
+discovery.methods[70].module,insightspike.adaptive.strategies.exponential_strategy
+discovery.methods[70].type,class
+discovery.methods[70].signature,"(initial_radius: float = 0.7, initial_temperature: float = 1.0, min_radius: float = 0.1, max_radius: float = 1.0, temperature_decay: float = 0.95, confidence_threshold: float = 0.8)"
+discovery.methods[70].docstring,Base class with common strategy functionality
+discovery.methods[70].full_name,insightspike.adaptive.strategies.exponential_strategy.BaseStrategy
+discovery.methods[71].name,ExponentialStrategy
+discovery.methods[71].module,insightspike.adaptive.strategies.exponential_strategy
+discovery.methods[71].type,class
+discovery.methods[71].signature,"(decay: float = 0.9, **kwargs)"
+discovery.methods[71].docstring,Simple exponential decay variant (delegates to BaseStrategy).
+discovery.methods[71].full_name,insightspike.adaptive.strategies.exponential_strategy.ExponentialStrategy
+discovery.methods[72].name,BaseStrategy
+discovery.methods[72].module,insightspike.adaptive.strategies.narrowing
+discovery.methods[72].type,class
+discovery.methods[72].signature,"(initial_radius: float = 0.7, initial_temperature: float = 1.0, min_radius: float = 0.1, max_radius: float = 1.0, temperature_decay: float = 0.95, confidence_threshold: float = 0.8)"
+discovery.methods[72].docstring,Base class with common strategy functionality
+discovery.methods[72].full_name,insightspike.adaptive.strategies.narrowing.BaseStrategy
+discovery.methods[73].name,ExplorationParams
+discovery.methods[73].module,insightspike.adaptive.strategies.narrowing
+discovery.methods[73].type,class
+discovery.methods[73].signature,"(radius: float, topk_l1: int, topk_l2: int, topk_l3: int, temperature: float, attempt_number: int = 0) -> None"
+discovery.methods[73].docstring,Parameters for a single exploration attempt
+discovery.methods[73].full_name,insightspike.adaptive.strategies.narrowing.ExplorationParams
+discovery.methods[74].name,ExplorationResult
+discovery.methods[74].module,insightspike.adaptive.strategies.narrowing
+discovery.methods[74].type,class
+discovery.methods[74].signature,"(spike_detected: bool, confidence: float, retrieved_docs: List[Dict[str, Any]], graph_analysis: Dict[str, Any], metrics: Dict[str, float], params: insightspike.adaptive.core.interfaces.ExplorationParams) -> None"
+discovery.methods[74].docstring,Result of a single exploration attempt
+discovery.methods[74].full_name,insightspike.adaptive.strategies.narrowing.ExplorationResult
+discovery.methods[75].name,NarrowingStrategy
+discovery.methods[75].module,insightspike.adaptive.strategies.narrowing
+discovery.methods[75].type,class
+discovery.methods[75].signature,"(initial_radius: float = 0.8, radius_decay_factor: float = 0.8, **kwargs)"
+discovery.methods[75].docstring,Narrowing exploration strategy.
+discovery.methods[75].full_name,insightspike.adaptive.strategies.narrowing.NarrowingStrategy
+discovery.methods[76].name,test
+discovery.methods[76].module,insightspike.cli.simple_cli
+discovery.methods[76].type,function
+discovery.methods[76].signature,()
+discovery.methods[76].docstring,Test command that works immediately
+discovery.methods[76].full_name,insightspike.cli.simple_cli.test
+discovery.methods[77].name,version
+discovery.methods[77].module,insightspike.cli.simple_cli
+discovery.methods[77].type,function
+discovery.methods[77].signature,()
+discovery.methods[77].docstring,Show version information
+discovery.methods[77].full_name,insightspike.cli.simple_cli.version
+discovery.methods[78].name,CLIState
+discovery.methods[78].module,insightspike.cli.spike
+discovery.methods[78].type,class
+discovery.methods[78].signature,()
+discovery.methods[78].docstring,Container for CLI state shared across commands.
+discovery.methods[78].full_name,insightspike.cli.spike.CLIState
+discovery.methods[79].name,ConfigLoader
+discovery.methods[79].module,insightspike.cli.spike
+discovery.methods[79].type,class
+discovery.methods[79].signature,()
+discovery.methods[79].docstring,Unified configuration loader that handles all configuration sources
+discovery.methods[79].full_name,insightspike.cli.spike.ConfigLoader
+discovery.methods[80].name,ConfigPresets
+discovery.methods[80].module,insightspike.cli.spike
+discovery.methods[80].type,class
+discovery.methods[80].signature,()
+discovery.methods[80].docstring,Configuration presets for different environments and use cases
+discovery.methods[80].full_name,insightspike.cli.spike.ConfigPresets
+discovery.methods[81].name,DependencyFactory
+discovery.methods[81].module,insightspike.cli.spike
+discovery.methods[81].type,class
+discovery.methods[81].signature,"(base_config: insightspike.config.models.InsightSpikeConfig, datastore: Optional[Any] = None)"
+discovery.methods[81].docstring,Factory for creating agents with different configurations.
+discovery.methods[81].full_name,insightspike.cli.spike.DependencyFactory
+discovery.methods[82].name,InsightSpikeConfig
+discovery.methods[82].module,insightspike.cli.spike
+discovery.methods[82].type,class
+discovery.methods[82].signature,"(*, environment: Literal['development', 'experiment', 'production', 'research', 'test', 'testing', 'custom'] = 'development', pre_warm_models: bool = True, llm: insightspike.config.models.LLMConfig = <factory>, embedding: insightspike.config.models.EmbeddingConfig = <factory>, memory: insightspike.config.models.MemoryConfig = <factory>, graph: insightspike.config.models.GraphConfig = <factory>, monitoring: insightspike.config.models.MonitoringConfig = <factory>, logging: insightspike.config.models.LoggingConfig = <factory>, paths: insightspike.config.models.PathsConfig = <factory>, processing: insightspike.config.models.ProcessingConfig = <factory>, output: insightspike.config.models.OutputConfig = <factory>, datastore: insightspike.config.models.DataStoreConfig = <factory>, metrics: insightspike.config.models.MetricsConfig = <factory>, reasoning: insightspike.config.models.ReasoningConfig = <factory>, performance: insightspike.config.models.PerformanceConfig = <factory>, vector_search: insightspike.config.models.VectorSearchConfig = <factory>, wake_sleep: insightspike.config.wake_sleep_config.WakeSleepConfig = <factory>) -> None"
+discovery.methods[82].docstring,Complete InsightSpike configuration - clean structure without backward compatibility
+discovery.methods[82].full_name,insightspike.cli.spike.InsightSpikeConfig
+discovery.methods[83].name,InsightSpikeError
+discovery.methods[83].module,insightspike.cli.spike
+discovery.methods[83].type,class
+discovery.methods[83].signature,()
+discovery.methods[83].docstring,InsightSpike基底例外
+discovery.methods[83].full_name,insightspike.cli.spike.InsightSpikeError
+discovery.methods[84].name,MainAgent
+discovery.methods[84].module,insightspike.cli.spike
+discovery.methods[84].type,class
+discovery.methods[84].signature,"(config=None, datastore: Optional[insightspike.core.base.datastore.DataStore] = None)"
+discovery.methods[84].docstring,Main orchestrating agent that coordinates all layers.
+discovery.methods[84].full_name,insightspike.cli.spike.MainAgent
+discovery.methods[85].name,analyze_command
+discovery.methods[85].module,insightspike.cli.spike
+discovery.methods[85].type,function
+discovery.methods[85].signature,"(export: Optional[pathlib._local.Path] = <typer.models.OptionInfo object at 0x13c2551d0>, verbose: bool = <typer.models.OptionInfo object at 0x13c255310>)"
+discovery.methods[85].docstring,Analyze knowledge graph structure and metrics
+discovery.methods[85].full_name,insightspike.cli.spike.analyze_command
+discovery.methods[86].name,bridge_command
+discovery.methods[86].module,insightspike.cli.spike
+discovery.methods[86].type,function
+discovery.methods[86].signature,"(concept1: str = <typer.models.ArgumentInfo object at 0x13c17f230>, concept2: str = <typer.models.ArgumentInfo object at 0x13c254a50>, max_hops: int = <typer.models.OptionInfo object at 0x13c254b90>, top_k: int = <typer.models.OptionInfo object at 0x13c254cd0>, export: Optional[pathlib._local.Path] = <typer.models.OptionInfo object at 0x13c254e10>, verbose: bool = <typer.models.OptionInfo object at 0x13c254f50>)"
+discovery.methods[86].docstring,Find conceptual bridges between two ideas
+discovery.methods[86].full_name,insightspike.cli.spike.bridge_command
+discovery.methods[87].name,config
+discovery.methods[87].module,insightspike.cli.spike
+discovery.methods[87].type,function
+discovery.methods[87].signature,"(ctx: typer.models.Context, action: str = <typer.models.ArgumentInfo object at 0x13c256350>, key: Optional[str] = <typer.models.ArgumentInfo object at 0x13c256490>, value: Optional[str] = <typer.models.ArgumentInfo object at 0x13c2565d0>)"
+discovery.methods[87].docstring,Manage configuration settings
+discovery.methods[87].full_name,insightspike.cli.spike.config
+discovery.methods[88].name,demo
+discovery.methods[88].module,insightspike.cli.spike
+discovery.methods[88].type,function
+discovery.methods[88].signature,(ctx: typer.models.Context)
+discovery.methods[88].docstring,Run interactive demo showcasing InsightSpike capabilities
+discovery.methods[88].full_name,insightspike.cli.spike.demo
+discovery.methods[89].name,discover_command
+discovery.methods[89].module,insightspike.cli.spike
+discovery.methods[89].type,function
+discovery.methods[89].signature,"(ctx: typer.models.Context, corpus: Optional[pathlib._local.Path] = <typer.models.OptionInfo object at 0x13c254050>, min_spike: float = <typer.models.OptionInfo object at 0x13c254190>, max_insights: int = <typer.models.OptionInfo object at 0x13c2542d0>, categories: Optional[str] = <typer.models.OptionInfo object at 0x13c254410>, export_path: Optional[pathlib._local.Path] = <typer.models.OptionInfo object at 0x13c254550>, verbose: bool = <typer.models.OptionInfo object at 0x13c254690>)"
+discovery.methods[89].docstring,Discover hidden insights and unexpected connections in your knowledge base.
+discovery.methods[89].full_name,insightspike.cli.spike.discover_command
+discovery.methods[90].name,embed
+discovery.methods[90].module,insightspike.cli.spike
+discovery.methods[90].type,function
+discovery.methods[90].signature,"(ctx: typer.models.Context, path: pathlib._local.Path, preset: str = <typer.models.OptionInfo object at 0x13c256210>)"
+discovery.methods[90].docstring,"Add documents to the knowledge base (aliases: learn, l, e)"
+discovery.methods[90].full_name,insightspike.cli.spike.embed
+discovery.methods[91].name,experiment
+discovery.methods[91].module,insightspike.cli.spike
+discovery.methods[91].type,function
+discovery.methods[91].signature,"(ctx: typer.models.Context, name: str = <typer.models.OptionInfo object at 0x13c256710>, episodes: int = <typer.models.OptionInfo object at 0x13c256850>)"
+discovery.methods[91].docstring,Run experiments to demonstrate capabilities
+discovery.methods[91].full_name,insightspike.cli.spike.experiment
+discovery.methods[92].name,get_config
+discovery.methods[92].module,insightspike.cli.spike
+discovery.methods[92].type,function
+discovery.methods[92].signature,() -> insightspike.config.models.InsightSpikeConfig
+discovery.methods[92].docstring,Get current configuration or load defaults
+discovery.methods[92].full_name,insightspike.cli.spike.get_config
+discovery.methods[93].name,get_logger
+discovery.methods[93].module,insightspike.cli.spike
+discovery.methods[93].type,function
+discovery.methods[93].signature,(name: str) -> logging.Logger
+discovery.methods[93].docstring,ロガーを取得する便利関数
+discovery.methods[93].full_name,insightspike.cli.spike.get_logger
+discovery.methods[94].name,insights
+discovery.methods[94].module,insightspike.cli.spike
+discovery.methods[94].type,function
+discovery.methods[94].signature,"(ctx: typer.models.Context, limit: int = <typer.models.OptionInfo object at 0x13c256990>)"
+discovery.methods[94].docstring,Show discovered insights and statistics
+discovery.methods[94].full_name,insightspike.cli.spike.insights
+discovery.methods[95].name,insights_search
+discovery.methods[95].module,insightspike.cli.spike
+discovery.methods[95].type,function
+discovery.methods[95].signature,"(ctx: typer.models.Context, concept: str, limit: int = <typer.models.OptionInfo object at 0x13c256ad0>)"
+discovery.methods[95].docstring,Search for insights related to a concept
+discovery.methods[95].full_name,insightspike.cli.spike.insights_search
+discovery.methods[96].name,interactive
+discovery.methods[96].module,insightspike.cli.spike
+discovery.methods[96].type,function
+discovery.methods[96].signature,(ctx: typer.models.Context)
+discovery.methods[96].docstring,Interactive chat mode (alias: chat)
+discovery.methods[96].full_name,insightspike.cli.spike.interactive
+discovery.methods[97].name,load_config
+discovery.methods[97].module,insightspike.cli.spike
+discovery.methods[97].type,function
+discovery.methods[97].signature,"(config_path: Union[str, pathlib._local.Path, NoneType] = None, preset: Optional[str] = None, overrides: Optional[Dict[str, Any]] = None) -> insightspike.config.models.InsightSpikeConfig"
+discovery.methods[97].docstring,Load configuration using global loader
+discovery.methods[97].full_name,insightspike.cli.spike.load_config
+discovery.methods[98].name,main
+discovery.methods[98].module,insightspike.cli.spike
+discovery.methods[98].type,function
+discovery.methods[98].signature,()
+discovery.methods[98].docstring,
+discovery.methods[98].full_name,insightspike.cli.spike.main
+discovery.methods[99].name,query
+discovery.methods[99].module,insightspike.cli.spike
+discovery.methods[99].type,function
+discovery.methods[99].signature,"(ctx: typer.models.Context, question: str, preset: str = <typer.models.OptionInfo object at 0x13c255090>, verbose: bool = <typer.models.OptionInfo object at 0x13c255f90>)"
+discovery.methods[99].docstring,Query the knowledge base and get insights
+discovery.methods[99].full_name,insightspike.cli.spike.query
+discovery.full_count,790
+metrics.discovery.methods.name,discovery.methods
+metrics.discovery.methods.count,1
+metrics.discovery.methods.mean,790.0
+metrics.discovery.methods.std,0.0
+metrics.discovery.methods.min,790.0
+metrics.discovery.methods.max,790.0
+metrics.discovery.methods.sum,790.0
+metrics.discovery.methods.median,790.0
+metrics.discovery.classes.name,discovery.classes
+metrics.discovery.classes.count,1
+metrics.discovery.classes.mean,607.0
+metrics.discovery.classes.std,0.0
+metrics.discovery.classes.min,607.0
+metrics.discovery.classes.max,607.0
+metrics.discovery.classes.sum,607.0
+metrics.discovery.classes.median,607.0
+metrics.discovery.functions.name,discovery.functions
+metrics.discovery.functions.count,1
+metrics.discovery.functions.mean,183.0
+metrics.discovery.functions.std,0.0
+metrics.discovery.functions.min,183.0
+metrics.discovery.functions.max,183.0
+metrics.discovery.functions.sum,183.0
+metrics.discovery.functions.median,183.0
+metrics.discovery.modules.name,discovery.modules
+metrics.discovery.modules.count,1
+metrics.discovery.modules.mean,162.0
+metrics.discovery.modules.std,0.0
+metrics.discovery.modules.min,162.0
+metrics.discovery.modules.max,162.0
+metrics.discovery.modules.sum,162.0
+metrics.discovery.modules.median,162.0
+metrics.scripts.count.name,scripts.count
+metrics.scripts.count.count,1
+metrics.scripts.count.mean,23.0
+metrics.scripts.count.std,0.0
+metrics.scripts.count.min,23.0
+metrics.scripts.count.max,23.0
+metrics.scripts.count.sum,23.0
+metrics.scripts.count.median,23.0
+metrics.execution.duration.name,execution.duration
+metrics.execution.duration.count,20
+metrics.execution.duration.mean,1.58317232933981
+metrics.execution.duration.std,0.6579527762726726
+metrics.execution.duration.min,0.7374421602993457
+metrics.execution.duration.max,2.98896312211964
+metrics.execution.duration.sum,31.663446586796198
+metrics.execution.duration.median,1.461618843456009
+metrics.execution.accuracy.name,execution.accuracy
+metrics.execution.accuracy.count,20
+metrics.execution.accuracy.mean,0.917738927010919
+metrics.execution.accuracy.std,0.03820333392486692
+metrics.execution.accuracy.min,0.8591664044836276
+metrics.execution.accuracy.max,0.9885952085250062
+metrics.execution.accuracy.sum,18.35477854021838
+metrics.execution.accuracy.median,0.9134583909601219
+scripts_count,23
+summary.total_methods,790
+summary.total_scripts,23
+summary.execution_mean_duration,1.58317232933981
+summary.execution_mean_accuracy,0.917738927010919

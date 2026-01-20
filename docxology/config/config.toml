@@ -1,0 +1,158 @@
+# Docxology Configuration
+# =======================
+# All parameters are configurable. Edit this file to customize behavior.
+
+[project]
+name = "docxology"
+version = "0.1.0"
+description = "Sidecar orchestration and testing framework for InsightSpike-AI"
+
+# =============================================================================
+# Discovery Settings
+# =============================================================================
+[discovery]
+# Root package to scan for methods
+packages = ["insightspike"]
+
+# Modules to exclude from discovery
+exclude = [
+    "deprecated",
+    "experimental",
+    "__pycache__",
+    "tests"
+]
+
+# Include private methods (starting with _)
+include_private = false
+
+# Maximum depth for recursive scanning
+max_depth = 10
+
+# =============================================================================
+# Execution Settings
+# =============================================================================
+[execution]
+# Enable parallel execution
+parallel = true
+
+# Maximum worker threads
+max_workers = 4
+
+# Default timeout for script execution (seconds)
+timeout = 300
+
+# Retry failed executions
+retry_count = 0
+
+# Working directory (relative to docxology root)
+working_dir = ".."
+
+# =============================================================================
+# Runners Configuration
+# =============================================================================
+[runners]
+# Scripts directory (relative to repository root)
+scripts_dir = "scripts"
+
+# Python executable
+python = "python"
+
+# Default environment variables
+[runners.env]
+INSIGHTSPIKE_LITE_MODE = "0"
+PYTHONPATH = "src"
+
+# =============================================================================
+# Analysis Settings
+# =============================================================================
+[analysis]
+# Output directory for analysis results
+output_dir = "output/analysis"
+
+# Aggregate statistics to compute
+metrics = [
+    "mean",
+    "std",
+    "min",
+    "max",
+    "count"
+]
+
+# Comparison methods
+comparison_method = "relative"
+
+# =============================================================================
+# Visualization Settings
+# =============================================================================
+[visualization]
+# Matplotlib style
+style = "seaborn-v0_8-whitegrid"
+
+# Default figure DPI
+dpi = 150
+
+# Default output format
+format = "png"
+
+# Figure size (width, height) in inches
+figsize = [10, 6]
+
+# Color palette
+palette = "viridis"
+
+# Output directory for figures
+figures_dir = "output/figures"
+
+# =============================================================================
+# Export Settings
+# =============================================================================
+[export]
+# Available formats: json, csv, html, markdown
+formats = ["json", "csv", "html", "markdown"]
+
+# Output directory for reports
+reports_dir = "output/reports"
+
+# Include timestamp in filenames
+timestamp_files = true
+
+# JSON indentation
+json_indent = 2
+
+# =============================================================================
+# Logging Settings
+# =============================================================================
+[logging]
+# Log level: DEBUG, INFO, WARNING, ERROR
+level = "INFO"
+
+# Log format
+format = "%(asctime)s [%(levelname)s] %(name)s: %(message)s"
+
+# Output directory for logs
+output_dir = "output/logs"
+
+# Enable file logging
+file_enabled = true
+
+# Log filename
+filename = "docxology.log"
+
+# Enable console logging
+console_enabled = true
+
+# =============================================================================
+# Testing Settings
+# =============================================================================
+[testing]
+# Test timeout (seconds)
+timeout = 60
+
+# Coverage threshold (percentage)
+coverage_threshold = 50
+
+# Markers to run by default
+default_markers = []
+
+# Test output directory
+output_dir = "output/tests"

@@ -1,0 +1,7 @@
+{
+  "run": 1,
+  "success": true,
+  "accuracy": 0.92,
+  "duration": 1.5,
+  "maze_size": 15
+}
