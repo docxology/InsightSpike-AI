@@ -23,6 +23,7 @@ Comprehensive guide for installing and running InsightSpike-AI.
 | `networkx` | Graph algorithms | Yes |
 | `sentence-transformers` | Embeddings | Recommended |
 | `pyyaml`, `toml` | Configuration | Yes |
+| `ollama` | Local LLM Runtime | **Required** (Zero Mock) |
 
 ---
 
@@ -54,8 +55,13 @@ python -m venv venv
 source venv/bin/activate  # Linux/Mac
 # or: venv\Scripts\activate  # Windows
 
-# Install
+# Install package
 pip install -e .
+
+# Install and Configure Ollama (Required)
+# 1. Install Ollama from https://ollama.com
+# 2. Pull the standard model:
+ollama pull ministral-3:3b
 ```
 
 ### Verify Installation
@@ -87,17 +93,21 @@ export ANTHROPIC_API_KEY="sk-ant-xxxxxxxxxx"
 
 ### Step 2: Config File
 
+The system defaults to **Ollama (Ministral-3B)** for "Zero Mock" real inference.
+
 ```bash
 # Copy example config
-cp config_examples/openai_config.yaml config.yaml
+cp config_examples/ollama_config.yaml config.yaml
 ```
 
 Or create `config.toml`:
 
 ```toml
 [llm]
-provider = "openai"
-model = "gpt-4"
+provider = "ollama"
+model = "ministral-3:3b"
+api_base = "http://localhost:11434/v1"
+api_key = "ollama"
 temperature = 0.7
 
 [graph]
@@ -190,7 +200,7 @@ cd docxology
 python run_all.py --quick
 
 # Expected output:
-# ✅ docxology-tests: 22 passed
+# ✅ docxology-tests: 42 passed
 # ✅ discovery: 1105 methods found
 # 🎉 All components passed!
 ```

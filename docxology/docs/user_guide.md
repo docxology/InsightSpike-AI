@@ -46,9 +46,9 @@ See: [cli_commands.md](../../docs/user-guide/cli_commands.md) | [spike_commands_
 
 | Provider | Models | Use Case |
 |----------|--------|----------|
-| **OpenAI** | GPT-4, GPT-4-Turbo, GPT-3.5-Turbo | General purpose |
+| **Ollama** | **Ministral-3B**, Llama 2 | **Primary (Zero Mock)** |
+| **OpenAI** | GPT-4, GPT-3.5-Turbo | General purpose |
 | **Anthropic** | Claude 3 Opus, Claude 3 Sonnet | Complex reasoning |
-| **Ollama** | Llama 2, Mistral, etc. | Local/offline |
 | **Mock** | — | Testing (no API) |
 
 ### OpenAI Configuration
@@ -83,13 +83,14 @@ llm:
 - `claude-3-sonnet-20240229` — Balanced
 - `claude-3-opus-20240229` — Highest performance
 
-### Local LLM (Ollama)
+### Local LLM (Ollama) - Default
 
 ```yaml
 llm:
   provider: ollama
-  model: llama2          # or mistral, codellama
-  base_url: http://localhost:11434
+  model: ministral-3:3b
+  base_url: http://localhost:11434/v1
+  api_key: ollama
 ```
 
 ### Environment Variables

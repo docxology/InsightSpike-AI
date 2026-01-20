@@ -7,7 +7,7 @@ Comprehensive API documentation for InsightSpike-AI.
 ```python
 from insightspike import create_agent, quick_demo
 
-# Create configured agent
+# Create configured agent (Defaults to Ollama/Ministral-3B)
 agent = create_agent()
 
 # Process a question
@@ -325,7 +325,16 @@ print(config.embedding.dimension)
 ```python
 from insightspike.providers import ProviderFactory
 
-# Create provider
+from insightspike.providers import ProviderFactory
+
+# Create Ollama provider (Default)
+provider = ProviderFactory.create("ollama", {
+    "model": "ministral-3:3b",
+    "api_base": "http://localhost:11434/v1",
+    "api_key": "ollama"
+})
+
+# Create OpenAI provider
 provider = ProviderFactory.create("openai", {
     "api_key": "sk-...",
     "model": "gpt-4",
@@ -344,6 +353,20 @@ class LLMProvider:
     def generate_stream(self, prompt: str, **kwargs) -> Iterator[str]: ...
     def embed(self, texts: List[str]) -> np.ndarray: ...
 ```
+
+---
+
+## Implementation Source Files
+
+| Category | File | Key Class |
+|----------|------|----------|
+| **Providers** | [provider_factory.py](../../src/insightspike/providers/provider_factory.py) | `ProviderFactory` |
+| **Providers** | [openai_provider.py](../../src/insightspike/providers/openai_provider.py) | `OpenAIProvider` |
+| **Providers** | [anthropic_provider.py](../../src/insightspike/providers/anthropic_provider.py) | `AnthropicProvider` |
+| **Config** | [models.py](../../src/insightspike/config/models.py) | `LLMConfig`, `InsightSpikeConfig` |
+| **Config** | [presets.py](../../src/insightspike/config/presets.py) | `ConfigPresets` |
+| **Agents** | [main_agent.py](../../src/insightspike/implementations/agents/main_agent.py) | `MainAgent` |
+| **Layers** | [layer3_graph_reasoner.py](../../src/insightspike/implementations/layers/layer3_graph_reasoner.py) | `L3GraphReasoner` |
 
 ---
 

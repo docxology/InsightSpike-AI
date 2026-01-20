@@ -8,9 +8,10 @@ See: [CONTRIBUTING.md](../../docs/CONTRIBUTING.md)
 
 ### Code Standards
 
-- **Zero-Mock Policy**: All methods must be real implementations
+- **Zero-Mock Policy**: All methods must be real implementations (Ollama/Ministral)
 - **Configuration-Driven**: No hardcoded values
 - **Comprehensive Logging**: All operations logged
+- **Agentic Workflow**: Use `task.md` and `implementation_plan.md` artifacts
 
 ### Testing
 
@@ -38,8 +39,8 @@ See: [CODE_OF_CONDUCT.md](../../docs/CODE_OF_CONDUCT.md)
 Key features:
 - 4-layer agent architecture
 - geDIG metrics (ΔGED, ΔIG)
-- Torch Geometric integration
-- Zero-mock verification
+- **Ministral-3B Standardization**: Default local model
+- **Zero-Mock**: Real provider SDKs for all tests
 
 See: [CHANGELOG.md](../../docs/CHANGELOG.md)
 

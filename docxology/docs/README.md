@@ -11,6 +11,8 @@ This folder provides modular, navigable summaries of all parent `/docs/` documen
 | Document | Coverage |
 |----------|----------|
 | [index.md](./index.md) | Navigation hub and overview |
+| [system_overview.md](./system_overview.md) | **Complete system summary** |
+| [source_inventory.md](./source_inventory.md) | **Source file links** |
 | [getting_started.md](./getting_started.md) | Installation and setup |
 | [architecture.md](./architecture.md) | System design and layers |
 | [api_reference.md](./api_reference.md) | API documentation |

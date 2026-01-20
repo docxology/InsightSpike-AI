@@ -168,5 +168,12 @@ The structural similarity principle is universal across domains:
 | Universal Principle | [concepts/universal_principle_hypothesis.md](../../docs/concepts/universal_principle_hypothesis.md) |
 | Theory | [theory.md](../../docs/theory.md) |
 | Glossary | [glossary.md](../../docs/glossary.md) |
-| Algorithm: geDIG Core | [src/insightspike/algorithms/gedig_core.py](../../src/insightspike/algorithms/gedig_core.py) |
-| Algorithm: Information Gain | [src/insightspike/algorithms/information_gain.py](../../src/insightspike/algorithms/information_gain.py) |
+
+### Implementation Files
+
+| Algorithm | Source File |
+|-----------|-------------|
+| geDIG Core | [gedig_core.py](../../src/insightspike/algorithms/gedig_core.py) |
+| Information Gain | [information_gain.py](../../src/insightspike/algorithms/information_gain.py) |
+| Graph SP Engine | [graph_sp_engine.py](../../src/insightspike/algorithms/graph_sp_engine.py) |
+| Metrics Selector | [metrics_selector.py](../../src/insightspike/algorithms/metrics_selector.py) |

@@ -177,6 +177,20 @@ python experiments/isomorphism_discovery/novel_analogy_discovery.py
 python experiments/hotpotqa/run_evaluation.py
 ```
 
+### Zero Mock / Ministral Verification
+ 
+```bash
+# Verify Global Defaults (Ministral-3B)
+python docxology/scripts/verify_defaults.py
+
+# Verify Ministral Functionality
+python docxology/scripts/verify_ministral.py
+
+# Using docxology
+cd docxology
+python run_all.py
+```
+
 ### Verification
 
 ```bash

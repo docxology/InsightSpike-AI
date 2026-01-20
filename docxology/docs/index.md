@@ -6,6 +6,8 @@ Comprehensive English documentation for InsightSpike-AI with complete signpostin
 
 | Document | Description | Key Topics |
 |----------|-------------|------------|
+| [System Overview](./system_overview.md) | **Complete system summary** | All components linked |
+| [Source Inventory](./source_inventory.md) | **Source file index** | Direct file links |
 | [Getting Started](./getting_started.md) | Installation and setup | Install, config, verify |
 | [Architecture](./architecture.md) | System design | 4-layer design, components |
 | [API Reference](./api_reference.md) | API documentation | Classes, methods, responses |
@@ -41,9 +43,9 @@ See: [Concepts](./concepts.md) for full equation details.
 
 | Provider | Models | Setup |
 |----------|--------|-------|
+| **Ollama** | **Ministral-3B (Default)**, Llama 2 | **Required** (Zero Mock) |
 | **OpenAI** | GPT-4, GPT-3.5-Turbo | `OPENAI_API_KEY` |
 | **Anthropic** | Claude 3 Opus/Sonnet | `ANTHROPIC_API_KEY` |
-| **Ollama** | Llama 2, Mistral | Local install |
 
 See: [User Guide](./user_guide.md) for full configuration.
 
@@ -107,7 +109,7 @@ docs/                           # 103+ markdown files
 |----------|---------|
 | `OPENAI_API_KEY` | OpenAI API key |
 | `ANTHROPIC_API_KEY` | Anthropic API key |
-| `INSIGHTSPIKE_LLM_PROVIDER` | Provider selection |
+| `INSIGHTSPIKE_LLM_PROVIDER` | `ollama` (default), `openai`, `anthropic` |
 | `INSIGHTSPIKE_LITE_MODE=1` | Skip heavy imports |
 | `INSIGHTSPIKE_PRESET=paper` | Use paper parameters |
 

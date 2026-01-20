@@ -62,7 +62,8 @@ flowchart LR
 | `L3GraphReasoner` | L3 | Graph reasoning | `implementations/layers/layer3_graph_reasoner.py` |
 | `L2MemoryManager` | L2 | Memory operations | `implementations/layers/layer2_memory_manager.py` |
 | `ErrorMonitor` | L1 | Error handling | `implementations/layers/layer1_error_monitor.py` |
-| `get_llm_provider` | L4 | LLM abstraction | `implementations/layers/layer4_llm_interface.py` |
+| `OpenAIProvider` | L4 | Handles OpenAI & **Ollama** | `providers/openai_provider.py` |
+| `get_llm_provider` | L4 | Legacy LLM abstraction | `implementations/layers/layer4_llm_interface.py` |
 
 ### Agent Types
 
@@ -155,6 +156,9 @@ Verified by `docxology/tests/test_smoke.py`:
 | `TestOrchestrator` | 2 | ✅ Pipeline verified |
 | `TestAnalysis` | 2 | ✅ Analysis verified |
 | `TestVisualization` | 2 | ✅ Visualization verified |
+| `TestOllamaIntegration` | 4 | ✅ Ollama/Ministral verification |
+| `TestLLMProviders` | 17 | ✅ Real provider initialization |
+| **Total** | **42** | **All tests passed** |
 
 ---
 
@@ -169,3 +173,14 @@ Verified by `docxology/tests/test_smoke.py`:
 | Directory Structure | [architecture/directory_structure.md](../../docs/architecture/directory_structure.md) |
 | MainAgent Behavior | [architecture/mainagent_behavior.md](../../docs/architecture/mainagent_behavior.md) |
 | Data Management | [architecture/data_management_strategy.md](../../docs/architecture/data_management_strategy.md) |
+
+### Implementation Files
+
+| Component | Source File |
+|-----------|-------------|
+| Main Agent | [main_agent.py](../../src/insightspike/implementations/agents/main_agent.py) |
+| L4 LLM Interface | [layer4_llm_interface.py](../../src/insightspike/implementations/layers/layer4_llm_interface.py) |
+| L3 Graph Reasoner | [layer3_graph_reasoner.py](../../src/insightspike/implementations/layers/layer3_graph_reasoner.py) |
+| L2 Memory Manager | [layer2_memory_manager.py](../../src/insightspike/implementations/layers/layer2_memory_manager.py) |
+| L1 Error Monitor | [layer1_error_monitor.py](../../src/insightspike/implementations/layers/layer1_error_monitor.py) |
+| Provider Factory | [provider_factory.py](../../src/insightspike/providers/provider_factory.py) |
